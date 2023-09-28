@@ -1,3 +1,19 @@
-<p>
-  custom-input works!
-</p>
+<!-- input que usare en el login, es como hacerlo a aprte -->
+<ion-item class="custom-input input" >
+  <ion-icon color="primary" *ngIf="icon" slot="start" [name]="icon"></ion-icon>
+
+  <!-- pasar parametros que pusimos en el ts del custom -->
+  <ion-input
+  [type]="type"
+  [autocomplete]="autocomplete"
+  [label]="label"
+  [formControl]="control"
+  label-placement="floating"
+  ></ion-input>
+
+  <!-- crear nuevo boton, para ver o no la password -->
+  <ion-button *ngIf="isPassword" (click)="showOrHidePassword()" slot="end" fill="clear" shape="round">
+    <ion-icon slot="icon-only" [name]="hide ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
+  </ion-button>
+
+</ion-item>

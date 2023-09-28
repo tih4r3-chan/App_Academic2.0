@@ -1,9 +1,59 @@
 <app-header title="Login"></app-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large"></ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <h1>Inicio de Sesión</h1>
+  <!-- aca esta el formulario -->
+    <div class="d-flex-center div">
+      <ion-card class="card">
+        <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
+          <!-- aca estan los inputs de formulario, el 1ro es email, se le pasan lo creado en el customts -->
+          <app-custom-input icon="mail-outline"
+          autocomplete="email"
+          [control]="form.controls.email"
+          type="email"
+          label="Email"
+          ></app-custom-input>
+          <!-- validacion para que me diga si el correo esta good o no -->
+
+          <!-- si la persona ya toco el inputt y existen errores se muestra el mensaje -->
+          <div class="validators" *ngIf="form.controls.email.errors && form.controls.email.touched">
+            <!-- mensaje de erro -->
+            <div *ngIf="form.controls.email.errors?.['required']" class="mensaje">EL campo de email no puede estas vacío</div>
+            <div *ngIf="form.controls.email.errors?.['email']" class="mensaje">Debe ingresar un correo válido</div>
+          </div>
+
+          <!--la de arriba es la seccion del email -->
+
+          <app-custom-input
+          icon="lock-closed-outline"
+          [control]="form.controls.password"
+          type="password"
+          label="Contraseña"
+          ></app-custom-input>
+          <!-- validacion para que me diga si la contraseña esta good o no -->
+
+          <!-- si la persona ya toco el inputt y existen errores se muestra el mensaje -->
+          <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.touched">
+            <!-- mensaje de erro -->
+            <div *ngIf="form.controls.password.errors?.['required']" class="mensaje">EL campo de contraseña no puede estas vacío</div>
+          </div>
+          <!-- la de arriba es la seccion del password -->
+
+          <!-- con sevelo que se escribe en los inputs -->
+          <!-- {{form.value | json}} -->
+
+          <!-- seccion olvide mi contraseña -->
+          <ion-button class="olvidar" expand="block" fill="outline" routerLink="/recuperacion-password" style="margin-top: 20px">
+            Olvide mi contraseña
+          </ion-button>
+          <!-- boton para loguearme -->
+        <ion-button class="iniciar" expand="block" shape="round" type="submit" [disabled]="form.invalid">
+          Iniciar Sesión
+          <ion-icon slot="end" name="log-in"></ion-icon>
+        </ion-button>
+          <!-- terminos de uso de la aplicación -->
+          <p>Al ingresar a nuestra aplicación aceptas las Condiciones de uso y Política de privacidad.</p>
+        </form>
+      </ion-card>
+    </div>
 </ion-content>
