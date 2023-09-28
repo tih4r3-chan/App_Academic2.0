@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { OlvidePasswordPageRoutingModule } from './olvide-password-routing.module';
 
 import { OlvidePasswordPage } from './olvide-password.page';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    OlvidePasswordPageRoutingModule
+    OlvidePasswordPageRoutingModule,
+    SharedModule
   ],
   declarations: [OlvidePasswordPage]
 })

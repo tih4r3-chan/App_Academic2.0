@@ -1,0 +1,28 @@
+{
+  "horario":[
+    {
+      "clase": "Arquitectura_003D",
+      "sala": "LC5",
+      "hora": "9:30 a 11:30",
+      "dia": "Lunes"
+    },
+    {
+      "clase": "Inglés Intermedio_017D",
+      "sala": "S-601",
+      "hora": "9:30 a 11:30",
+      "dia": "Martes"
+    },
+    {
+      "clase": "Calidad de Software_004D",
+      "sala": "LC12",
+      "hora": "9:30 a 11:30",
+      "dia": "Miércoles"
+    },
+    {
+      "clase": "Etica para el trabajo_004D",
+      "sala": "S-604",
+      "hora": "9:30 a 11:30",
+      "dia": "Jueves"
+    }
+  ]
+}

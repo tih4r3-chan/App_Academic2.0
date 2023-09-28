@@ -1,27 +1,46 @@
-#container {
-  text-align: center;
+// estilo del contyent
+ion-content{
+  // dar estilo a la imagen / logo
+  .imagen2{
+    width: 15rem;
+    margin: auto;
+    margin-top: 7rem;
+    margin-bottom: 100px;
+    animation: float 3s linear infinite;
+    -webkit-animation: float 3s linear infinite;
+  }
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
+  //animacion para que flote uwu
+  @keyframes float {
+    0%, 100%{
+        transform: translateY(0rem);
+    }
+    50%{
+        transform: translateY(-3.5rem);
+        -webkit-transform: translateY(-3.5rem);
+        -moz-transform: translateY(-3.5rem);
+        -ms-transform: translateY(-3.5rem);
+        -o-transform: translateY(-3.5rem);
+      }
+  }
+  // dandole estilo a los botones
+  ion-button{
+    height: 40px;
+    font-size: 18px;
+    text-transform: initial;
+    border-radius: 50px;
+    box-shadow: 1px 8px 8px 0px rgba(0, 0, 0, 0.05);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
+  // //dando estilo al texto bajo los botones
+  p{
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 15px;
+    text-align: center;
+    color: #000000;
+    opacity: 70%;
+    margin-top: 40px;
+  }
 }

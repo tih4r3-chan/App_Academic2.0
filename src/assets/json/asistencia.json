@@ -1,0 +1,28 @@
+{
+  "asistencia": [
+    {
+      "nombre": "Arquitectura_003D",
+      "dia": "Lunes",
+      "a1": "Presente",
+      "a2": "Ausente"
+    },
+    {
+      "nombre": "Inglés Intermedio_017D",
+      "dia": "Martes",
+      "a1": "Presente",
+      "a2": "Ausente"
+    },
+    {
+      "nombre": "Calidad de Software_004D",
+      "dia": "Miércoles",
+      "a1": "Presente",
+      "a2": "Ausente"
+    },
+    {
+      "nombre": "Arquitectura_003D",
+      "dia": "Jueves",
+      "a1": "Presente",
+      "a2": "Ausente"
+    }
+  ]
+}
