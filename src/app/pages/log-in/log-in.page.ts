@@ -25,3 +25,4 @@ export class LogInPage implements OnInit {
   }
 
 }
+
