@@ -5,7 +5,7 @@
   <!-- aca esta el formulario -->
     <div class="d-flex-center div">
       <ion-card class="card">
-        <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
+        <form [formGroup]="form" class="auth-form"  (ngSubmit)="login()">
           <!-- aca estan los inputs de formulario, el 1ro es email, se le pasan lo creado en el customts -->
           <app-custom-input icon="mail-outline"
           autocomplete="email"
@@ -29,6 +29,8 @@
           [control]="form.controls.password"
           type="password"
           label="Contraseña"
+          requiered
+          autofocus
           ></app-custom-input>
           <!-- validacion para que me diga si la contraseña esta good o no -->
 
