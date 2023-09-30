@@ -1,55 +1,26 @@
 // editar el content
 ion-content{
-  .card{
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    box-shadow: 10px, 5px,5px black;
-}
-  // estilo del h1
-  h1{
-    font-size: 30px;
-    font-family: "Helvetica Neue";
-    text-align: center;
+  .title{
+    font-size: 20px;
     margin: auto;
     margin-top: 30px;
     margin-bottom: 30px;
   }
-  // ajustar el borton de iniciar secion
-  .iniciar{
-    margin-top: 10px;
-    height: 40px;
-    font-size: 18px;
-    text-transform: initial;
-    border-radius: 50px;
-    box-shadow: 1px 8px 8px 0px rgba(0, 0, 0, 0.05);
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  .imagen{
+    margin: auto;
+    width: 250px
   }
-
-  .olvidar{
-    font-size: 15px;
-    text-transform: initial;
-    box-shadow: 1px 8px 8px 0px rgba(0, 0, 0, 0.05);
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  }
-
-   //estilo del mensaje error
-  .mensaje{
-    color: #ff0202;
-    font-size: 14px;
-    display: grid;
-    place-items: center;
-  }
-  // editando el texto p
-  p{
-    padding-left: 5px;
-    padding-right: 5px;
-    font-size: 15px;
+  ion-title{
     text-align: center;
-    color: #000000;
-    opacity: 90%;
+    margin: auto;
     margin-top: 20px;
+  }
+  ion-card{
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.5);
   }
 }

@@ -35,6 +35,18 @@ const routes: Routes = [
     path: 'horario',
     loadChildren: () => import('./pages/horario/horario.module').then( m => m.HorarioPageModule)
   },
+  {
+    path: 'cuenta',
+    loadChildren: () => import('./pages/alumno/cuenta/cuenta.module').then( m => m.CuentaPageModule)
+  },
+  {
+    path: 'asistencia-qr',
+    loadChildren: () => import('./pages/alumno/asistencia-qr/asistencia-qr.module').then( m => m.AsistenciaQrPageModule)
+  },
+  {
+    path: 'cursos',
+    loadChildren: () => import('./pages/alumno/cursos/cursos.module').then( m => m.CursosPageModule)
+  }
 ];
 
 @NgModule({
