@@ -27,61 +27,6 @@ export class AuthServiceService {
     private toastController: ToastController) { }
 
 
-    //metodo de log para usuario docente o alumno
-    async logInUS(){
-      //validar si el formulario es valido
-      if(this.form.valid) {
-        //try catch para asi atrapar errores
-        try{
-          //constante que guarda lo que se ingreso en el input
-          const {email , password} = this.form.value;
-          //autenticar si lo que se ingreso esta almacenado en la bd, await = asincronico
-          await this.afAuth.signInWithEmailAndPassword(email, password);
-          //obtener los datos dle usuario ya autenticado
-          const user = await this.afAuth.currentUser;
-
-          //Consultar los datos del usuario
-          if(user){
-            //constante que almacena el uid del user autenticado
-            const userId = user.uid;
-            //obtener datos del usuario en la bd
-            const userDocRef = this.firestore.collection('usuarios').doc(userId);
-            //se crea constanti tipo obserbable
-            const userDocSnap: Observable<any> = userDocRef.valueChanges();
-
-            //suscribise para acceder a los datos
-            userDocSnap.subscribe((userD) =>{
-              //verificar si el documento existe
-              if(userD){
-                //obtener el tipo de ususario
-                const uType = userD.tipo;
-
-                //Verificar tipo de usuario y redireccionar cada uno a su page
-                if(uType == 'alumno'){
-                  //redirigir
-                  this.navCtrl.navigateRoot('/alumno');
-                } else if(uType == 'docente') {
-                  this.navCtrl.navigateRoot('/docente')
-                }else{
-                  this.mostrarMensaje();
-                }
-              }
-            })
-          }
-        }
-        catch(error){
-          console.log('Error al inisiar sesión: ',error)
-          const alert = await this.alertController.create({
-            header: 'Error',
-            message: 'Credeciales invalidas, Intentelo denuevo:)',
-            buttons: ['ACEPTAR']
-          });
-          await alert.present();
-        }
-      }
-    }
-
-
     //mensaje uwu
     async mostrarMensaje() {
       const toast = await this.toastController.create({
