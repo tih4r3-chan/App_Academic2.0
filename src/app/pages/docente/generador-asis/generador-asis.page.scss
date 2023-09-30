@@ -18,7 +18,6 @@ ion-header {
     font-size: 15px;
   }
 }
-
 ion-content {
   h1{
     font-size: 30px;
@@ -26,18 +25,5 @@ ion-content {
     margin: auto;
     margin-top: 20px;
     text-transform: uppercase;
-  }
-  ion-card{
-    margin-top: 20px;
-    border-radius: 20px;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    -ms-border-radius: 20px;
-    -o-border-radius: 20px;
-  }
-  .img{
-    width: 20rem;
-    margin: auto;
-    margin-top: 20px;
   }
 }

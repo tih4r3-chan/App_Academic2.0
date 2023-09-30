@@ -5,13 +5,13 @@ import { NavController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 
-
 @Component({
-  selector: 'app-log-in',
-  templateUrl: './log-in.page.html',
-  styleUrls: ['./log-in.page.scss'],
+  selector: 'app-admin-log',
+  templateUrl: './admin-log.page.html',
+  styleUrls: ['./admin-log.page.scss'],
 })
-export class LogInPage implements OnInit {
+export class AdminLogPage implements OnInit {
+
   // crear fromulario
   form = new FormGroup({
     //los inputs
@@ -19,21 +19,14 @@ export class LogInPage implements OnInit {
     password: new FormControl('',[Validators.required]),
   })
 
-  constructor(
-    private auth: AngularFireAuth,
-    private navCtrl: NavController,
-    private firestore: AngularFirestore
-  ) {}
+  constructor(private navCtrl: NavController) { }
 
   ngOnInit() {
   }
 
   //crear funcion que logea
   async login() {
-    console.log('AWEBO')
-    this.navCtrl.navigateRoot('/alumno');
-    // this.navCtrl.navigateRoot('/docente');
+    this.navCtrl.navigateRoot('/admin');
   }
 
 }
-

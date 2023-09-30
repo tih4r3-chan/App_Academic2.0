@@ -1,13 +1,31 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>cursos</ion-title>
+    <!-- flecha para volver atras -->
+    <ion-buttons slot="start">
+      <ion-button routerLink="/alumno" color="primary">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <!-- logo del header -->
+    <ion-img class="imagen1" src="assets/logo1.png"></ion-img>
+    <!-- titulo alumno -->
+    <ion-title class="title">Alumno</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">cursos</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card style="text-align: center;">
+    <!-- boton para ver asistencia -->
+    <ion-button fill="outline" routerLink="/asistencia" >Ver Asistencia</ion-button>
+    <ion-button color="success" fill="outline" routerLink="/horario" >Ver Horario</ion-button>
+  </ion-card>
+  <!-- json asignaturas-->
+  <ion-card *ngFor="let curso of curso">
+    <img src="../../assets/img/{{curso.imagen}}"/>
+    <ion-card-header>
+      <ion-card-subtitle color="dark">{{curso.nombre}} {{curso.seccion}}</ion-card-subtitle>
+      <ion-card-subtitle color="dark">Profesor: {{curso.Profesor}}</ion-card-subtitle>
+      <ion-card-subtitle color="dark">Sala: {{curso.sala}}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
 </ion-content>

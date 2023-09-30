@@ -2,14 +2,14 @@
   <ion-toolbar>
     <!-- flecha para volver atras -->
     <ion-buttons slot="start">
-      <ion-button routerLink="/alumno" color="primary">
+      <ion-button routerLink="/docente" color="primary">
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
     <!-- logo del header -->
     <ion-img class="imagen1" src="assets/logo1.png"></ion-img>
     <!-- titulo alumno -->
-    <ion-title class="title">Alumno</ion-title>
+    <ion-title class="title">Docente</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -22,7 +22,7 @@
         <ion-title>Nombre : {{nombre}}</ion-title>
       </ion-item>
       <ion-item>
-        <ion-title>Correo : {{usuario}}</ion-title>
+        <ion-title>Correo: {{usuario}}</ion-title>
       </ion-item>
       <ion-item color="primary">
         <ion-title>Tipo de usuario: {{tipo}}</ion-title>

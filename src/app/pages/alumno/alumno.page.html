@@ -1,6 +1,4 @@
-<app-header title="Alumno">
-
-</app-header>
+<app-header title="Alumno"></app-header>
 
 <ion-content [fullscreen]="true">
   <ion-title class="title">Bienvenido  a la <br> página principal del estudiante</ion-title>
@@ -21,7 +19,7 @@
       </ion-item>
 
       <ion-item>
-        <ion-title >Cerrar Sesión</ion-title>
+        <ion-title (click)="cerrarSesion()">Cerrar Sesión</ion-title>
       </ion-item>
     </ion-list>
   </ion-card>

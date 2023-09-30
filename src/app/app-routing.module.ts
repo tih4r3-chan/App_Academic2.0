@@ -46,7 +46,31 @@ const routes: Routes = [
   {
     path: 'cursos',
     loadChildren: () => import('./pages/alumno/cursos/cursos.module').then( m => m.CursosPageModule)
-  }
+  },
+  {
+    path: 'asignaturas',
+    loadChildren: () => import('./pages/docente/asignaturas/asignaturas.module').then( m => m.AsignaturasPageModule)
+  },
+  {
+    path: 'cuenta-d',
+    loadChildren: () => import('./pages/docente/cuenta-d/cuenta-d.module').then( m => m.CuentaDPageModule)
+  },
+  {
+    path: 'generador-asis',
+    loadChildren: () => import('./pages/docente/generador-asis/generador-asis.module').then( m => m.GeneradorAsisPageModule)
+  },
+  {
+    path: 'admin-log',
+    loadChildren: () => import('./pages/admin-log/admin-log.module').then( m => m.AdminLogPageModule)
+  },
+  {
+    path: 'admin-log',
+    loadChildren: () => import('./pages/admin-log/admin-log.module').then( m => m.AdminLogPageModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./pages/admin-log/admin/admin.module').then( m => m.AdminPageModule)
+  },
 ];
 
 @NgModule({

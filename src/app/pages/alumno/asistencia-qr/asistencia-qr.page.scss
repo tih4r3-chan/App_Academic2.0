@@ -1,0 +1,32 @@
+// estilo para el header
+ion-header {
+  // darle tamaño al header
+  width: 100%;
+
+  // dar estilo a la imagen del header
+  .imagen1{
+    width: 90px;
+    margin-left: 100px;
+    margin-top: 0px;
+    box-shadow: 1px 8px 8px 0px rgba(0, 0, 0, 0.05);
+  }
+
+  //estilo titulo del header
+  .title{
+    margin: auto;
+    text-align: center;
+    font-size: 15px;
+  }
+}
+ion-content {
+  h1{
+    font-size: 30px;
+    text-align: center;
+    margin: auto;
+    margin-top: 20px;
+    text-transform: uppercase;
+  }
+  ion-img{
+    margin-top: 30px;
+  }
+}

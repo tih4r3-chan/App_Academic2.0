@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <!-- flecha para volver atras -->
+    <ion-buttons slot="start">
+      <ion-button routerLink="/docente" color="primary">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <!-- logo del header -->
+    <ion-img class="imagen1" src="assets/logo1.png"></ion-img>
+    <!-- titulo alumno -->
+    <ion-title class="title">Docente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <h1>Mis Asignaturas</h1>
+  <!-- item 1 asignatura 1 -->
+  <ion-card *ngFor="let asignatura of asignatura">
+    <img src="../../assets/img/{{asignatura.imagen}}"/>
+    <ion-card-header>
+      <ion-card-subtitle color="dark">{{asignatura.codigo}}</ion-card-subtitle>
+      <ion-card-subtitle color="dark">{{asignatura.nombre}} {{asignatura.seccion}}</ion-card-subtitle>
+      <ion-card-subtitle color="dark">Sala: {{asignatura.sala}}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+</ion-content>

@@ -1,13 +1,26 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>docente</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header title="Docente"></app-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">docente</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-title class="title">Bienvenido a la <br> página principal del docente</ion-title>
+  <ion-img src="assets/userDocente.png" class="imagen"></ion-img>
+  <ion-card>
+    <ion-list>
+
+      <ion-item>
+        <ion-title routerLink="asignaturas">Asignaturas</ion-title>
+      </ion-item>
+
+      <ion-item color="primary">
+        <ion-title routerLink="cuenta-d">Mi Cuenta</ion-title>
+      </ion-item>
+
+      <ion-item>
+        <ion-title routerLink="generador-asis">Generador Qr para asistencia</ion-title>
+      </ion-item>
+
+      <ion-item color="primary">
+        <ion-title (click)="cerrarSesion()">Cerrar Sesión</ion-title>
+      </ion-item>
+    </ion-list>
+  </ion-card>
 </ion-content>

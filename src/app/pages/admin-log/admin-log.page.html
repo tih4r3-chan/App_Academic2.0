@@ -43,18 +43,11 @@
 
           <!-- con sevelo que se escribe en los inputs -->
           <!-- {{form.value | json}} -->
-
-          <!-- seccion olvide mi contraseña -->
-          <ion-button class="olvidar" expand="block" fill="outline" routerLink="/olvide-password" style="margin-top: 20px">
-            Olvide mi contraseña
-          </ion-button>
           <!-- boton para loguearme -->
         <ion-button class="iniciar" expand="block" shape="round" type="submit" [disabled]="form.invalid">
           Iniciar Sesión
           <ion-icon slot="end" name="log-in"></ion-icon>
         </ion-button>
-          <!-- terminos de uso de la aplicación -->
-          <p>Al ingresar a nuestra aplicación aceptas las Condiciones de uso y Política de privacidad.</p>
         </form>
       </ion-card>
     </div>
