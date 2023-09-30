@@ -1,7 +1,7 @@
 <app-header title="Login"></app-header>
 
 <ion-content [fullscreen]="true">
-  <h1>Inicio de Sesión</h1>
+  <h1>A D M I N</h1>
   <!-- aca esta el formulario -->
     <div class="d-flex-center div">
       <ion-card class="card">
@@ -44,9 +44,14 @@
           <!-- con sevelo que se escribe en los inputs -->
           <!-- {{form.value | json}} -->
           <!-- boton para loguearme -->
-        <ion-button class="iniciar" expand="block" shape="round" type="submit" [disabled]="form.invalid">
+        <ion-button class="iniciar" expand="block" shape="round" type="login" [disabled]="form.invalid">
           Iniciar Sesión
           <ion-icon slot="end" name="log-in"></ion-icon>
+        </ion-button>
+        <!-- boton volver -->
+        <ion-button class="olvidar" expand="block" fill="outline" routerLink="/home" style="margin-top: 20px">
+          Volve
+          <ion-icon slot="end" name="log-out"></ion-icon>
         </ion-button>
         </form>
       </ion-card>
