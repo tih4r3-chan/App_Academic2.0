@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment.prod';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 import { HttpClientModule } from '@angular/common/http';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+    AngularFirestoreModule,
     HttpClientModule
     ,],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],

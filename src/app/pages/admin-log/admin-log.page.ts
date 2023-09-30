@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AlertController, NavController } from '@ionic/angular';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
 
 
 @Component({
@@ -23,8 +21,7 @@ export class AdminLogPage implements OnInit {
 
   constructor(private navCtrl: NavController,
     private afAuth: AngularFireAuth,
-    private alertController: AlertController,
-    private firestore: AngularFirestore) { }
+    private alertController: AlertController) { }
 
   ngOnInit() {
   }
@@ -38,7 +35,13 @@ export class AdminLogPage implements OnInit {
         // Redirige al usuario después de iniciar sesión
         this.navCtrl.navigateRoot('/admin');
       } catch (error) {
-        console.log('Error de Inicio de Sesión: ', error);
+        console.log('Error al inisiar sesión: ',error)
+        const alert = await this.alertController.create({
+          header: 'Error',
+          message: 'Credeciales invalidas, Intentelo denuevo:)',
+          buttons: ['ACEPTAR']
+        });
+        await alert.present();
       }
     }
   }
