@@ -5,6 +5,7 @@ import { AlertController, NavController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 
 @Component({
@@ -26,13 +27,23 @@ export class AdminLogPage implements OnInit {
     private afAuth: AngularFireAuth,
     private alertController: AlertController,
     private firestore: AngularFirestore,
-    private toastController: ToastController) { }
+    private toastController: ToastController,
+    private loadingController: LoadingController) { }
 
   ngOnInit() {
   }
 
   //login con rol de admin
   async login(){
+    //mostrara el simbolo de cargando
+    const loading = await this.loadingController.create({
+      message: 'Iniciando Sesión', // Mensaje que se mostrará junto al spinner
+      duration: 5000, // Duración máxima en milisegundos (5 segundos)
+      translucent: true, // Hace que el fondo sea translúcido
+      backdropDismiss: false, // Evita que el usuario cierre la carga tocando fuera de ella
+    });
+    await loading.present();
+
     if(this.form.valid){
       try{
         const {email, password} = this.form.value;
@@ -68,6 +79,7 @@ export class AdminLogPage implements OnInit {
             }
           });
         }
+        await loading.dismiss();
       }
       catch(error){
         console.log('Error al inisiar sesión: ',error)

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AlertController, NavController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 
@@ -24,7 +24,8 @@ export class LogInPage implements OnInit {
     private navCtrl: NavController,
     private afAuth: AngularFireAuth,
     private alertController: AlertController,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private loadingController: LoadingController
   ) {}
 
   ngOnInit() {
@@ -32,6 +33,16 @@ export class LogInPage implements OnInit {
 
   //crear funcion que logea
   async submit() {
+
+    //mostrara el simbolo de cargando
+    const loading = await this.loadingController.create({
+      message: 'Iniciando Sesión', // Mensaje que se mostrará junto al spinner
+      duration: 6000, // Duración máxima en milisegundos (5 segundos)
+      translucent: true, // Hace que el fondo sea translúcido
+      backdropDismiss: false, // Evita que el usuario cierre la carga tocando fuera de ella
+    });
+    await loading.present();
+
     if (this.form.valid) {
       try {
         const {email, password} = this.form.value;
@@ -68,6 +79,7 @@ export class LogInPage implements OnInit {
             }
           });
         }
+        await loading.dismiss();
       } catch (error) {
         console.log('Error al inisiar sesión: ',error)
         const alert = await this.alertController.create({

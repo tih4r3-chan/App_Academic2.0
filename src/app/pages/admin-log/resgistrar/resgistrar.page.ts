@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/firestore.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-resgistrar',
@@ -21,7 +22,8 @@ export class ResgistrarPage implements OnInit {
     private afAuth: AngularFireAuth,
     private afStore: AngularFirestore,
     private toastController: ToastController,
-    public router: Router
+    public router: Router,
+    private loadingController: LoadingController
   ) {
     this.formR = this.fb.group({
       nombre: ['',[Validators.required]],
@@ -41,6 +43,16 @@ export class ResgistrarPage implements OnInit {
 
    //metodo de registrar usuarios nuevos en la base de datos para
   async registrar() {
+
+    //mostrara el simbolo de cargando
+    const loading = await this.loadingController.create({
+      message: 'Registrando', // Mensaje que se mostrará junto al spinner
+      duration: 5000, // Duración máxima en milisegundos (5 segundos)
+      translucent: true, // Hace que el fondo sea translúcido
+      backdropDismiss: false, // Evita que el usuario cierre la carga tocando fuera de ella
+    });
+    await loading.present();
+
     const {nombre, apellido, rut, dv, email, password,phone,direccion,tipo} = this.formR.value;
 
     try{
@@ -66,6 +78,7 @@ export class ResgistrarPage implements OnInit {
       this.formR.reset();
       this.presentToast('Registro exitoso',3000);
       // this.router.navigate(['/admin'])
+      await loading.dismiss();
 
     }
     catch(error){
