@@ -31,10 +31,11 @@ export class LogInPage implements OnInit {
   async submit() {
     if (this.form.valid) {
       try {
+        //constante que almacena lo ingresado en elform
         const { email, password } = this.form.value;
         await this.auth.signInWithEmailAndPassword(email, password);
         // Redirige al usuario después de iniciar sesión
-        this.navCtrl.navigateRoot('/alumno');
+        this.navCtrl.navigateRoot('/docente');
       } catch (error) {
         console.log('Error al inisiar sesión: ',error)
         const alert = await this.alertController.create({

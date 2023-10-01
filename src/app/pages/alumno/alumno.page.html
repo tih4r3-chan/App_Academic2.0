@@ -4,23 +4,27 @@
   <ion-title class="title">Bienvenido  a la <br> página principal del estudiante</ion-title>
   <ion-img src="assets/userAlumno.png" class="imagen"></ion-img>
   <ion-card>
-    <ion-list>
+    <ion-list >
 
-      <ion-item color="primary">
-        <ion-title routerLink="/cursos">Curso</ion-title>
-      </ion-item>
+      <ion-button expand="full" class="ion-text-center" shape="round" routerLink="/cursos">
+        <ion-icon name="book-outline" class="ion-margin" color="secondary"></ion-icon>
+        Cursos
+      </ion-button>
 
-      <ion-item>
-        <ion-title routerLink="/cuenta">Mi Cuenta</ion-title>
-      </ion-item>
+      <ion-button expand="full" class="ion-text-center" shape="round" routerLink="/cuenta">
+        <ion-icon name="person-outline" class="ion-margin" color="secondary"></ion-icon>
+        Mi cuenta
+      </ion-button>
 
-      <ion-item color="primary">
-        <ion-title routerLink="/asistencia-qr">Scanner Qr</ion-title>
-      </ion-item>
+      <ion-button expand="full" class="ion-text-center" shape="round" routerLink="/asistencia-qr">
+        <ion-icon name="qr-code-outline" class="ion-margin" color="secondary"></ion-icon>
+        Asistencia
+      </ion-button>
 
-      <ion-item>
-        <ion-title (click)="cerrarSesion()">Cerrar Sesión</ion-title>
-      </ion-item>
+      <ion-button expand="full" class="ion-text-center" shape="round" (click)="authService.SignOut()">
+        <ion-icon name="log-out-outline" class="ion-margin" color="secondary"></ion-icon>
+        Cerrar Sesión
+      </ion-button>
     </ion-list>
   </ion-card>
 </ion-content>
