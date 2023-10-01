@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AlertController, NavController } from '@ionic/angular';
-import { Router } from '@angular/router';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { of, switchMap } from 'rxjs';
 
 
 @Component({
@@ -14,7 +11,7 @@ import { of, switchMap } from 'rxjs';
 })
 export class AdminLogPage implements OnInit {
 
-  /// crear fromulario
+  // crear fromulario
   form = new FormGroup({
     //los inputs
     email: new FormControl('',[Validators.required, Validators.email]),
@@ -22,19 +19,9 @@ export class AdminLogPage implements OnInit {
   })
 
 
-  constructor(
-    private fb: FormBuilder,
-    private navCtrl: NavController,
+  constructor(private navCtrl: NavController,
     private afAuth: AngularFireAuth,
-    private alertController: AlertController,
-    private ngFireStore: AngularFirestore,
-    private router: Router) {
-
-      this.form = this.fb.group({
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', Validators.required],
-      })
-    }
+    private alertController: AlertController) { }
 
   ngOnInit() {
   }
@@ -44,30 +31,9 @@ export class AdminLogPage implements OnInit {
     if (this.form.valid) {
       try {
         const { email, password } = this.form.value;
-        const userCredential = await this.afAuth.signInWithEmailAndPassword(email, password);
-
-        //obtener el uid del user
-        const uid = userCredential.user.uid;
-
-        //consulta a Firestore para obtener los datos del usuario
-        const userDoc = this.ngFireStore
-        .doc('usuarios/${uid}')
-        .snapshotChanges()
-        .pipe(
-          switchMap((doc) => {
-            const userData = doc.payload.data() as any;
-            return of(userData);
-          })
-        );
-
-        userDoc.subscribe((userData) => {
-          if(userData && userData.tipo === 'alumno'){
-            this.navCtrl.navigateRoot('/alumno')
-          }else if(userData && userData.tipo === 'docente'){
-            this.navCtrl.navigateRoot('/docente')
-          }
-        });
-
+        await this.afAuth.signInWithEmailAndPassword(email, password);
+        // Redirige al usuario después de iniciar sesión
+        this.navCtrl.navigateRoot('/admin');
       } catch (error) {
         console.log('Error al inisiar sesión: ',error)
         const alert = await this.alertController.create({

@@ -1,5 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
-import * as auth from 'firebase/auth';
+import { Injectable, NgZone } from '@angular/core'
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -7,6 +6,8 @@ import {
   AngularFirestore,
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
+import { ToastController } from '@ionic/angular';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -18,7 +19,8 @@ export class AuthenticationService {
     public afStore: AngularFirestore,
     public ngFireAuth: AngularFireAuth,
     public router: Router,
-    public ngZone: NgZone
+    public ngZone: NgZone,
+    private toastController: ToastController
   ) {
     //verifica que el usuario este autenticado, se suscribe a los cambios de autenticacion del user
     this.ngFireAuth.authState.subscribe((user) => {
@@ -97,6 +99,17 @@ export class AuthenticationService {
     return this.ngFireAuth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['/home']);
+      this.presentToast('Sesión cerrada con exito',3000);
     });
+  }
+
+  //mensaje de error
+  async presentToast(message: string, duration: number) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: duration, // Duración en milisegundos (en este caso, 4000 ms = 4 segundos)
+      position: 'bottom' // Posición del mensaje (puedes ajustarla según tus preferencias)
+    });
+    toast.present();
   }
 }

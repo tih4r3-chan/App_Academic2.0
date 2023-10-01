@@ -71,6 +71,18 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: () => import('./pages/admin-log/admin/admin.module').then( m => m.AdminPageModule)
   },
+  {
+    path: 'resgistrar',
+    loadChildren: () => import('./pages/admin-log/resgistrar/resgistrar.module').then( m => m.ResgistrarPageModule)
+  },
+  {
+    path: 'modificar',
+    loadChildren: () => import('./pages/admin-log/modificar/modificar.module').then( m => m.ModificarPageModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./pages/admin-log/admin/admin.module').then( m => m.AdminPageModule)
+  }
 ];
 
 @NgModule({

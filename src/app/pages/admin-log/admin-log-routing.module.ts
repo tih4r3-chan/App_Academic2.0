@@ -7,6 +7,18 @@ const routes: Routes = [
   {
     path: '',
     component: AdminLogPage
+  },
+  {
+    path: 'resgistrar',
+    loadChildren: () => import('./resgistrar/resgistrar.module').then( m => m.ResgistrarPageModule)
+  },
+  {
+    path: 'modificar',
+    loadChildren: () => import('./modificar/modificar.module').then( m => m.ModificarPageModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule)
   }
 ];
 

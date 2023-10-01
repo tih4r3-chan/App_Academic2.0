@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Input, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -32,6 +32,8 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 })
 
 export class AppModule {
+  //recibe parametros
+  @Input() title!: string;
   constructor() {
   }
 }
