@@ -46,6 +46,24 @@
 
 
   <ion-content>
-El body
+    <ion-card>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Correo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuarios$ | async">
+            <!-- Mostrar información del usuario -->
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.tipo }}</td>
+            <td>{{ usuario.email }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ion-card>
   </ion-content>
 </div>
