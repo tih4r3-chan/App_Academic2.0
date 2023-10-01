@@ -58,7 +58,7 @@
         <tbody>
           <tr *ngFor="let usuario of usuarios$ | async">
             <!-- Mostrar información del usuario -->
-            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.nombre }} {{ usuario.apellido }}</td>
             <td>{{ usuario.tipo }}</td>
             <td>{{ usuario.email }}</td>
           </tr>
