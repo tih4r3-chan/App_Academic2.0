@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AlertController, NavController } from '@ionic/angular';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
 
 
 
@@ -16,12 +18,13 @@ export class LogInPage implements OnInit {
     //los inputs
     email: new FormControl('',[Validators.required, Validators.email]),
     password: new FormControl('',[Validators.required]),
-  })
+  });
 
   constructor(
-    private auth: AngularFireAuth,
     private navCtrl: NavController,
-    private alertController: AlertController
+    private afAuth: AngularFireAuth,
+    private alertController: AlertController,
+    private firestore: AngularFirestore
   ) {}
 
   ngOnInit() {
@@ -31,11 +34,40 @@ export class LogInPage implements OnInit {
   async submit() {
     if (this.form.valid) {
       try {
-        //constante que almacena lo ingresado en elform
-        const { email, password } = this.form.value;
-        await this.auth.signInWithEmailAndPassword(email, password);
-        // Redirige al usuario después de iniciar sesión
-        this.navCtrl.navigateRoot('/docente');
+        const {email, password} = this.form.value;
+        await this.afAuth.signInWithEmailAndPassword(email,password);
+        //obtener datos del user autenticado
+        const user = await this.afAuth.currentUser;
+
+        //hacer consulta para obtener datos del usuario
+        if(user){
+          const userId = user.uid;
+          // obtener datos del usuario de la base de datos
+          const userDocRef = this.firestore.collection('usuarios').doc(userId);
+          const userDocSnap: Observable<any> = userDocRef.valueChanges();
+
+          // suscribirse
+          userDocSnap.subscribe((userData) =>{
+            // Verificar si el documento existe
+            if(userData){
+              //obtener tipo de user
+              const userType = userData.tipo;
+
+              //condiciional para que se verifique es admini
+              if(userType === 'alumno'){
+                // Redirige al usuario después de iniciar sesión
+                this.navCtrl.navigateRoot('/alumno');
+              }else if(userType === 'docente'){
+                // Redirige al usuario después de iniciar sesión
+                this.navCtrl.navigateRoot('/docente');
+              }else{
+                console.log('No tienes permiso de entrar');
+              }
+            }else{
+              console.log('Entro al otro N|2');
+            }
+          });
+        }
       } catch (error) {
         console.log('Error al inisiar sesión: ',error)
         const alert = await this.alertController.create({

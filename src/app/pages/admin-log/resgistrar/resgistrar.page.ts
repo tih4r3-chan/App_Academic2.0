@@ -65,7 +65,7 @@ export class ResgistrarPage implements OnInit {
       // Restablecer los valores del formulario
       this.formR.reset();
       this.presentToast('Registro exitoso',3000);
-      this.router.navigate(['/admin'])
+      // this.router.navigate(['/admin'])
 
     }
     catch(error){

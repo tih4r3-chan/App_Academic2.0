@@ -1,11 +1,10 @@
 <app-header title="Alumno"></app-header>
 
 <ion-content [fullscreen]="true">
-  <ion-title class="title">Bienvenido  a la <br> página principal del estudiante</ion-title>
   <ion-img src="assets/userAlumno.png" class="imagen"></ion-img>
-  <ion-card>
-    <ion-list >
-
+  <ion-card *ngIf="user">
+    <ion-list>
+      <ion-title class="title">Bienvenido {{user.nombre}} {{user.apellido}} a la <br> página principal del estudiante</ion-title>
       <ion-button expand="full" class="ion-text-center" shape="round" routerLink="/cursos">
         <ion-icon name="book-outline" class="ion-margin" color="secondary"></ion-icon>
         Cursos
