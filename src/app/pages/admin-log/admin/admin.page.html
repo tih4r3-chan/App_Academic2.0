@@ -46,7 +46,9 @@
 
 
   <ion-content>
+    <!-- una card que contiene una tabla -->
     <ion-card>
+      <!-- una tabla que muestra los datosa almacenados en la base d eatos -->
       <table class="table">
         <thead>
           <tr>
@@ -56,6 +58,7 @@
           </tr>
         </thead>
         <tbody>
+          <!-- aca con el ngFor hace que se repita el profeso de mostrar con todos los usuariuos que existan -->
           <tr *ngFor="let usuario of usuarios$ | async">
             <!-- Mostrar información del usuario -->
             <td>{{ usuario.nombre }} {{ usuario.apellido }}</td>
