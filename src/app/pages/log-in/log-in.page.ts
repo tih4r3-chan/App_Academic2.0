@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AlertController, LoadingController, NavController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 
@@ -25,7 +25,8 @@ export class LogInPage implements OnInit {
     private afAuth: AngularFireAuth,
     private alertController: AlertController,
     private firestore: AngularFirestore,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -37,7 +38,7 @@ export class LogInPage implements OnInit {
     //mostrara el simbolo de cargando
     const loading = await this.loadingController.create({
       message: 'Iniciando Sesión', // Mensaje que se mostrará junto al spinner
-      duration: 6000, // Duración máxima en milisegundos (5 segundos)
+      duration: 2000, // Duración máxima en milisegundos (5 segundos)
       translucent: true, // Hace que el fondo sea translúcido
       backdropDismiss: false, // Evita que el usuario cierre la carga tocando fuera de ella
     });
@@ -73,6 +74,7 @@ export class LogInPage implements OnInit {
                 this.navCtrl.navigateRoot('/docente');
               }else{
                 console.log('No tienes permiso de entrar');
+                this.presentToast('No tiene el permiso para ingresar acá');
               }
             }else{
               console.log('Entro al otro N|2');
@@ -90,6 +92,16 @@ export class LogInPage implements OnInit {
         await alert.present();
       }
     }
+  }
+
+  //mensaje de error
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2500, // Duración en milisegundos (2 segundos)
+      position: 'top' // Posición en el centro de la pantalla
+    });
+    toast.present();
   }
 }
 
