@@ -14,7 +14,23 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <h1>Generador Qr</h1>
-  <ion-img src="assets/qr.png"></ion-img>
+  <div class="ion-margin">
+    <ion-title class="ion-text-center" style="color: #000">Asignaturas impartidas</ion-title>
+  </div>
+  <ion-card class="ion-text-center">
+    <div>
+      <ion-img src="assets/img/fondo1.png" class="ion-margin"></ion-img>
+      <p>Sección: 002</p>
+    </div>
+    <div>
+      <ion-button (click)="crearDoc()" routerLink="/">
+        Tomar Asistencia
+      </ion-button>
+      <ion-button color="success">
+        Ver curso
+      </ion-button>
+    </div>
+    <br>
+  </ion-card>
 </ion-content>
 

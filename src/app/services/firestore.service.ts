@@ -8,10 +8,15 @@ import {
 } from '@angular/fire/compat/firestore';
 import { ToastController } from '@ionic/angular';
 
+import { HttpClient } from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
+
+  //conectar api
+  private apiUrl = 'https://firestore.googleapis.com/v1/projects/appacademic-bb066/database/(default)/documents';
   //inicializar UserData cono any
   userData: any;
 
@@ -20,7 +25,8 @@ export class AuthenticationService {
     public ngFireAuth: AngularFireAuth,
     public router: Router,
     public ngZone: NgZone,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private http: HttpClient
   ) {
     //verifica que el usuario este autenticado, se suscribe a los cambios de autenticacion del user
     this.ngFireAuth.authState.subscribe((user) => {
@@ -96,11 +102,21 @@ export class AuthenticationService {
 
   // Cerrar sesion uwu
   async SignOut() {
-    return this.ngFireAuth.signOut().then(() => {
+    try{
+      //cerra sesion
+      await this.ngFireAuth.signOut();
+
+      //eliminar el user del localStorage
       localStorage.removeItem('user');
+      //redireccionamiento
       this.router.navigate(['/home']);
+      //mensaje
       this.presentToast('Sesión cerrada con exito',3000);
-    });
+
+    }
+    catch(error){
+      console.log(error);
+    }
   }
 
   //mensaje de error
@@ -111,5 +127,21 @@ export class AuthenticationService {
       position: 'bottom' // Posición del mensaje (puedes ajustarla según tus preferencias)
     });
     toast.present();
+  }
+
+  //crear documento en firestore
+  crearDoc(coleccion: string, datos: any){
+    const url = `${this.apiUrl}/${coleccion}`;
+    const body = JSON.stringify({ asistencia: datos });
+
+    //retorna
+    return this.http.post(url, body, {
+      params:{
+        key: '',
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
   }
 }

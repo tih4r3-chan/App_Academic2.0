@@ -19,6 +19,10 @@ const routes: Routes = [
   {
     path: 'generador-asis',
     loadChildren: () => import('./generador-asis/generador-asis.module').then( m => m.GeneradorAsisPageModule)
+  },
+  {
+    path: 'ver-asistencia',
+    loadChildren: () => import('./ver-asistencia/ver-asistencia.module').then( m => m.VerAsistenciaPageModule)
   }
 ];
 
