@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/services/firestore.service';
+import { AsistenciaService } from 'src/app/services/asistencia.service'
 
 @Component({
   selector: 'app-generador-asis',
@@ -9,7 +9,7 @@ import { AuthenticationService } from 'src/app/services/firestore.service';
 export class GeneradorAsisPage implements OnInit {
 
   constructor(
-    private fireService: AuthenticationService
+    private fireService: AsistenciaService
   ) { }
 
   ngOnInit() {
