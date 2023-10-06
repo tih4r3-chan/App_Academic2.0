@@ -15,9 +15,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthenticationService {
 
-  //conectar api
-  private apiUrl = 'https://firestore.googleapis.com/v1/projects/appacademic-bb066/database/(default)/documents';
-  //inicializar UserData cono any
+    //inicializar UserData cono any
   userData: any;
 
   constructor(
@@ -126,21 +124,5 @@ export class AuthenticationService {
       position: 'bottom' // Posición del mensaje (puedes ajustarla según tus preferencias)
     });
     toast.present();
-  }
-
-  //crear documento en firestore
-  crearDoc(coleccion: string, datos: any){
-    const url = `${this.apiUrl}/${coleccion}`;
-    const body = JSON.stringify({ asistencia: datos });
-
-    //retorna
-    return this.http.post(url, body, {
-      params:{
-        key: '',
-      },
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
   }
 }
