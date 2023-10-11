@@ -19,7 +19,6 @@ export class GeneradorAsisPage implements OnInit {
   //datos que se ingresaran
   crearDoc(){
     const datos = {
-      idSeccion: 'D-001',
       idClase: 1,
       Alumno1:{
         id: 'LE1b90lDV8aYNzpYh1hZpYr76OF2',
