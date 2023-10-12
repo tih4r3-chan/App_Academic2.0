@@ -1,15 +1,12 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AsistenciaService {
   constructor(
-    private http: HttpClient,
     private afAuth: AngularFireAuth,
     private firestore: AngularFirestore
   ) { }
@@ -22,15 +19,22 @@ export class AsistenciaService {
     if (user) {
       const claseId = '6bPLYxFBlJ6EcnYObJi6';
       const newDoc = {
-        asistio: false,
-        claseId: claseId
+        claseId: claseId,
+        alumno1: {
+          id: '6xaz6Y2gg5P2Yu6ftPXu80vhCti1',
+          asistio: false
+        },
+        alumno2: {
+          id: 'LE1b90lDV8aYNzpYh1hZpYr76OF2',
+          asistio: false
+        }
       };
       this.firestore.collection('asistencia').add(newDoc)
       .then((docRef) => {
         console.log('Documento creado con ID -->', docRef);
       })
       .catch((error) => {
-        console.log('Error al cread el doc: ', error);
+        console.log('Error al crear el doc: ', error);
       })
     }else{
       console.log('El user no esta autenticado :)')
