@@ -17,15 +17,17 @@
   <div class="ion-margin">
     <ion-title class="ion-text-center" style="color: #000">Asignaturas impartidas</ion-title>
   </div>
-  <ion-card class="ion-text-center">
+  <ion-card class="ion-text-center" *ngFor="let clases of firestoreData">
     <div>
       <ion-img src="assets/img/fondo1.png" class="ion-margin"></ion-img>
       <div>
-        <h1> </h1>
+        <p color="dark">{{clases.codigo}} </p>
+        <p color="dark">Nombre: {{clases.nombre}} </p>
+        <p color="dark">Sala: {{clases.sala}} </p>
       </div>
     </div>
     <div>
-      <ion-button (click)="newDoc1()">
+      <ion-button (click)="newDoc()">
         Tomar Asistencia
       </ion-button>
       <ion-button color="success">
