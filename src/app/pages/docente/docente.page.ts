@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/services/firestore.service'
 
 @Component({
   selector: 'app-docente',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocentePage implements OnInit {
 
-  constructor() { }
+  constructor(
+    public authService: AuthenticationService
+  ) { }
 
   ngOnInit() {
   }

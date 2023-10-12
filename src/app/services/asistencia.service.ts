@@ -1,42 +1,39 @@
-import { Injectable, NgZone } from '@angular/core';
-import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-} from '@angular/fire/compat/firestore';
-
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AsistenciaService {
-  //conectar api
-  private apiUrl = 'https://firestore.googleapis.com/v1/projects/appacademic-bb066/database/(default)/documents';
-
-
   constructor(
-    public afStore: AngularFirestore,
-    public ngFireAuth: AngularFireAuth,
-    public router: Router,
-    public ngZone: NgZone,
-    private http: HttpClient
+    private http: HttpClient,
+    private afAuth: AngularFireAuth,
+    private firestore: AngularFirestore
   ) { }
 
   //crear documento en firestore
-  crearDoc(coleccion: string, datos: any){
-    const url = `${this.apiUrl}/${coleccion}`;
-    const body = JSON.stringify({ asistencia: datos });
-
-    //retorna
-    return this.http.post(url, body, {
-      params:{
-        key: '',
-      },
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
+  async crearDoc1(){
+    //verificar si el user esta autenticado
+    const user = this.afAuth.currentUser;
+    console.log('El usuario si esta autenticado')
+    if (user) {
+      const claseId = '6bPLYxFBlJ6EcnYObJi6';
+      const newDoc = {
+        asistio: false,
+        claseId: claseId
+      };
+      this.firestore.collection('asistencia').add(newDoc)
+      .then((docRef) => {
+        console.log('Documento creado con ID -->', docRef);
+      })
+      .catch((error) => {
+        console.log('Error al cread el doc: ', error);
+      })
+    }else{
+      console.log('El user no esta autenticado :)')
+    }
   }
 }

@@ -15,6 +15,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthenticationService {
 
+  //api
+
     //inicializar UserData cono any
   userData: any;
 
@@ -48,32 +50,6 @@ export class AuthenticationService {
     return this.ngFireAuth.createUserWithEmailAndPassword(email, password);
   }
 
-  // // Enviar email al nuevo registrado
-  // async SendVerificationMail(){
-  //   //se obtiene al user  autenticado(promesa), cuando se devuelvela promesa se proporciona el user actual
-  //   return this.ngFireAuth.currentUser.then((user: any) => {
-  //     //ya se obtuvo al user, se envia un correo verificando su correo
-  //     return user.sendEmailVerification().then(() => {
-  //       //una vez se halla enviado el correo, se redirigue al login
-  //       this.router.navigate(['log-in']);
-  //     });
-  //   });
-  // }
-
-  // recuperrar la password
-  // async PasswordRecover(passwordResetEmail: any) {
-  //   return this.ngFireAuth
-  //     .sendPasswordResetEmail(passwordResetEmail)
-  //     .then(() => {
-  //       window.alert(
-  //         'Se ha enviado un correo electrónico para restablecer la contraseña, revise su bandeja de entrada.'
-  //       );
-  //     })
-  //     .catch((error) => {
-  //       window.alert(error);
-  //     });
-  // }
-
 
   // almacenar usuario en localStorage
   SetUserData(user: any) {
@@ -104,7 +80,7 @@ export class AuthenticationService {
       //cerra sesion
       await this.ngFireAuth.signOut();
       //eliminar el user del localStorage
-      localStorage.removeItem('user');
+      localStorage.removeItem('User');
       //redireccionamiento
       this.router.navigate(['/home']);
       //mensaje

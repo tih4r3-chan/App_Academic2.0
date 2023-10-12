@@ -20,10 +20,12 @@
   <ion-card class="ion-text-center">
     <div>
       <ion-img src="assets/img/fondo1.png" class="ion-margin"></ion-img>
-      <p>Sección: 002</p>
+      <div *ngIf="claseData">
+        <h1> {{ claseData.fields.codigo.stringValue }} </h1>
+      </div>
     </div>
     <div>
-      <ion-button (click)="crearDoc()" routerLink="/">
+      <ion-button (click)="newDoc1()">
         Tomar Asistencia
       </ion-button>
       <ion-button color="success">

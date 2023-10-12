@@ -1,5 +1,6 @@
+import { AsistenciaService } from 'src/app/services/asistencia.service';
 import { Component, OnInit } from '@angular/core';
-import { AsistenciaService } from 'src/app/services/asistencia.service'
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-generador-asis',
@@ -7,39 +8,27 @@ import { AsistenciaService } from 'src/app/services/asistencia.service'
   styleUrls: ['./generador-asis.page.scss'],
 })
 export class GeneradorAsisPage implements OnInit {
+  //inicializar var
+  claseData: any;
 
   constructor(
-    private fireService: AsistenciaService
+    private asistenciaService: AsistenciaService,
+    private http: HttpClient
   ) { }
 
   ngOnInit() {
+    //mostrar datos de la clase 1
+    const claseId = '6bPLYxFBlJ6EcnYObJi6';
+    //solicitud get para traer los datos almacenados
+    this.http.get<any>(`https://firestore.googleapis.com/v1/project/AppAcademic/databases/(default)/documents/clase/${claseId}`)
+    .subscribe((data) => {
+      this.claseData = data
+    })
   }
 
-  //metodo para crear documento Asistencia
-  //datos que se ingresaran
-  crearDoc(){
-    const datos = {
-      idClase: 1,
-      Alumno1:{
-        id: 'LE1b90lDV8aYNzpYh1hZpYr76OF2',
-        estado: false
-      },
-      Alumno2: {
-        id: 'VTSIfq3yv2Y0QHMknt4rkCOxD772',
-        estado:false
-      }
-    };
-
-    //llamar la coleccion
-    const coleccion = 'asistencia';
-
-    this.fireService.crearDoc(coleccion,datos)
-    .subscribe(
-      (response) => {
-        //mensaje de que si se creo el documento
-        console.log('Se creo el documento', response)
-      }
-    )
-  };
+  //asistencia clase 1 --> 6bPLYxFBlJ6EcnYObJi6
+  newDoc1(){
+    this.asistenciaService.crearDoc1();
+  }
 
 }
