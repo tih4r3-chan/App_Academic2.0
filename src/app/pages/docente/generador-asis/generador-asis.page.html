@@ -23,11 +23,11 @@
       <div>
         <p color="dark">{{clases.codigo}} </p>
         <p color="dark">Nombre: {{clases.nombre}} </p>
-        <p color="dark">Sala: {{clases.sala}} </p>
+        <p color="dark">Sala: {{clases.sala}}</p>
       </div>
     </div>
     <div>
-      <ion-button (click)="newDoc()">
+      <ion-button (click)="newDoc(clases.claseId)">
         Tomar Asistencia
       </ion-button>
       <ion-button color="success">
