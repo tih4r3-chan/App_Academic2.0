@@ -11,8 +11,6 @@ export class GeneradorAsisPage implements OnInit {
 
   //inicializando
   firestoreData: any[];
-  //inicializar el campo que almacenara el id
-  selectedClaseId: string | null = null;
 
   constructor(
     private asistenciaService: AsistenciaService,
@@ -28,9 +26,8 @@ export class GeneradorAsisPage implements OnInit {
   }
 
   //asistencia clase 1 --> 6bPLYxFBlJ6EcnYObJi6
-  newDoc(claseId: string){
-    this.selectedClaseId = claseId;
-    this.asistenciaService.crearDoc(claseId);
+  newDoc1(){
+    this.asistenciaService.crearDoc1();
   }
 
 }
