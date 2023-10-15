@@ -61,12 +61,16 @@ export class AuthenticationService {
     //se crea un objeto que tiene los campos del usuaro interface
     const userData: User = {
       uid: user.uid,
+      apellido: user.apellido,
+      direccion: user.direccion,
+      dv: user.dv,
       email: user.email,
+      nombre: user.nombre,
       password: user.password,
-      name: user.name,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
+      phone: user.phone,
+      rut: user.rut,
+      tipo: user.tipo,
+      claseId: user.claseId
     };
     //
     return userRef.set(userData, {

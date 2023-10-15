@@ -53,7 +53,7 @@ export class ResgistrarPage implements OnInit {
     });
     await loading.present();
 
-    const {nombre, apellido, rut, dv, email, password,phone,direccion,tipo} = this.formR.value;
+    const {nombre, apellido, rut, dv, email, password,phone,direccion,tipo,claseId} = this.formR.value;
 
     try{
       //registrar al usuario
@@ -72,7 +72,8 @@ export class ResgistrarPage implements OnInit {
         password: password,
         phone: phone,
         direccion: direccion,
-        tipo: tipo
+        tipo: tipo,
+        claseId: claseId
       })
       // Restablecer los valores del formulario
       this.formR.reset();

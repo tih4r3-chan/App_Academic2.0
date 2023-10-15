@@ -1,10 +1,16 @@
+// import{ Type } from '@angular/core';
+
 export interface User{
   //que tendra el user
-  uid: string; //rut
+  uid: string;
+  apellido: string;
+  direccion: string;
+  dv: number;
   email: string;
+  nombre: string;
   password: string;
-  name: string;
-  displayName: string;
-  photoURL: string;
-  emailVerified: boolean;
+  phone: number;
+  rut: number;
+  tipo: string;
+  claseId: string;
 }

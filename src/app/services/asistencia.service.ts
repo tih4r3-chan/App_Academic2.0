@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { Observable, concatMapTo } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -27,26 +27,36 @@ export class AsistenciaService {
         const userId = user.uid;
         //el usuario que se logeo debe ser igual al uid para crear un doc de asistencia
         // ya que si no est su codigo aca no imparte clases
-        if(userId == 'VKL4ax42r6PCIxc5x9z9PCEPV4t1'){
-          const claseId = '6bPLYxFBlJ6EcnYObJi6'
-          const newDoc = {
-            claseId: claseId,
-            alumno1: {
-              id: '6xaz6Y2gg5P2Yu6ftPXu80vhCti1',
-              asistio: false
-            },
-            alumno2: {
-              id: 'LE1b90lDV8aYNzpYh1hZpYr76OF2',
-              asistio: false
+        if(userId){
+          this.afAuth.authState.subscribe(user => {
+            if(user){
+              console.log('Entro al if del usuario');
+              const claseId = user.claseId;
+              if(claseId){
+                console.log('Entro al if del claseID');
+                const newDoc = {
+                  claseId: claseId,
+                  alumno1: {
+                    id: '6xaz6Y2gg5P2Yu6ftPXu80vhCti1',
+                    asistio: false
+                  },
+                  alumno2: {
+                    id: 'LE1b90lDV8aYNzpYh1hZpYr76OF2',
+                    asistio: false
+                  }
+                };
+                this.firestore.collection('asistencia').add(newDoc)
+                .then((docRef) => {
+                  console.log('Documento creado con ID -->', docRef);
+                })
+                .catch((error) => {
+                  console.log('Error al crear el doc: ', error);
+                })
+              }else{
+                console.log('El claseID es null o underfield')
+              }
             }
-          };
-          this.firestore.collection('asistencia').add(newDoc)
-          .then((docRef) => {
-            console.log('Documento creado con ID -->', docRef);
-          })
-          .catch((error) => {
-            console.log('Error al crear el doc: ', error);
-          })
+          });
         }else{
           console.log('El usuario no imparte esta clase :)')
         }
