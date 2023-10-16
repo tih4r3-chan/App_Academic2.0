@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable, concatMapTo } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -31,11 +31,11 @@ export class AsistenciaService {
           this.afAuth.authState.subscribe(user => {
             if(user){
               console.log('Entro al if del usuario');
-              const claseId = user.claseId;
-              if(claseId){
+              // const claseId = user.claseId;
+              if(user){
                 console.log('Entro al if del claseID');
                 const newDoc = {
-                  claseId: claseId,
+                  // claseId: claseId,
                   alumno1: {
                     id: '6xaz6Y2gg5P2Yu6ftPXu80vhCti1',
                     asistio: false

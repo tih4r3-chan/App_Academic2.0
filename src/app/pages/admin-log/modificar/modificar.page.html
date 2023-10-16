@@ -43,9 +43,74 @@
       </ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-card class="card">
+    <ion-card-header>
+      Modificar datos de usuarios
+    </ion-card-header>
+    <ion-item>
+      <ion-icon name="person" color="primary"></ion-icon>
+      <ion-label class="ion-text-center" class="ion-margin">Nombre:</ion-label>
+      <ion-input [(ngModel)]="datosModificados.nombre" required type="text" placeholder="Ingrese el primer nombre"></ion-input>
+    </ion-item>
 
+    <ion-item>
+      <ion-icon name="person" color="primary"></ion-icon>
+      <ion-label class="ion-text-center" class="ion-margin">Apellido:</ion-label>
+      <ion-input [(ngModel)]="datosModificados.apellido" required type="text" placeholder="Ingrese el primer apellido"></ion-input>
+    </ion-item>
 
+    <ion-item>
+      <ion-icon name="person" color="primary"></ion-icon>
+      <ion-label class="ion-text-center" class="ion-margin">Rut:</ion-label>
+      <ion-input [(ngModel)]="datosModificados.rut" required type="number" pattern="[0-9]{8}" placeholder="Ingrese rut sin guión y sin dv"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="person" color="primary"></ion-icon>
+      <ion-label class="ion-text-center" class="ion-margin">Dv:</ion-label>
+      <ion-input [(ngModel)]="datosModificados.dv" required type="number" pattern="[0-9]{1}" placeholder="Ingrese digito verificador"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="mail" color="primary"></ion-icon>
+      <ion-label class="ion-text-center" class="ion-margin">Correo:</ion-label>
+      <ion-input [(ngModel)]="datosModificados.email" required type="email" placeholder="Ingrese correo asignado"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="call" color="primary"></ion-icon>
+      <ion-label class="ion-text-center" class="ion-margin">Teléfono:</ion-label>
+      <ion-input [(ngModel)]="datosModificados.phone" required type="number" pattern="[0-9]{9}"  placeholder="Ingrese teléfono, sin +56"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="location" color="primary"></ion-icon>
+      <ion-label class="ion-text-center" class="ion-margin">Dirección:</ion-label>
+      <ion-input [(ngModel)]="datosModificados.direccion" required type="text"  placeholder="Ingrese dirección"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="options" color="primary"></ion-icon>
+      <ion-label class="ion-margin">Seleccione una opción:</ion-label>
+    <!-- radio group que hara escoger entre 2 opciones -->
+    <ion-radio-group [(ngModel)]="datosModificados.tipo" required>
+      <ion-radio value="alumno">Alumno</ion-radio><br />
+      <ion-radio value="docente">Docente</ion-radio><br />
+    </ion-radio-group>
+    </ion-item>
+
+    <!-- <ion-item>
+      <ion-icon name="book" color="primary"></ion-icon>
+      <ion-label class="ion-text-center" class="ion-margin">Id Clase: </ion-label>
+      <ion-input [(ngModel)]="datosModificados.claseId" required type="text"  placeholder="Ingrese dirección"></ion-input>
+    </ion-item> -->
+
+    <!-- boton para loguearme -->
+    <ion-button class="iniciar" expand="block" shape="round" (click)="guardarModificacion()">
+      Modificar
+      <ion-icon slot="end" name="register"></ion-icon>
+    </ion-button>
+  </ion-card>
   <ion-content>
-El body
   </ion-content>
 </div>

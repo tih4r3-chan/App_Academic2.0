@@ -35,6 +35,7 @@ export class ResgistrarPage implements OnInit {
       phone: ['',[Validators.required]],
       direccion: ['',[Validators.required]],
       tipo: ['',[Validators.required]],
+      claseId: ['',[Validators.required]]
     })
   }
 

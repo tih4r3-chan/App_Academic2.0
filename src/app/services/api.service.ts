@@ -9,37 +9,30 @@ import { User } from '../models/user.model';
 })
 export class ApiService {
   //url de la api
-  urlApi ='https://firestore.googleapis.com/v1/projects/AIzaSyCXa-yIkcrkRSASC-HoxtHaITXpLe43SGI/databases/(default)/documents/usuarios';
+  urlApiU ='https://firestore.googleapis.com/v1/projects/AIzaSyCXa-yIkcrkRSASC-HoxtHaITXpLe43SGI/databases/(default)/documents/usuarios';
 
   constructor(
     private http: HttpClient,
     private firestore: Firestore
   ) { }
 
-    // obtener usuario
-    // getUser(): Observable<User[]>{
-    //   return this.http.get<any>('https://firestore.googleapis.com/v1/projects/AIzaSyCXa-yIkcrkRSASC-HoxtHaITXpLe43SGI/databases/(default)/documents/usuarios');
-    //   map((datos) => {
-    //     console.log(datos)
-    //     let listaUser: User[] = [];
-    //     datos.documents.map((elemento : any) => {
-    //       const usuario: User = {
-    //         userId: elemento.name.split('/').pop(),
-    //         apellido: elemento.fields.apellido.stringValue,
-    //         direccion: elemento.fields.direccion.stringValue,
-    //         dv: elemento.fields.dv.integerValue,
-    //         email: elemento.fields.email.stringValue,
-    //         nombre: elemento.fields.nombre.stringValue,
-    //         password: elemento.fields.password.stringValue,
-    //         phone:elemento.fields.phone.integerValue,
-    //         rut: elemento.fields.rut.integerValue,
-    //         tipo: elemento.fields.tipo.stringValue,
-    //         // claseId: elemento.fields.claseId.stringValue
-    //       }
-    //       listaUser.push(usuario);
-    //     });
-    //     return listaUser;
-    //   })
-    // }
+  //traer usuario
+  getUsers(){
+    return this.http.get(`${this.urlApiU}/usuarios.json`)
+  }
 
+  //crar usuarios
+  crearUser(nuevoUsuario: any) {
+    return this.http.post(`${this.urlApiU}/usuarios.json`, nuevoUsuario);
+  }
+
+  //actualizar usuario
+  actualizarUser(userId: string, datosAct: any){
+    return this.http.put(`${this.urlApiU}/usuarios/${userId}.json`,datosAct)
+  }
+
+  //eliminar usuario
+  eliminarUser(userId: string){
+    return this.http.delete(`${this.urlApiU}/usuarios/${userId}.json`)
+  }
 }
