@@ -3,6 +3,7 @@ import { AuthenticationService } from 'src/app/services/firestore.service';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-admin',
@@ -11,12 +12,14 @@ import { map } from 'rxjs/operators';
 })
 export class AdminPage implements OnInit {
   //inicializar la lisa
+  users: any[]=[];
   usuarios$: Observable<any[]>;
   private usuariosCollection: AngularFirestoreCollection<any>; // Definimos la colección
 
   constructor(
     public authService : AuthenticationService,
-    private afStore: AngularFirestore
+    private afStore: AngularFirestore,
+    private _userServce: ApiService
   ) {
     //inicializar coleccion
     this.usuariosCollection = this.afStore.collection('usuarios');
@@ -24,7 +27,15 @@ export class AdminPage implements OnInit {
 
   ngOnInit() {
     this.listar();
+    // this.listar2();
   }
+
+  // //otra ma
+  // async listar2(){
+  //   this._userServce.getUsers().subscribe((users) => {
+  //     this.users = users;
+  //   })
+  // }
 
   listar() {
     //hacer consulta a los documentos de la coleccion usuarios, hy estara actualizada

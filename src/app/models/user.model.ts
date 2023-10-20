@@ -1,8 +1,5 @@
-// import{ Type } from '@angular/core';
-
 export interface User{
   //que tendra el user
-  uid: string;
   apellido: string;
   direccion: string;
   dv: number;
