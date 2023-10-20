@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 // import { Firestore } from "@angular/fire/firestore";
 import { Observable, map } from "rxjs";
 // import { User } from '../models/user.model';
@@ -14,6 +15,8 @@ export class ApiService {
 
   constructor(
     private http: HttpClient,
+    private afAuth: AngularFireAuth,
+    private route: ActivatedRoute
     // private firestore: Firestore
   ) { }
 //-------------------- Seccion usuarios ----------------------------//
@@ -62,7 +65,24 @@ export class ApiService {
 //-------------------- Seccion clase ----------------------------//
   //traer clases --> metodo get
   getClases():Observable<any> {
-    return this.http.get<any>(this.urlApiC);
+    return this.http.get<any>(this.urlApiC).pipe(
+      map((data) => {
+        console.log(data,'esto esta en la api');
+        const listaC = data.documents.map((elements:any) => {
+          const clases = {
+            codigo: elements.fields.codigo.stringValue,
+            nombre: elements.fields.nombre.stringValue,
+            sala: elements.fields.sala.stringValue,
+            seccionId: elements.fields.seccionId.integerValue,
+            docenteId: elements.fields.docenteId.stringValue,
+            alumno1: elements.mapValue.fields.alumno1.stringValue,
+            alumno2: elements.mapValue.fields.alumno2.stringValue
+          }
+          listaC.push(clases);
+        });
+        return listaC;
+      })
+    )
   }
 
   //mostrar las clases
@@ -70,6 +90,35 @@ export class ApiService {
     const url = `${this.urlApiC}/clase/${claseId}`;
     return this.http.get<any>(url);
   }
+
+  //crear documento en firestore
+  async crearDoc1(){
+    //verificar si el user esta autenticado
+    const user = await this.afAuth.currentUser;
+    console.log('El usuario si esta autenticado')
+    try{
+      if (user) {
+        //traigo el id del user
+        const userId = user.uid;
+        console.log(userId);
+        //el usuario que se logeo debe ser igual al uid para crear un doc de asistencia
+        // ya que si no est su codigo aca no imparte clases
+        if(userId){
+          const claseId = this.route.snapshot.paramMap.get('uid');
+          this.mostrarClases(claseId).subscribe((data) => {
+            
+          })
+        }else{
+          console.log('El usuario no imparte esta clase :)')
+        }
+      }else{
+        console.log('El user no esta autenticado :)')
+      }
+    }
+    catch(error){
+      console.log('Error del primer try -->', error);
+    }
+  };
 //-------------------- Fin seccion clase ----------------------------//
 
 //-------------------- Seccion asistencia ----------------------------//

@@ -1,6 +1,7 @@
 import { AsistenciaService } from 'src/app/services/asistencia.service';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-generador-asis',
@@ -14,7 +15,8 @@ export class GeneradorAsisPage implements OnInit {
 
   constructor(
     private asistenciaService: AsistenciaService,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private appiserv: ApiService
   ) { }
 
   ngOnInit() {
@@ -28,6 +30,10 @@ export class GeneradorAsisPage implements OnInit {
   //asistencia clase 1 --> 6bPLYxFBlJ6EcnYObJi6
   newDoc1(){
     this.asistenciaService.crearDoc1();
+  }
+
+  mostarClase(){
+    console.log(this.appiserv)
   }
 
 }
