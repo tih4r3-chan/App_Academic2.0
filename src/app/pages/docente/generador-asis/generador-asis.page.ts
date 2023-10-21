@@ -1,7 +1,7 @@
 // import { AsistenciaService } from 'src/app/services/asistencia.service';
 import { Component, OnInit } from '@angular/core';
 // import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { Observable, lastValueFrom } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -13,31 +13,26 @@ export class GeneradorAsisPage implements OnInit {
 
   //inicializando
   firestoreData: any[];
-  claseList: Observable<any[]>
+  claseList$: any;
+
 
   constructor(
     private apiService: ApiService
   ) { }
 
   ngOnInit() {
-    //mostrar datos de la clase uwu, Angular fire /
-    // this.firestore.collection('clase').valueChanges()
-    // .subscribe((data) => {
-    //   this.firestoreData = data;
-    // })
-
     //mostrar datos con httpClient
-    this.apiService.getClases().subscribe(data => {
-      this.claseList = data;
-    })
+    // this.apiService.getClases().subscribe(data => {
+    //   this.claseList$ = data;
+    // });
+    this.newDoc();
   }
 
-  //asistencia clase 1 --> 6bPLYxFBlJ6EcnYObJi6
   newDoc(){
-    this.apiService.crearDoc();
+    // this.apiService.crearDoc();
+    this.claseList$ = this.apiService.getClases().subscribe();
+    console.log(this.claseList$)
   }
 
-  mostarClase(){
-  }
 
 }

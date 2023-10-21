@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
 // import { Firestore } from "@angular/fire/firestore";
 import { Observable, map } from "rxjs";
 // import { User } from '../models/user.model';
+import { claseModel } from '../models/clase';
 
 
 @Injectable({
@@ -19,8 +21,8 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private afAuth: AngularFireAuth,
-    private route: ActivatedRoute
-    // private firestore: Firestore
+    private route: ActivatedRoute,
+    private afs: AngularFirestore
   ) { }
 //-------------------- Seccion usuarios ----------------------------//
   //traer usuario
@@ -67,34 +69,27 @@ export class ApiService {
 
 //-------------------- Seccion clase ----------------------------//
   //traer clases --> metodo get
-  getClases():Observable<any> {
+
+  getClases(): Observable<claseModel[]>{
     return this.http.get<any>(this.urlApiC).pipe(
-      map((data) => {
-        if(data && data.documents){
-          console.log(data.documents,'esto esta en la api');
-          const listaC = data.documents.map((elements:any) => {
-            if(elements.fields){
-              const clases = {
-                codigo: elements.fields.codigo?.stringValue || ' ',
-                nombre: elements.fields.nombre?.stringValue || ' ',
-                sala: elements.fields.sala?.stringValue || ' ',
-                seccionId: elements.fields.seccionId?.integerValue || ' ',
-                docenteId: elements.fields.docenteId?.stringValue || ' ',
-                listaA: {
-                  alumno1: elements.mapValue.fields.alumno1?.stringValue || ' ',
-                  alumno2: elements.mapValue.fields.alumno2?.stringValue || ' '
-                }
-              }
-              listaC.push(clases);
+      map( (data) =>{
+        console.log(data)
+        let List: claseModel[] = [];
+        data.documents.map( (element:any) => {
+            const clase: claseModel = {
+                uid: element.documents,
+                codigo: element.fields.codigo.stringValue,
+                docenteId: element.fields.docenteId.stringValue,
+                nombre: element.fields.nombre.stringValue,
+                sala: element.fields.sala.stringValue,
+                seccionId: element.fields.seccionId.stringValue,
+                listaA: element.fields.mapValue.fields.name.stringValue
             }
-          });
-          return listaC;
-        }else{
-          console.error('La respuesta de la API no contiene documentos válidos');
-          return [];
-        }
-      })
-    )
+            List.push(clase);
+        });
+        return List;
+    })
+    );
   }
 
 
@@ -107,9 +102,7 @@ export class ApiService {
       if (user) {
         //traigo el id del user
         const userId = user.uid;
-        // this.mostrarClases(claseId).subscribe(data => {
-        //   console.log('Lista de clases: ',data);
-        // })
+        this.getClases
 
         //el usuario que se logeo debe ser igual al uid para crear un doc de asistencia
         // ya que si no est su codigo aca no imparte clases
