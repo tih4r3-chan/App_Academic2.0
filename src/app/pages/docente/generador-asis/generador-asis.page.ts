@@ -13,7 +13,7 @@ export class GeneradorAsisPage implements OnInit {
 
   //inicializando
   firestoreData: any[];
-  claseList$: any;
+  claseList: any;
 
 
   constructor(
@@ -30,8 +30,8 @@ export class GeneradorAsisPage implements OnInit {
 
   newDoc(){
     // this.apiService.crearDoc();
-    this.claseList$ = this.apiService.getClases().subscribe();
-    console.log(this.claseList$)
+    this.claseList = this.apiService.getClases().subscribe();
+    console.log(this.claseList)
   }
 
 
