@@ -72,6 +72,7 @@ export class LogInPage implements OnInit {
               }else if(userType === 'docente'){
                 // Redirige al usuario después de iniciar sesión
                 this.navCtrl.navigateRoot('/docente');
+                //enviar a la vista docente el id del profe o guardar en localstorage(preference)
               }else{
                 console.log('No tienes permiso de entrar');
                 this.presentToast('No tiene el permiso para ingresar acá');

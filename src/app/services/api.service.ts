@@ -76,6 +76,7 @@ export class ApiService {
         console.log(data)
         let List: claseModel[] = [];
         data.documents.map( (element:any) => {
+          console.log(element)
             const clase: claseModel = {
                 uid: element.documents,
                 codigo: element.fields.codigo.stringValue,
@@ -83,7 +84,7 @@ export class ApiService {
                 nombre: element.fields.nombre.stringValue,
                 sala: element.fields.sala.stringValue,
                 seccionId: element.fields.seccionId.stringValue,
-                listaA: element.fields.mapValue.fields.name.stringValue
+                listaA: element.fields.listaA.mapValue.fields
             }
             List.push(clase);
         });

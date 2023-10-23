@@ -22,16 +22,13 @@ export class GeneradorAsisPage implements OnInit {
 
   ngOnInit() {
     //mostrar datos con httpClient
-    // this.apiService.getClases().subscribe(data => {
-    //   this.claseList$ = data;
-    // });
     this.newDoc();
   }
 
   newDoc(){
-    // this.apiService.crearDoc();
-    this.claseList = this.apiService.getClases().subscribe();
-    console.log(this.claseList)
+    this.claseList = this.apiService.getClases().subscribe((data: any) => {
+      console.log(data);
+    });
   }
 
 
