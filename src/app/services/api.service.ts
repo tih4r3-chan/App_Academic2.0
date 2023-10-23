@@ -70,7 +70,7 @@ export class ApiService {
 //-------------------- Seccion clase ----------------------------//
   //traer clases --> metodo get
 
-  getClases(): Observable<claseModel[]>{
+  getClases(){
     return this.http.get<any>(this.urlApiC).pipe(
       map( (data) =>{
         console.log(data)
