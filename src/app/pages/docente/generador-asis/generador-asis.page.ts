@@ -14,6 +14,7 @@ export class GeneradorAsisPage implements OnInit {
   //inicializando
   firestoreData: any[];
   claseList: any;
+  clase: any;
 
 
   constructor(

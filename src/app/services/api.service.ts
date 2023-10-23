@@ -21,6 +21,7 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private afAuth: AngularFireAuth,
+    private firestore: AngularFirestore,
     private route: ActivatedRoute,
     private afs: AngularFirestore
   ) { }
@@ -73,10 +74,10 @@ export class ApiService {
   getClases(){
     return this.http.get<any>(this.urlApiC).pipe(
       map( (data) =>{
-        console.log(data)
+        // console.log(data)
         let List: claseModel[] = [];
         data.documents.map( (element:any) => {
-          console.log(element)
+          // console.log(element)
             const clase: claseModel = {
                 uid: element.documents,
                 codigo: element.fields.codigo.stringValue,
@@ -103,7 +104,28 @@ export class ApiService {
       if (user) {
         //traigo el id del user
         const userId = user.uid;
-        this.getClases
+        // obtener datos del usuario de la base de datos
+        const userDocRef = this.firestore.collection('usuarios').doc(userId);
+        const userDocSnap: Observable<any> = userDocRef.valueChanges();
+
+        // suscribirse
+        userDocSnap.subscribe((userData) =>{
+          // Verificar si el documento existe
+          if(userData){
+            //obtener el id de la clase segun el user logeado
+            const userClass = userData.claseId;
+            //obtener id  de la clase
+            this.getClases().subscribe((claseId) =>{
+              const clase = claseId
+              if(userClass === clase){
+                console.log(clase)
+              }
+
+            })
+          }else{
+            console.log('Entro al otro N|2');
+          }
+        });
 
         //el usuario que se logeo debe ser igual al uid para crear un doc de asistencia
         // ya que si no est su codigo aca no imparte clases
