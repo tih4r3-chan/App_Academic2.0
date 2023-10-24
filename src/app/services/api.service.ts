@@ -77,9 +77,11 @@ export class ApiService {
         // console.log(data)
         let List: claseModel[] = [];
         data.documents.map( (element:any) => {
+          // Acceder al ID del documento
+          const uid = element.name;
           // console.log(element)
             const clase: claseModel = {
-                uid: element.documents,
+                uid:uid,
                 codigo: element.fields.codigo.stringValue,
                 docenteId: element.fields.docenteId.stringValue,
                 nombre: element.fields.nombre.stringValue,
