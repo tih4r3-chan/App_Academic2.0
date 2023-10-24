@@ -77,16 +77,19 @@ export class ApiService {
         // console.log(data)
         let List: claseModel[] = [];
         data.documents.map( (element:any) => {
-          // Acceder al ID del documento
-          const uid = element.name;
+          // Acceder al ID del documento, extrallendolo del path completo
+          const fulpath = element.name
+          const parts = fulpath.split('/');
+          const uid = parts[parts.length - 1];
+          console.log(uid,'probando que sea el id uwu');
           // console.log(element)
             const clase: claseModel = {
-                uid:uid,
+                uid: uid,
                 codigo: element.fields.codigo.stringValue,
                 docenteId: element.fields.docenteId.stringValue,
                 nombre: element.fields.nombre.stringValue,
                 sala: element.fields.sala.stringValue,
-                seccionId: element.fields.seccionId.stringValue,
+                seccionId: element.fields.seccionId.integerValue,
                 listaA: element.fields.listaA.mapValue.fields
             }
             List.push(clase);
