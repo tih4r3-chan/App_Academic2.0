@@ -25,8 +25,7 @@ export class AuthenticationService {
     public ngFireAuth: AngularFireAuth,
     public router: Router,
     public ngZone: NgZone,
-    private toastController: ToastController,
-    private http: HttpClient
+    private toastController: ToastController
   ) {
     //verifica que el usuario este autenticado, se suscribe a los cambios de autenticacion del user
     this.ngFireAuth.authState.subscribe((user) => {

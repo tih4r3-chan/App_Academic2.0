@@ -5,7 +5,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
 // import { Firestore } from "@angular/fire/firestore";
 import { Observable, map } from "rxjs";
-// import { User } from '../models/user.model';
+import { User } from '../models/user.model';
 import { claseModel } from '../models/clase';
 
 
@@ -27,14 +27,21 @@ export class ApiService {
   ) { }
 //-------------------- Seccion usuarios ----------------------------//
   //traer usuario
-  getUsers(): Observable<any>{
-    console.log('entro a la funcion getUSer')
+  getUsers(){
     return this.http.get<any>(this.urlApiU).pipe(
       map((data) => {
-        console.log(data);
-        const listaU = data.documents.map((elementos: any) =>{
-          const usuarios = {
-            apellidos: elementos.fields.apellidos.stringValue,
+        // console.log(data);
+        let listaU: User[] = [];
+        data.documents.map((elementos: any) =>{
+          //acceder al id, extrallendolo del path
+          const fulpath = elementos.name
+          const parts = fulpath.split('/');
+          const uid = parts[parts.length - 1];
+          console.log(uid,'probando que sea el id uwu');
+          
+          const usuarios: User = {
+            uid: uid,
+            apellido: elementos.fields.apellido.stringValue,
             claseId: elementos.fields.claseId.stringValue,
             direccion: elementos.fields.direccion.stringValue,
             dv: elementos.fields.dv.integerValue,

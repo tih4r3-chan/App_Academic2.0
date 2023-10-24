@@ -5,6 +5,9 @@ import { AlertController, LoadingController, NavController, ToastController } fr
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 
+import { ApiService } from 'src/app/services/api.service';
+
+
 
 
 @Component({
@@ -13,6 +16,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./log-in.page.scss'],
 })
 export class LogInPage implements OnInit {
+
+  userData: any;
+  listaUser: any;
   // crear fromulario
   form = new FormGroup({
     //los inputs
@@ -26,10 +32,19 @@ export class LogInPage implements OnInit {
     private alertController: AlertController,
     private firestore: AngularFirestore,
     private loadingController: LoadingController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private apiservi: ApiService
   ) {}
 
   ngOnInit() {
+    this.preferenceCapacitor()
+  }
+
+  //almacenamiento del capacitor preference
+  preferenceCapacitor(){
+    this.listaUser = this.apiservi.getUsers().subscribe((users:any)=>{
+      console.log(users)
+    })
   }
 
   //crear funcion que logea
