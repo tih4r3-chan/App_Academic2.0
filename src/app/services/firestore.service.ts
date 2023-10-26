@@ -10,6 +10,7 @@ import { ToastController } from '@ionic/angular';
 
 import { HttpClient } from '@angular/common/http';
 import { AuthServiceService } from './capacitor.service';
+import { Preferences } from '@capacitor/preferences';
 
 
 @Injectable({
@@ -34,38 +35,19 @@ export class AuthenticationService {
     private storage: AuthServiceService
   ) {
     //verifica que el usuario este autenticado, se suscribe a los cambios de autenticacion del user
-    this.ngFireAuth.authState.subscribe((user) => {
-      // aca se compreba que el user sera valido
-      if (user) {
-        //si es valido se le asigna un objeto user, almacena
-        this.userData = user;
-        // se  almacena en localStorage
-        localStorage.setItem('user', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('user') || '{}');
-      } else {
-        localStorage.setItem('user', null || '{}');
-        JSON.parse(localStorage.getItem('user') || '{}');
-      }
-    });
-
-    //usando preference
-    // this.ngFireAuth.authState.subscribe((usuario) => {
-    //   if(usuario){
-    //     const user = this.ngFireAuth.currentUser;
-
-    //     if(user){
-    //       this.dataUser = usuario;
-    //       //almacenar en preference
-    //       Preferences.set({
-    //         key: 'dataUser',
-    //         value: JSON.stringify(this.dataUser),
-    //       });
-    //     }
-    //     // console.log(this.dataUser,'console log del dataUser');
-    //   }else{
-    //     console.log('Es null');
+    // this.ngFireAuth.authState.subscribe((user) => {
+    //   // aca se compreba que el user sera valido
+    //   if (user) {
+    //     //si es valido se le asigna un objeto user, almacena
+    //     this.userData = user;
+    //     // se  almacena en localStorage
+    //     localStorage.setItem('user', JSON.stringify(this.userData));
+    //     JSON.parse(localStorage.getItem('user') || '{}');
+    //   } else {
+    //     localStorage.setItem('user', null || '{}');
+    //     JSON.parse(localStorage.getItem('user') || '{}');
     //   }
-    // })
+    // });
   }
   // 1metodo para registrar nuevos correo en el Auth
   RegisterUser(email: any, password: any) {
@@ -107,10 +89,10 @@ export class AuthenticationService {
       //cerra sesion
       await this.ngFireAuth.signOut();
       //eliminar el user del localStorage
-      localStorage.removeItem('User');
-      this.storage.limpiar();
+      // localStorage.removeItem('User');
+      // await Preferences.remove({key: 'user'});
       //redireccionamiento
-      this.router.navigate(['/home']);
+      this.router.navigate(['/home']), await Preferences.remove({key: 'user'});;
       //mensaje
       this.presentToast('Sesión cerrada con exito',3000);
 
