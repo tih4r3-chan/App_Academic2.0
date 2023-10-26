@@ -5,7 +5,6 @@ import { AlertController, LoadingController, NavController, ToastController } fr
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 
-import { ApiService } from 'src/app/services/api.service';
 import { Preferences } from '@capacitor/preferences';
 
 
@@ -18,7 +17,6 @@ import { Preferences } from '@capacitor/preferences';
 })
 export class LogInPage implements OnInit {
 
-  userData: any;
   listaUser: any;
   // crear fromulario
   form = new FormGroup({
@@ -33,29 +31,13 @@ export class LogInPage implements OnInit {
     private alertController: AlertController,
     private firestore: AngularFirestore,
     private loadingController: LoadingController,
-    private toastController: ToastController,
-    private apiservi: ApiService
-  ) {}
+    private toastController: ToastController
+  ) {
+  }
 
   ngOnInit() {
-    this.preferenceCapacitor()
   }
 
-  //almacenamiento del capacitor preference
-  preferenceCapacitor(){
-    this.listaUser = this.apiservi.getUsers().subscribe((users)=>{
-      const userData = users;
-      console.log(userData);
-      const storeUserData = async () => {
-        await Preferences.set({
-          key: 'user_data',
-          value: JSON.stringify(userData),
-        });
-      };
-      storeUserData();
-      console.log(storeUserData,'data sel storage');
-    })
-  }
 
   //crear funcion que logea
   async submit() {

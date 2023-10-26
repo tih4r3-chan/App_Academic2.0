@@ -28,17 +28,6 @@ export class ApiService {
     private afs: AngularFirestore
   ) { }
 //-------------------- Seccion usuarios ----------------------------//
-    //recuperacion de datos
-    async recuperarDatosUSer() {
-      const result = await Preferences.get({ key: 'user_data' });
-      if (result.value) {
-        // tranformar a json
-        const userData = JSON.parse(result.value);
-        return userData;
-      } else {
-        return null; // para cuando no hay datos
-      }
-    }
 
   //traer usuario
   getUsers(){
@@ -141,7 +130,7 @@ export class ApiService {
             const userClass = userData.claseId;
             //obtener id  de la clase
             this.getClases().subscribe((claseId) =>{
-              const clase = claseId
+              const clase = claseId;
               if(userClass === clase){
                 console.log(clase)
               }

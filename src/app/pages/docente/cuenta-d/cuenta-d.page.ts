@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 
+import { Preferences } from '@capacitor/preferences';
+
 
 
 @Component({
@@ -9,18 +11,26 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./cuenta-d.page.scss'],
 })
 export class CuentaDPage implements OnInit {
-
-  //usuarios es un lista de datos de usuarios en duro para mostrar
-  userData: any;
+  //preference de capacitor
+  user: any = {};
 
   constructor(
-    private api: ApiService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
-    this.api.recuperarDatosUSer().then((userData) => {
-      this.userData = userData;
-    });
+  }
+
+  ionViewWillEnter() {
+    this.loadUserData();
+  }
+
+  //cargar los datos de usuarios desde el prreference
+  async loadUserData(){
+    const respuesta = await Preferences.get({ key: 'dataUser'});
+    if(respuesta.value){
+      this.user = JSON.parse(respuesta.value);
+    }
   }
 
 }
