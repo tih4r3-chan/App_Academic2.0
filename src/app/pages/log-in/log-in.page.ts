@@ -5,7 +5,8 @@ import { AlertController, LoadingController, NavController, ToastController } fr
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { Preferences } from '@capacitor/preferences';
-import { Router } from '@angular/router';
+import { User } from 'src/app/models/user.model'
+import { UserLog } from 'src/app/models/UserLog';
 
 
 
@@ -33,21 +34,12 @@ export class LogInPage implements OnInit {
     private alertController: AlertController,
     private firestore: AngularFirestore,
     private loadingController: LoadingController,
-    private toastController: ToastController,
-    private router: Router
+    private toastController: ToastController
   ) {
-
-    const guardarUser = async () => {
-      await Preferences.set({
-        key: 'user',
-        value: 'Max',
-      });
-    };
   }
 
   ngOnInit() {
   }
-
 
   //crear funcion que logea
   async submit() {
@@ -76,7 +68,6 @@ export class LogInPage implements OnInit {
             value: JSON.stringify(user),
           });
 
-          //constante que almacena ek id del user
           const userId = user.uid;
           // obtener datos del usuario de la base de datos
           const userDocRef = this.firestore.collection('usuarios').doc(userId);
@@ -92,11 +83,10 @@ export class LogInPage implements OnInit {
               //condiciional para que se verifique es admini
               if(userType === 'alumno'){
                 // Redirige al usuario después de iniciar sesión
-                this.router.navigate(['/docente']), {state: {userData: userData}}
+                this.navCtrl.navigateRoot('/alumno');
               }else if(userType === 'docente'){
                 // Redirige al usuario después de iniciar sesión
-                this.router.navigate(['/docente']), {state: {userData: userData}}
-                // this.navCtrl.navigateRoot('/docente');
+                this.navCtrl.navigateRoot('/docente');
                 //enviar a la vista docente el id del profe o guardar en localstorage(preference)
               }else{
                 console.log('No tienes permiso de entrar');
