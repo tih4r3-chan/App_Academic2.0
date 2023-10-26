@@ -17,21 +17,21 @@
   <h1>Mis Datos</h1>
   <ion-img class="img" src="assets/user.png"></ion-img>
   <ion-card color="primary">
-    <ion-list color="primary">
+    <ion-list color="primary" *ngIf="userData">
       <ion-item color="primary">
-        <ion-title>Nombre : {{nombre}}</ion-title>
+        <ion-title>Nombre : {{userData.nombre}} {{userData.apellido}} </ion-title>
       </ion-item>
       <ion-item>
-        <ion-title>Correo : {{usuario}}</ion-title>
+        <ion-title>Correo : {{userData.email}} </ion-title>
       </ion-item>
       <ion-item color="primary">
-        <ion-title>Tipo de usuario: {{tipo}}</ion-title>
+        <ion-title>Tipo de usuario: {{userData.tipo}} </ion-title>
       </ion-item>
       <ion-item>
-        <ion-title>Teléfono : {{telefono}}</ion-title>
+        <ion-title>Teléfono : +56 {{userData.phone}} </ion-title>
       </ion-item>
       <ion-item color="primary">
-        <ion-title>Dirección : {{direccion}}</ion-title>
+        <ion-title>Dirección : {{userData.direccion}} </ion-title>
       </ion-item>
     </ion-list>
   </ion-card>
