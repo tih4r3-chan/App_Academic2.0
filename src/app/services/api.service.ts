@@ -90,7 +90,7 @@ export class ApiService {
           const fulpath = element.name
           const parts = fulpath.split('/');
           const uid = parts[parts.length - 1];
-          console.log(uid,'probando que sea el id uwu');
+          // console.log(uid,'probando que sea el id uwu');
           // console.log(element)
             const clase: claseModel = {
                 uid: uid,

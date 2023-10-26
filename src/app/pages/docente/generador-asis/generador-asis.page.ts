@@ -16,12 +16,10 @@ import { claseModel } from 'src/app/models/clase';
 })
 export class GeneradorAsisPage implements OnInit {
   userData: any;
-  users: any;
   userList: any[];
 
   //inicializando
-  firestoreData: any[];
-  clases: any;
+  clases: claseModel[];
 
 
   constructor(
@@ -31,6 +29,13 @@ export class GeneradorAsisPage implements OnInit {
 
   ngOnInit() {
     this.leerUSer();
+
+    //traer los datos de la clase
+    this.apiService.getClases().subscribe((data: claseModel[]) => {
+      // Aquí puedes acceder a los datos y hacer lo que necesites
+      this.clases = data;
+      // console.log(this.clases);
+    });
 
     //obtener lista de user de la pai
     this.apiService.getUsers().subscribe((data) => {
@@ -47,15 +52,6 @@ export class GeneradorAsisPage implements OnInit {
     })
   }
 
-  //traer datos de la api
-  async traerClase(){
-    this.apiService.getClases().subscribe((data: claseModel[]) => {
-      // Aquí puedes acceder a los datos y hacer lo que necesites
-      this.clases = data;
-    });
-  }
-
-
   //trae los datos del capcitor que estsan almacenados
   async leerUSer(){
     const response  = await Preferences.get({key:'user'});
@@ -67,30 +63,37 @@ export class GeneradorAsisPage implements OnInit {
     }
   }
 
+  //metodo que crea el documento
   async crearDocumento(){
     if(this.userData){
       //obtener clase id del user almacenado
       const claseId = this.userData.claseId;
-      if(claseId){
-          console.log(this.clases)
-          //armar el documento
-          const dataDoc = {
-            nombreDocente: this.userData.nombre,
-            claseId: claseId,
-            ListaA:{
-              alumno1:{
-                id: 'alumno1',
-                asistio: false
-              },
-              alumno2:{
-                id: 'alumno2',
-                asistio: false
+      if(claseId && this.clases){
+        //encontrar la clase que coincide
+        const claseselccionada = this.clases.find((clase) => clase.uid === claseId);
+          if(claseselccionada){
+            //traer los alumnos
+            const alumno1 = claseselccionada.listaA.alumno1;
+            const alumno2 = claseselccionada.listaA.alumno2;
+            //armar el documento
+            const dataDoc = {
+              nombreDocente: this.userData.nombre,
+              claseId: claseId,
+              ListaA:{
+                alumno1:{
+                  id: alumno1,
+                  asistio: false
+                },
+                alumno2:{
+                  id: alumno2,
+                  asistio: false
+                }
               }
-            }
-          };
-          //agregar el documento
-          this.firestore.collection('asistencia').add(dataDoc);
-          console.log('El documento ya se creo en firestore');
+            };
+            //agregar el documento
+            this.firestore.collection('asistencia').add(dataDoc);
+            console.log('El documento ya se creo en firestore');
+          }
       }
     }
   }
