@@ -4,7 +4,6 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-
 import { Preferences } from '@capacitor/preferences';
 
 
@@ -25,6 +24,9 @@ export class LogInPage implements OnInit {
     password: new FormControl('',[Validators.required]),
   });
 
+  public email: string;
+  public password: string;
+
   constructor(
     private navCtrl: NavController,
     private afAuth: AngularFireAuth,
@@ -36,9 +38,22 @@ export class LogInPage implements OnInit {
   }
 
   ngOnInit() {
+    this.guardarUser;
   }
-
-
+  //guardar el user para
+  async guardarUser(user) {
+    try{
+      const userJson = JSON.stringify(user);
+      await Preferences.set({
+        key: 'user',
+        value: userJson
+      });
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
+  
   //crear funcion que logea
   async submit() {
 

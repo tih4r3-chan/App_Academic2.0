@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/services/firestore.service'
+import { AuthServiceService } from 'src/app/services/capacitor.service';
+import { AuthenticationService } from 'src/app/services/firestore.service';
 
 @Component({
   selector: 'app-docente',
@@ -9,9 +10,11 @@ import { AuthenticationService } from 'src/app/services/firestore.service'
 export class DocentePage implements OnInit {
 
   constructor(
-    public authService: AuthenticationService
+    public authService: AuthenticationService,
+    private storage: AuthServiceService
   ) { }
 
   ngOnInit() {
   }
+  
 }
