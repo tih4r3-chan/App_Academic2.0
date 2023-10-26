@@ -8,6 +8,8 @@ import { Observable, map } from "rxjs";
 import { User } from '../models/user.model';
 import { claseModel } from '../models/clase';
 
+import { Preferences } from '@capacitor/preferences';
+
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +28,18 @@ export class ApiService {
     private afs: AngularFirestore
   ) { }
 //-------------------- Seccion usuarios ----------------------------//
+    //recuperacion de datos
+    async recuperarDatosUSer() {
+      const result = await Preferences.get({ key: 'user_data' });
+      if (result.value) {
+        // tranformar a json
+        const userData = JSON.parse(result.value);
+        return userData;
+      } else {
+        return null; // para cuando no hay datos
+      }
+    }
+
   //traer usuario
   getUsers(){
     return this.http.get<any>(this.urlApiU).pipe(
@@ -34,13 +48,12 @@ export class ApiService {
         let listaU: User[] = [];
         data.documents.map((elementos: any) =>{
           //acceder al id, extrallendolo del path
-          const fulpath = elementos.name
-          const parts = fulpath.split('/');
-          const uid = parts[parts.length - 1];
-          console.log(uid,'probando que sea el id uwu');
-          
+          const path = elementos.name
+          const partes = path.split('/');
+          const usid = partes[partes.length - 1];
+          // console.log(usid,'probando que sea el id uwu');
           const usuarios: User = {
-            uid: uid,
+            uid: usid,
             apellido: elementos.fields.apellido.stringValue,
             claseId: elementos.fields.claseId.stringValue,
             direccion: elementos.fields.direccion.stringValue,
