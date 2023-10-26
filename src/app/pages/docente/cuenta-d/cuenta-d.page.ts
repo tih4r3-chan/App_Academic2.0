@@ -17,6 +17,7 @@ export class CuentaDPage implements OnInit {
   }
 
   ngOnInit() {
+    this.leerUser();
   }
 
   async leerUser(){
@@ -25,6 +26,7 @@ export class CuentaDPage implements OnInit {
       if(respuesta.value){
         const usuario = JSON.parse(respuesta.value);
         const uid = usuario.uid;
+        console.log(uid);
       }
     }
     catch(error){
