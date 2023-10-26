@@ -108,54 +108,6 @@ export class ApiService {
     );
   }
 
-
-  //crear documento en firestore
-  async crearDoc(){
-    //verificar si el user esta autenticado
-    const user = await this.afAuth.currentUser;
-    console.log('El usuario si esta autenticado')
-    try{
-      if (user) {
-        //traigo el id del user
-        const userId = user.uid;
-        // obtener datos del usuario de la base de datos
-        const userDocRef = this.firestore.collection('usuarios').doc(userId);
-        const userDocSnap: Observable<any> = userDocRef.valueChanges();
-
-        // suscribirse
-        userDocSnap.subscribe((userData) =>{
-          // Verificar si el documento existe
-          if(userData){
-            //obtener el id de la clase segun el user logeado
-            const userClass = userData.claseId;
-            //obtener id  de la clase
-            this.getClases().subscribe((claseId) =>{
-              const clase = claseId;
-              if(userClass === clase){
-                console.log(clase)
-              }
-
-            })
-          }else{
-            console.log('Entro al otro N|2');
-          }
-        });
-
-        //el usuario que se logeo debe ser igual al uid para crear un doc de asistencia
-        // ya que si no est su codigo aca no imparte clases
-        if(userId){
-
-        }else{
-          console.log('El usuario no imparte esta clase :)')
-        }
-      }else{
-        console.log('El user no esta autenticado :)')
-      }
-    }
-    catch(error){
-      console.log('Error del primer try -->', error);
-    }
-  };
 //-------------------- Fin seccion clase ----------------------------//
 
 //-------------------- Seccion asistencia ----------------------------//
