@@ -17,14 +17,14 @@
         Registrar
       </ion-item>
       <!-- items  -->
-      <ion-item class="ion-text-center" routerLink="/modificar">
+      <!-- <ion-item class="ion-text-center" routerLink="/modificar">
         <ion-icon name="create" class="ion-margin" color="primary"></ion-icon>
         Modificar
-      </ion-item>
+      </ion-item> -->
       <!-- items  -->
-        <ion-button expand="full" class="ion-text-center" shape="round" (click)="authService.SignOut()">
-          <ion-icon name="log-out-outline" class="ion-margin" color="secondary"></ion-icon>
-          Cerrar Sesión
+        <ion-button fill="clear" class="ion-text-center"  (click)="authService.SignOut()">
+          <ion-item> <ion-icon name="log-out-outline"  color="secondary"></ion-icon></ion-item>
+            Cerrar Sesión
         </ion-button>
     </ion-list>
   </ion-content>
@@ -36,30 +36,28 @@
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
       <div class="div">
-        <ion-img class="imagen1" src="assets/logo1.png"></ion-img>
+        <!-- <ion-img class="imagen1" src="assets/logo1.png"></ion-img> -->
       </div>
-      <ion-title color="primary" class="ion-text-center name">
+      <!-- <ion-title color="primary" class="ion-text-center name">
         A D M I N
-      </ion-title>
+      </ion-title> -->
     </ion-toolbar>
   </ion-header>
 
 
   <ion-content>
+    <ion-title class="ion-text-center" color="black" font-size="15px" style="margin-top:20px">Lista de usuarios ingresados</ion-title>
     <ion-card>
-      <ion-card-header>
-        <ion-card-title class="ion-text-center" color="black" font-size="15px">Lista de usuarios ingresados</ion-card-title>
-      </ion-card-header>
       <ion-card-content>
         <ion-list>
           <ion-item *ngFor="let usuario of userList">
             <ion-label>
-              Nombre: {{usuario.nombre}} {{usuario.apellido}} <br>
-              Correo: {{usuario.email}} <br>
-              Tipo de usuario: {{usuario.tipo}} <br>
-              Teléfono: {{usuario.phone}} <br>
-              Rut: {{usuario.rut}}-{{usuario.dv}} <br>
-              Dirección: {{usuario.direccion}} <br>
+              <p>Nombre: {{usuario.nombre}} {{usuario.apellido}}</p>
+              <p>Correo: {{usuario.email}}</p>
+              <p>Tipo de usuario: {{usuario.tipo}}</p>
+              <p>Teléfono: {{usuario.phone}}</p>
+              <p>Rut: {{usuario.rut}}-{{usuario.dv}}</p>
+              <p>Dirección: {{usuario.direccion}} </p>
             </ion-label>
           </ion-item>
         </ion-list>
