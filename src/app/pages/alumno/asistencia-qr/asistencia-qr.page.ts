@@ -14,9 +14,11 @@ export class AsistenciaQrPage implements OnInit {
   userData: any;
   userList: any[];
 
+  asisData: any;
+
   //inicializando
   clases: claseModel[];
-  aistencia: Asistencia[];
+  aistencia: any[];
 
   constructor(
     private apiService: ApiService,
@@ -31,7 +33,6 @@ export class AsistenciaQrPage implements OnInit {
       // Aquí puedes acceder a los datos y hacer lo que necesites
       this.aistencia = data;
       console.log(this.aistencia)
-
     });
 
     //traer los datos de la clase
@@ -66,23 +67,13 @@ export class AsistenciaQrPage implements OnInit {
     }
   }
 
-  //leer asistencia almacenada
-
   //modificar si asistio o no
   async modificarAsistencia() {
     if(this.userData){
-      // id user almacenado, se obtiene
-      const claseId = this.userData.claseId;
-      const usuarioId = this.userData.uid;
+      // Obtén la claseId del usuario logeado
+      const claseIdUsuario = this.userData.claseId;
+      if(claseIdUsuario){
 
-      //traer los datos de la asistencia
-      const clIdAsis = this.aistencia
-      if (claseId && this.clases) {
-        const claseSeleccionada = this.clases.find((clase) => clase.uid === claseId);
-        if (claseSeleccionada) {
-          const documentoId = "ID_DEL_DOCUMENTO_A_MODIFICAR";
-
-        }
       }
     }
   }

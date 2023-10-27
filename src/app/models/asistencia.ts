@@ -4,9 +4,11 @@ export interface Asistencia{
   nombreDocente: string;
   listaA:{
     alumno1:{
+      id: string;
       asistio: boolean;
     },
     alumno2:{
+      id: string;
       asistio: boolean;
     }
   }

@@ -46,30 +46,24 @@
 
 
   <ion-content>
-    <ion-title class="ion-text-center" color="black" font-size="20px">
-      <p>Lista de usuarios ingresados</p>
-    </ion-title>
-    <!-- una card que contiene una tabla -->
     <ion-card>
-      <!-- una tabla que muestra los datosa almacenados en la base d eatos -->
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Tipo</th>
-            <th>Correo</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- aca con el ngFor hace que se repita el profeso de mostrar con todos los usuariuos que existan -->
-          <tr *ngFor="let usuario of usuarios$ | async">
-            <!-- Mostrar información del usuario -->
-            <td>{{ usuario.nombre }} {{ usuario.apellido }}</td>
-            <td>{{ usuario.tipo }}</td>
-            <td>{{ usuario.email }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <ion-card-header>
+        <ion-card-title class="ion-text-center" color="black" font-size="15px">Lista de usuarios ingresados</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let usuario of userList">
+            <ion-label>
+              Nombre: {{usuario.nombre}} {{usuario.apellido}} <br>
+              Correo: {{usuario.email}} <br>
+              Tipo de usuario: {{usuario.tipo}} <br>
+              Teléfono: {{usuario.phone}} <br>
+              Rut: {{usuario.rut}}-{{usuario.dv}} <br>
+              Dirección: {{usuario.direccion}} <br>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
     </ion-card>
   </ion-content>
 </div>

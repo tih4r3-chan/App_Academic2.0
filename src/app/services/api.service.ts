@@ -22,7 +22,6 @@ export class ApiService {
     private http: HttpClient
   ) { }
 //-------------------- Seccion usuarios ----------------------------//
-
   //traer usuario
   getUsers(){
     return this.http.get<any>(this.urlApiU).pipe(
@@ -71,6 +70,7 @@ export class ApiService {
   }
 //-------------------- Fin seccion usuarios ----------------------------//
 
+
 //-------------------- Seccion clase ----------------------------//
   //traer clases --> metodo get
   getClases(){
@@ -103,8 +103,8 @@ export class ApiService {
 
 //-------------------- Fin seccion clase ----------------------------//
 
-//-------------------- Seccion asistencia ----------------------------//
 
+//-------------------- Seccion asistencia ----------------------------//
 //traer Asistencia --> metodo get
 getAsistencia(){
   return this.http.get<any>(this.urlApiA).pipe(
@@ -125,7 +125,7 @@ getAsistencia(){
           Lista.push(asistencia);
       });
       return Lista;
-  })
+    })
   );
 }
 

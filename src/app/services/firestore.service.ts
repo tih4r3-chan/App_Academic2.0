@@ -49,7 +49,6 @@ export class AuthenticationService {
       //redireccionamiento
       this.router.navigate(['/home']),
       await Preferences.remove({key: 'user'});
-      await Preferences.remove({key: 'asistencia'});
       //mensaje
       this.presentToast('Sesión cerrada con exito',3000);
 
