@@ -27,57 +27,7 @@ export class AsistenciaQrPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.leerUSer();
     this.mostrarData();
-
-    //traer los datos de la clase
-    this.apiService.getAsistencia().subscribe((data: Asistencia[]) => {
-      // Aquí puedes acceder a los datos y hacer lo que necesites
-      this.aistencia = data;
-      console.log(this.aistencia)
-    });
-
-    //traer los datos de la clase
-    this.apiService.getClases().subscribe((data: claseModel[]) => {
-      // Aquí puedes acceder a los datos y hacer lo que necesites
-      this.clases = data;
-      // console.log(this.clases);
-    });
-
-    //obtener lista de user de la api
-    this.apiService.getUsers().subscribe((data) => {
-      this.userList = data;
-      //compara el uid extraido con el amacenado
-      this.userList.forEach((user)=>{
-        //este es uid almacenado en capacitor
-        const uid = user.uid;
-        if(this.userData && this.userData.uid === uid){
-          // this.userData = user;
-        }
-      })
-    })
-  }
-
-  //trae los datos del capcitor que estsan almacenados
-  async leerUSer(){
-    const response  = await Preferences.get({key:'user'});
-    if(response.value){
-      this.userData = JSON.parse(response.value);
-      //me trae el id del usuario
-      const idUser = this.userData.uid;
-      // console.log(idUser);
-    }
-  }
-
-  //modificar si asistio o no
-  async modificarAsistencia() {
-    if(this.userData){
-      // Obtén la claseId del usuario logeado
-      const claseIdUsuario = this.userData.claseId;
-      if(claseIdUsuario){
-
-      }
-    }
   }
 
   async mostrarData(){
@@ -112,6 +62,11 @@ export class AsistenciaQrPage implements OnInit {
         this.clasess = claseSeleccionada;
       }
     });
+  }
+
+  //modifiacr el estado
+  async patchAsis(){
+
   }
 
 }

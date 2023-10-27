@@ -1,12 +1,13 @@
 <app-header title="Alumno"></app-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card *ngIf="user">
-    <ion-card-header>
-      <ion-img src="assets/userAlumno.png" class="imagen"></ion-img>
-    </ion-card-header>
+  <ion-card>
+    <div *ngIf="userData" class="ion-text-center" style="font-size:20px">
+      <p>Bienvenida {{userData.nombre}} {{userData.apellido}}</p>
+    </div>
+    <ion-img src="assets/userAlumno.png" class="imagen"></ion-img>
     <ion-list>
-      <ion-button fill="clear" expand="full" class="ion-text-center" routerLink="/cursos">
+      <ion-button fill="clear" expand="full" class="ion-text-center" shape="round" routerLink="/cursos">
         <ion-icon name="book-outline" class="ion-margin" color="secondary"></ion-icon>
         Cursos
       </ion-button>
@@ -17,7 +18,7 @@
       </ion-button>
 
       <ion-button fill="clear" expand="full" class="ion-text-center" shape="round" routerLink="/asistencia-qr">
-        <ion-icon name="qr-code-outline" class="ion-margin" color="secondary"></ion-icon>
+        <ion-icon name="camera-outline" class="ion-margin" color="secondary"></ion-icon>
         Asistencia
       </ion-button>
 
