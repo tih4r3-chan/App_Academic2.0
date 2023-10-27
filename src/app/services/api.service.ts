@@ -92,6 +92,7 @@ export class ApiService {
                 nombre: element.fields.nombre.stringValue,
                 sala: element.fields.sala.stringValue,
                 seccionId: element.fields.seccionId.integerValue,
+                nombreD: element.fields.nombreD.stringValue,
                 listaA: element.fields.listaA.mapValue.fields
             }
             List.push(clase);

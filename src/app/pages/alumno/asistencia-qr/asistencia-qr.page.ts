@@ -64,9 +64,25 @@ export class AsistenciaQrPage implements OnInit {
     });
   }
 
-  //modifiacr el estado
-  async patchAsis(){
-
+  async modificarAsistio(){
+    // obtener uid del user
+    //traigo el user almacenado
+    const response  = await Preferences.get({key:'user'});
+    if(response.value){
+      this.userData = JSON.parse(response.value);
+    }
+    //obtener lista de user de la api
+    this.apiService.getUsers().subscribe((data) => {
+      this.userList = data;
+      //compara el uid extraido con el amacenado
+      const usuarioEncontrado = this.userList.find((user) => user.uid === this.userData.uid);
+      if(usuarioEncontrado){
+        this.userData = usuarioEncontrado;
+        // console.log(usuarioEncontrado);
+      }
+    })
+    if(this.userData){
+    }
   }
 
 }

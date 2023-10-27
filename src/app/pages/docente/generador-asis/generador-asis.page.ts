@@ -78,6 +78,7 @@ export class GeneradorAsisPage implements OnInit {
             //traer los alumnos
             const alumno1 = claseselccionada.listaA.alumno1;
             const alumno2 = claseselccionada.listaA.alumno2;
+
             //armar el documento
             const dataDoc = {
               nombreDocente: this.userData.nombre,
@@ -133,10 +134,12 @@ export class GeneradorAsisPage implements OnInit {
       //almacenar el usuario, el uid
       const uidUSer = this.userData.claseId;
       // console.log(uidUSer);
+
       //concidencia con la clase
-      const claseSeleccionada = this.clases.find((clase: any)=>clase.uid === uidUSer);
+      const claseSeleccionada = this.clases.find((clase)=> clase.uid === uidUSer);
       if(claseSeleccionada){
         this.clasess = claseSeleccionada;
+        console.log(this.clasess,'clase seleccionada');
       }
     });
   }
