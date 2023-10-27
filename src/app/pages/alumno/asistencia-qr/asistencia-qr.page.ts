@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Preferences } from '@capacitor/preferences';
 import { ApiService } from 'src/app/services/api.service';
 import { Asistencia } from 'src/app/models/asistencia';
+import { claseModel } from 'src/app/models/clase';
 
 @Component({
   selector: 'app-asistencia-qr',
@@ -13,6 +14,8 @@ export class AsistenciaQrPage implements OnInit {
   userData: any;
   userList: any[];
 
+  //inicializando
+  clases: claseModel[];
   aistencia: Asistencia[];
 
   constructor(
@@ -27,13 +30,20 @@ export class AsistenciaQrPage implements OnInit {
     this.apiService.getAsistencia().subscribe((data: Asistencia[]) => {
       // Aquí puedes acceder a los datos y hacer lo que necesites
       this.aistencia = data;
-      console.log(this.aistencia);
+      console.log(this.aistencia)
+
+    });
+
+    //traer los datos de la clase
+    this.apiService.getClases().subscribe((data: claseModel[]) => {
+      // Aquí puedes acceder a los datos y hacer lo que necesites
+      this.clases = data;
+      // console.log(this.clases);
     });
 
     //obtener lista de user de la api
     this.apiService.getUsers().subscribe((data) => {
       this.userList = data;
-
       //compara el uid extraido con el amacenado
       this.userList.forEach((user)=>{
         //este es uid almacenado en capacitor
@@ -56,11 +66,24 @@ export class AsistenciaQrPage implements OnInit {
     }
   }
 
+  //leer asistencia almacenada
+
   //modificar si asistio o no
   async modificarAsistencia() {
     if(this.userData){
-      //obtener clase id del user almacenado
+      // id user almacenado, se obtiene
       const claseId = this.userData.claseId;
+      const usuarioId = this.userData.uid;
+
+      //traer los datos de la asistencia
+      const clIdAsis = this.aistencia
+      if (claseId && this.clases) {
+        const claseSeleccionada = this.clases.find((clase) => clase.uid === claseId);
+        if (claseSeleccionada) {
+          const documentoId = "ID_DEL_DOCUMENTO_A_MODIFICAR";
+
+        }
+      }
     }
   }
 

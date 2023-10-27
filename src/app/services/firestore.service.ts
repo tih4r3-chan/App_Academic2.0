@@ -34,20 +34,6 @@ export class AuthenticationService {
     private toastController: ToastController,
     private storage: AuthServiceService
   ) {
-    //verifica que el usuario este autenticado, se suscribe a los cambios de autenticacion del user
-    // this.ngFireAuth.authState.subscribe((user) => {
-    //   // aca se compreba que el user sera valido
-    //   if (user) {
-    //     //si es valido se le asigna un objeto user, almacena
-    //     this.userData = user;
-    //     // se  almacena en localStorage
-    //     localStorage.setItem('user', JSON.stringify(this.userData));
-    //     JSON.parse(localStorage.getItem('user') || '{}');
-    //   } else {
-    //     localStorage.setItem('user', null || '{}');
-    //     JSON.parse(localStorage.getItem('user') || '{}');
-    //   }
-    // });
   }
   // 1metodo para registrar nuevos correo en el Auth
   RegisterUser(email: any, password: any) {
@@ -55,44 +41,15 @@ export class AuthenticationService {
     return this.ngFireAuth.createUserWithEmailAndPassword(email, password);
   }
 
-
-  // almacenar usuario en localStorage
-  SetUserData(user: any) {
-    //se crea una cosntante que hace referencia al documento de Firestore
-    //accede a los usuarios y se accede a los usuarios mediante uid
-    const userRef: AngularFirestoreDocument<any> = this.afStore.doc(
-      `usuarios/${user.uid}`
-    );
-    //se crea un objeto que tiene los campos del usuaro interface
-    const userData: User = {
-      uid: user.uid,
-      apellido: user.apellido,
-      direccion: user.direccion,
-      dv: user.dv,
-      email: user.email,
-      nombre: user.nombre,
-      password: user.password,
-      phone: user.phone,
-      rut: user.rut,
-      tipo: user.tipo,
-      claseId: user.claseId
-    };
-    //
-    return userRef.set(userData, {
-      merge: true,
-    });
-  }
-
   // Cerrar sesion uwu
   async SignOut() {
     try{
       //cerra sesion
       await this.ngFireAuth.signOut();
-      //eliminar el user del localStorage
-      // localStorage.removeItem('User');
-      // await Preferences.remove({key: 'user'});
       //redireccionamiento
-      this.router.navigate(['/home']), await Preferences.remove({key: 'user'});;
+      this.router.navigate(['/home']),
+      await Preferences.remove({key: 'user'});
+      await Preferences.remove({key: 'asistencia'});
       //mensaje
       this.presentToast('Sesión cerrada con exito',3000);
 

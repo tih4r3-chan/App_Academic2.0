@@ -40,7 +40,6 @@ export class GeneradorAsisPage implements OnInit {
     //obtener lista de user de la api
     this.apiService.getUsers().subscribe((data) => {
       this.userList = data;
-
       //compara el uid extraido con el amacenado
       this.userList.forEach((user)=>{
         //este es uid almacenado en capacitor
@@ -90,6 +89,11 @@ export class GeneradorAsisPage implements OnInit {
                 }
               }
             };
+            //guardar datos en preference
+            await Preferences.set({
+              key: 'asistencia',
+              value: JSON.stringify(dataDoc),
+            });
             //agregar el documento
             this.firestore.collection('asistencia').add(dataDoc);
             console.log('El documento ya se creo en firestore');

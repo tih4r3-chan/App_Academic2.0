@@ -112,10 +112,15 @@ getAsistencia(){
       // console.log(data)
       let Lista: Asistencia[] = [];
       data.documents.map( (element:any) => {
+        // Acceder al ID del documento, extrallendolo del path completo
+        const fulpath = element.name
+        const parts = fulpath.split('/');
+        const id = parts[parts.length - 1];
           const asistencia: Asistencia = {
+            id: id,
             listaA: element.fields,
-            claseId: element.fields.stringValue,
-            nombreDocente: element.fields.stringValue
+            claseId: element.fields.claseId.stringValue,
+            nombreDocente: element.fields.nombreDocente.stringValue
           }
           Lista.push(asistencia);
       });
