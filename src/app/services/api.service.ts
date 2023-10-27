@@ -21,11 +21,7 @@ export class ApiService {
   urlApiC = 'https://firestore.googleapis.com/v1/projects/appacademic-bb066/databases/(default)/documents/clase';
 
   constructor(
-    private http: HttpClient,
-    private afAuth: AngularFireAuth,
-    private firestore: AngularFirestore,
-    private route: ActivatedRoute,
-    private afs: AngularFirestore
+    private http: HttpClient
   ) { }
 //-------------------- Seccion usuarios ----------------------------//
 

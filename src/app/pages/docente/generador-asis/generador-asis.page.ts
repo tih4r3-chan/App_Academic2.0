@@ -39,7 +39,7 @@ export class GeneradorAsisPage implements OnInit {
 
     //obtener lista de user de la pai
     this.apiService.getUsers().subscribe((data) => {
-      this.userList =data;
+      this.userList = data;
 
       //compara el uid extraido con el amacenado
       this.userList.forEach((user)=>{
