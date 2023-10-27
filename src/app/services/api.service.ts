@@ -1,14 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { ActivatedRoute } from '@angular/router';
 // import { Firestore } from "@angular/fire/firestore";
-import { Observable, map } from "rxjs";
+import {  map } from "rxjs";
 import { User } from '../models/user.model';
 import { claseModel } from '../models/clase';
+import { Asistencia } from 'src/app/models/asistencia';
 
-import { Preferences } from '@capacitor/preferences';
 
 
 @Injectable({
@@ -19,6 +16,7 @@ export class ApiService {
   urlApi = 'https://firestore.googleapis.com/v1/projects/appacademic-bb066/databases/(default)/documents';
   urlApiU ='https://firestore.googleapis.com/v1/projects/appacademic-bb066/databases/(default)/documents/usuarios';
   urlApiC = 'https://firestore.googleapis.com/v1/projects/appacademic-bb066/databases/(default)/documents/clase';
+  urlApiA = 'https://firestore.googleapis.com/v1/projects/appacademic-bb066/databases/(default)/documents/asistencia';
 
   constructor(
     private http: HttpClient
@@ -75,7 +73,6 @@ export class ApiService {
 
 //-------------------- Seccion clase ----------------------------//
   //traer clases --> metodo get
-
   getClases(){
     return this.http.get<any>(this.urlApiC).pipe(
       map( (data) =>{
@@ -107,6 +104,25 @@ export class ApiService {
 //-------------------- Fin seccion clase ----------------------------//
 
 //-------------------- Seccion asistencia ----------------------------//
+
+//traer Asistencia --> metodo get
+getAsistencia(){
+  return this.http.get<any>(this.urlApiA).pipe(
+    map( (data) =>{
+      // console.log(data)
+      let Lista: Asistencia[] = [];
+      data.documents.map( (element:any) => {
+          const asistencia: Asistencia = {
+            listaA: element.fields,
+            claseId: element.fields.stringValue,
+            nombreDocente: element.fields.stringValue
+          }
+          Lista.push(asistencia);
+      });
+      return Lista;
+  })
+  );
+}
 
 //-------------------- Fin seccion asistencia ----------------------------//
 }

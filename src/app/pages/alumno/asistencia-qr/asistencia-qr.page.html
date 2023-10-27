@@ -14,6 +14,20 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <h1>Qr Scanner</h1>
-  <ion-img src="assets/scannQR.png"></ion-img>
+  <h1>Clases</h1>
+  <ion-card color="medium">
+    <ion-card-content>
+      <ion-item color="medium">
+        <ion-label> item  </ion-label>
+      </ion-item>
+    </ion-card-content>
+    <div class="ion-text-center">
+      <ion-button (click)="modificarAsistencia()">
+        Marcar asistencia
+      </ion-button>
+      <ion-button color="success" routerLink="/" >
+        Ver curso
+      </ion-button>
+    </div>
+  </ion-card>
 </ion-content>

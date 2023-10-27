@@ -37,7 +37,7 @@ export class GeneradorAsisPage implements OnInit {
       // console.log(this.clases);
     });
 
-    //obtener lista de user de la pai
+    //obtener lista de user de la api
     this.apiService.getUsers().subscribe((data) => {
       this.userList = data;
 
@@ -73,19 +73,19 @@ export class GeneradorAsisPage implements OnInit {
         const claseselccionada = this.clases.find((clase) => clase.uid === claseId);
           if(claseselccionada){
             //traer los alumnos
-            const alumno1 = claseselccionada.listaA.alumno1;
-            const alumno2 = claseselccionada.listaA.alumno2;
+            // const alumno1 = claseselccionada.listaA.alumno1;
+            // const alumno2 = claseselccionada.listaA.alumno2;
             //armar el documento
             const dataDoc = {
               nombreDocente: this.userData.nombre,
               claseId: claseId,
               ListaA:{
                 alumno1:{
-                  id: alumno1,
+                  // id: alumno1,
                   asistio: false
                 },
                 alumno2:{
-                  id: alumno2,
+                  // id: alumno2,
                   asistio: false
                 }
               }
