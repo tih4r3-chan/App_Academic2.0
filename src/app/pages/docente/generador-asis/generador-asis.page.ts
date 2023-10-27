@@ -75,13 +75,21 @@ export class GeneradorAsisPage implements OnInit {
         //encontrar la clase que coincide
         const claseselccionada = this.clases.find((clase) => clase.uid === claseId);
           if(claseselccionada){
-            //traer los alumnos
+            //traer la lista completa de la clase
             const listaA = claseselccionada.listaA;
+            //agregar campos de fecha y hora
+            const fechaActual = new Date();
+            // trae la fecha en formato YYYY-MM-DD
+            const fecha = fechaActual.toISOString().split('T')[0];
+            //traer hora en formato HH:mm:ss
+            const hora = fechaActual.toLocaleTimeString();
             //armar el documento
             const dataDoc = {
               nombreDocente: this.userData.nombre,
               claseId: claseId,
-              listaA: listaA
+              listaA: listaA,
+              fecha: fecha,
+              hora: hora
             };
             //guardar datos en preference
             await Preferences.set({

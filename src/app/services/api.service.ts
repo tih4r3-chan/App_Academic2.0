@@ -121,7 +121,9 @@ getAsistencia(){
             id: id,
             listaA: element.fields,
             claseId: element.fields.claseId.stringValue,
-            nombreDocente: element.fields.nombreDocente.stringValue
+            nombreDocente: element.fields.nombreDocente.stringValue,
+            fecha: element.fields.fecha.stringValue,
+            hora: element.fields.hora.stringValue
           }
           Lista.push(asistencia);
       });

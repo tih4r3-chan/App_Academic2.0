@@ -17,7 +17,8 @@ export class AsistenciaQrPage implements OnInit {
 
   //inicializando
   clases: claseModel[];
-  aistencia: any[];
+
+  asistenciaList: any[];
 
   //inicializando
   clasess: any;
@@ -65,24 +66,27 @@ export class AsistenciaQrPage implements OnInit {
   }
 
   async modificarAsistio(){
-    // obtener uid del user
     //traigo el user almacenado
     const response  = await Preferences.get({key:'user'});
     if(response.value){
       this.userData = JSON.parse(response.value);
     }
+
     //obtener lista de user de la api
     this.apiService.getUsers().subscribe((data) => {
       this.userList = data;
+      // console.log(this.userList)
       //compara el uid extraido con el amacenado
       const usuarioEncontrado = this.userList.find((user) => user.uid === this.userData.uid);
       if(usuarioEncontrado){
         this.userData = usuarioEncontrado;
         // console.log(usuarioEncontrado);
       }
-    })
-    if(this.userData){
-    }
-  }
+    });
 
+    // traer la asistencia
+    this.apiService.getAsistencia().subscribe((data) => {
+      //ordenar datos de forma decendente, de mayor a menor(la fecha)
+    })
+  }
 }
