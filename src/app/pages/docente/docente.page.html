@@ -1,9 +1,10 @@
 <app-header title="Docente"></app-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <p>Bienvenido {{usuario.nombre}} {{usuario.apellido}} </p> -->
-
   <ion-card>
+    <div *ngIf="userData" class="ion-text-center" style="font-size:20px">
+      <p>Bienvenida {{userData.nombre}} {{userData.apellido}}</p>
+    </div>
     <ion-img src="assets/userDocente.png" class="imagen"></ion-img>
     <ion-list>
       <ion-button fill="clear" expand="full" class="ion-text-center" shape="round" routerLink="/asignaturas">
