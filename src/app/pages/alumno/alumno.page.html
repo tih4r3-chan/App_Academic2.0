@@ -1,26 +1,27 @@
 <app-header title="Alumno"></app-header>
 
 <ion-content [fullscreen]="true">
-  <ion-img src="assets/userAlumno.png" class="imagen"></ion-img>
   <ion-card *ngIf="user">
+    <ion-card-header>
+      <ion-img src="assets/userAlumno.png" class="imagen"></ion-img>
+    </ion-card-header>
     <ion-list>
-      <ion-title class="title"></ion-title>
-      <ion-button expand="full" class="ion-text-center" shape="round" routerLink="/cursos">
+      <ion-button fill="clear" expand="full" class="ion-text-center" routerLink="/cursos">
         <ion-icon name="book-outline" class="ion-margin" color="secondary"></ion-icon>
         Cursos
       </ion-button>
 
-      <ion-button expand="full" class="ion-text-center" shape="round" routerLink="/cuenta">
+      <ion-button fill="clear" expand="full" class="ion-text-center" shape="round" routerLink="/cuenta">
         <ion-icon name="person-outline" class="ion-margin" color="secondary"></ion-icon>
         Mi cuenta
       </ion-button>
 
-      <ion-button expand="full" class="ion-text-center" shape="round" routerLink="/asistencia-qr">
+      <ion-button fill="clear" expand="full" class="ion-text-center" shape="round" routerLink="/asistencia-qr">
         <ion-icon name="qr-code-outline" class="ion-margin" color="secondary"></ion-icon>
         Asistencia
       </ion-button>
 
-      <ion-button expand="full" class="ion-text-center" shape="round" (click)="authService.SignOut()">
+      <ion-button fill="clear" expand="full" class="ion-text-center" shape="round" (click)="authService.SignOut()">
         <ion-icon name="log-out-outline" class="ion-margin" color="secondary"></ion-icon>
         Cerrar Sesión
       </ion-button>

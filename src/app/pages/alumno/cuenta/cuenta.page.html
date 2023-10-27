@@ -7,32 +7,63 @@
       </ion-button>
     </ion-buttons>
     <!-- logo del header -->
-    <ion-img class="imagen1" src="assets/logo1.png"></ion-img>
+    <!-- <ion-img class="imagen1" src="assets/logo1.png"></ion-img> -->
     <!-- titulo alumno -->
-    <ion-title class="title">Alumno</ion-title>
+    <!-- <ion-title class="title" color="primary">Alumno</ion-title> -->
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <h1>Mis Datos</h1>
   <ion-img class="img" src="assets/user.png"></ion-img>
-  <ion-card color="primary">
-    <ion-list color="primary" *ngIf="userData">
-      <ion-item color="primary">
-        <ion-title>Nombre : {{userData.nombre}} {{userData.apellido}} </ion-title>
-      </ion-item>
-      <ion-item>
-        <ion-title>Correo : {{userData.email}} </ion-title>
-      </ion-item>
-      <ion-item color="primary">
-        <ion-title>Tipo de usuario: {{userData.tipo}} </ion-title>
-      </ion-item>
-      <ion-item>
-        <ion-title>Teléfono : +56 {{userData.phone}} </ion-title>
-      </ion-item>
-      <ion-item color="primary">
-        <ion-title>Dirección : {{userData.direccion}} </ion-title>
-      </ion-item>
-    </ion-list>
+  <ion-card>
+    <ion-card-header class="ion-text-center">
+      <ion-card-title>Mi perfil</ion-card-title>
+      <ion-card-subtitle>Datos de tu cuenta</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list *ngIf="userData">
+        <ion-item>
+          <ion-item>
+            <ion-icon name="person-circle-outline"></ion-icon>
+          </ion-item>
+          <ion-label style="font-size: 13px;">Nombre: {{userData.nombre}} </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-item>
+            <ion-icon name="mail-outline"></ion-icon>
+          </ion-item>
+          <ion-label style="font-size: 13px;" >Email: {{userData.email}} </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-item>
+            <ion-icon name="body-outline"></ion-icon>
+          </ion-item>
+          <ion-label style="font-size: 13px;">Tipo de usuario: {{userData.tipo}}</ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-item>
+            <ion-icon name="call-outline"></ion-icon>
+          </ion-item>
+          <ion-label style="font-size: 13px;">Teléfono : +56 {{userData.phone}}</ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-item>
+            <ion-icon name="man-outline"></ion-icon>
+          </ion-item>
+          <ion-label style="font-size: 13px;">Rut: {{userData.rut}}-{{userData.dv}}</ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-item>
+            <ion-icon name="map-outline"></ion-icon>
+          </ion-item>
+          <ion-label style="font-size: 13px;">Dirección : {{userData.direccion}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
   </ion-card>
 </ion-content>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AlertController, NavController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/firestore.service';
 import { map } from 'rxjs/operators';
 
@@ -15,8 +14,7 @@ export class AlumnoPage implements OnInit {
   //variable que almacena los datos del ususaio
   user: any;
 
-  constructor(private alertController: AlertController,
-    private navCtrl: NavController,
+  constructor(
     public authService : AuthenticationService,
     private auth: AngularFireAuth,
     private firestore: AngularFirestore) { }
@@ -53,5 +51,4 @@ export class AlumnoPage implements OnInit {
       }
     })
   }
-
 }
