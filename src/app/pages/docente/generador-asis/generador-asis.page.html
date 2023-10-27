@@ -7,9 +7,9 @@
       </ion-button>
     </ion-buttons>
     <!-- logo del header -->
-    <ion-img class="imagen1" src="assets/logo1.png"></ion-img>
+    <!-- <ion-img class="imagen1" src="assets/logo1.png"></ion-img> -->
     <!-- titulo alumno -->
-    <ion-title class="title">Docente</ion-title>
+    <!-- <ion-title class="title">Docente</ion-title> -->
   </ion-toolbar>
 </ion-header>
 
@@ -17,25 +17,19 @@
   <div class="ion-margin">
     <ion-title class="ion-text-center" style="color: #000">Asignaturas impartidas</ion-title>
   </div>
-  <ion-card >
+  <ion-card>
+    <ion-img src="assets/img/fondo2.png"></ion-img>
     <ion-card-content>
-      <ion-list >
-        <div>
-          <ion-item >
-            <ion-thumbnail slot="start">
-              <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-            </ion-thumbnail>
-            <ion-label> item  </ion-label>
-          </ion-item>
-        </div>
-      </ion-list>
+      <div *ngIf="clasess">
+        <p class="ion-text-center"> Nombre de la Clase: {{clasess.nombre}} </p>
+      </div>
     </ion-card-content>
     <div class="ion-text-center">
       <ion-button (click)="crearDocumento()">
         Tomar Asistencia
       </ion-button>
-      <ion-button color="success" routerLink="/clases-ver" >
-        Ver curso
+      <ion-button color="success" routerLink="/asignaturas" >
+        Curso
       </ion-button>
     </div>
     <br>

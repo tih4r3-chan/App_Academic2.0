@@ -7,25 +7,25 @@
       </ion-button>
     </ion-buttons>
     <!-- logo del header -->
-    <ion-img class="imagen1" src="assets/logo1.png"></ion-img>
+    <!-- <ion-img class="imagen1" src="assets/logo1.png"></ion-img> -->
     <!-- titulo alumno -->
-    <ion-title class="title">Alumno</ion-title>
+    <!-- <ion-title class="title">Alumno</ion-title> -->
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <h1>Clases</h1>
-  <ion-card color="medium">
+  <ion-card>
+    <ion-img src="assets/img/fondo1.png"></ion-img>
     <ion-card-content>
-      <ion-item color="medium">
-        <ion-label> item  </ion-label>
-      </ion-item>
+      <div *ngIf="clasess">
+        <p class="ion-text-center"> Nombre de la Clase: {{clasess.nombre}} </p>
+      </div>
     </ion-card-content>
     <div class="ion-text-center">
       <ion-button (click)="modificarAsistencia()">
         Marcar asistencia
       </ion-button>
-      <ion-button color="success" routerLink="/" >
+      <ion-button color="success" routerLink="/cursos" >
         Ver curso
       </ion-button>
     </div>

@@ -23,10 +23,6 @@ const routes: Routes = [
   {
     path: 'ver-asistencia',
     loadChildren: () => import('./ver-asistencia/ver-asistencia.module').then( m => m.VerAsistenciaPageModule)
-  },
-  {
-    path: 'clases-ver',
-    loadChildren: () => import('./clases-ver/clases-ver.module').then( m => m.ClasesVerPageModule)
   }
 ];
 
