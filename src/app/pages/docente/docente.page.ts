@@ -22,6 +22,18 @@ export class DocentePage implements OnInit {
 
   ngOnInit() {
     this.leerUSer();
+
+  }
+
+  //trae los datos del capcitor que estsan almacenados
+  async leerUSer(){
+    const response  = await Preferences.get({key:'user'});
+    if(response.value){
+      this.userData = JSON.parse(response.value);
+      //me trae el id del usuario
+      const idUser = this.userData.uid;
+      // console.log(idUser);
+    }
     //obtener lista de user de la pai
     this.service.getUsers().subscribe((data) => {
       this.userList =data;
@@ -37,15 +49,5 @@ export class DocentePage implements OnInit {
     })
   }
 
-  //trae los datos del capcitor que estsan almacenados
-  async leerUSer(){
-    const response  = await Preferences.get({key:'user'});
-    if(response.value){
-      this.userData = JSON.parse(response.value);
-      //me trae el id del usuario
-      const idUser = this.userData.uid;
-      // console.log(idUser);
-    }
-  }
 
 }
