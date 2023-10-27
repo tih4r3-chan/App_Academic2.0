@@ -2,26 +2,26 @@
 
 <ion-content [fullscreen]="true">
   <!-- <p>Bienvenido {{usuario.nombre}} {{usuario.apellido}} </p> -->
-  <ion-img src="assets/userDocente.png" class="imagen"></ion-img>
-  <ion-card>
-    <ion-list>
 
-      <ion-button expand="full" class="ion-text-center" shape="round" routerLink="/asignaturas">
+  <ion-card>
+    <ion-img src="assets/userDocente.png" class="imagen"></ion-img>
+    <ion-list>
+      <ion-button fill="clear" expand="full" class="ion-text-center" shape="round" routerLink="/asignaturas">
         <ion-icon name="book-outline" class="ion-margin" color="secondary"></ion-icon>
         Asignaturas
       </ion-button>
 
-      <ion-button expand="full" class="ion-text-center" shape="round" routerLink="/cuenta-d">
+      <ion-button fill="clear" expand="full" class="ion-text-center" shape="round" routerLink="/cuenta-d">
         <ion-icon name="person-outline" class="ion-margin" color="secondary"></ion-icon>
         Mi cuenta
       </ion-button>
 
-      <ion-button expand="full" class="ion-text-center" shape="round" routerLink="/generador-asis">
+      <ion-button fill="clear" expand="full" class="ion-text-center" shape="round" routerLink="/generador-asis">
         <ion-icon name="camera-outline" class="ion-margin" color="secondary"></ion-icon>
         Asistencia
       </ion-button>
 
-      <ion-button expand="full" class="ion-text-center" shape="round" (click)="authService.SignOut()">
+      <ion-button fill="clear" expand="full" class="ion-text-center" shape="round" (click)="authService.SignOut()">
         <ion-icon name="log-out-outline" class="ion-margin" color="secondary"></ion-icon>
         Cerrar Sesión
       </ion-button>

@@ -16,5 +16,5 @@ export class DocentePage implements OnInit {
 
   ngOnInit() {
   }
-  
+
 }

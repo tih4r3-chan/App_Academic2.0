@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 //import del modulo http
 import { ApiService } from 'src/app/services/api.service';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { claseModel } from 'src/app/models/clase';
 import { Preferences } from '@capacitor/preferences';
 
 @Component({
@@ -18,8 +16,7 @@ export class CursosPage implements OnInit {
   userList: any[];
 
   constructor(
-    private apiService: ApiService,
-    private firestore: AngularFirestore
+    private apiService: ApiService
   ) { }
 
   ngOnInit() {

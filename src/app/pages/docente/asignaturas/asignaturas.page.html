@@ -7,21 +7,23 @@
       </ion-button>
     </ion-buttons>
     <!-- logo del header -->
-    <ion-img class="imagen1" src="assets/logo1.png"></ion-img>
-    <!-- titulo alumno -->
-    <ion-title class="title">Docente</ion-title>
+    <!-- <ion-img class="imagen1" src="assets/logo1.png"></ion-img>
+    titulo alumno -->
+    <!-- <ion-title class="title">Docente</ion-title>  -->
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <h1>Mis Asignaturas</h1>
-  <!-- item 1 asignatura 1 -->
-  <ion-card *ngFor="let asignatura of asignatura">
-    <img src="../../assets/img/{{asignatura.imagen}}"/>
-    <ion-card-header>
-      <ion-card-subtitle color="dark">{{asignatura.codigo}}</ion-card-subtitle>
-      <ion-card-subtitle color="dark">{{asignatura.nombre}} {{asignatura.seccion}}</ion-card-subtitle>
-      <ion-card-subtitle color="dark">Sala: {{asignatura.sala}}</ion-card-subtitle>
-    </ion-card-header>
+  <ion-title class="ion-text-center" color="dark" style="margin-top: 20px" >Clases impartidas</ion-title>
+  <ion-card style="text-align: center;">
+    <ion-img src="assets/img/fondo2.png"></ion-img>
+    <ion-card-content>
+      <div *ngIf="clases" color="dark">
+        <p>  {{clases.codigo}} </p>
+        <p> Nombre de la Clase: {{clases.nombre}} </p>
+        <p> Sala: {{clases.sala}} </p>
+        <p> Sección: {{clases.seccionId}} </p>
+      </div>
+    </ion-card-content>
   </ion-card>
 </ion-content>

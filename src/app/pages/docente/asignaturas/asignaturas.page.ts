@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Preferences } from '@capacitor/preferences';
 import { map } from 'rxjs/operators';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-asignaturas',
@@ -8,30 +10,54 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./asignaturas.page.scss'],
 })
 export class AsignaturasPage implements OnInit {
-  //crear user tipó any y guardarlo en un array
-  asignatura: any =[];
+  //inicializando
+  clases: any;
 
-  constructor(private http: HttpClient) {}
+  userData: any;
+  userList: any[];
+
+  constructor(
+    private apiService: ApiService
+  ) {}
 
   ngOnInit() {
-    this.getUser().subscribe(res=>{
-      //para ver si funciona
-      console.log(res)
-      //guardar la respuesta en una variable, en este caso user
-      this.asignatura = res;
-    })
+    this.mostrarData();
   }
 
-  //crear una funcion para traer el json
-  getUser() {
-    return this.http
-    .get("assets/json/asignaturas.json")
-    //hacer uso del map, mapear json, entrar directamente a los datos
-    .pipe(
-      map((res:any)=>{
-        return res.asignaturas;
-      })
-    )
+  async mostrarData(){
+
+    //traigo el user almacenado
+    const response  = await Preferences.get({key:'user'});
+    if(response.value){
+      this.userData = JSON.parse(response.value);
+    }
+
+    //obtener lista de user de la api
+    this.apiService.getUsers().subscribe((data) => {
+      this.userList = data;
+      //compara el uid extraido con el amacenado
+      const usuarioEncontrado = this.userList.find((user) => user.uid === this.userData.uid);
+      if(usuarioEncontrado){
+        this.userData = usuarioEncontrado;
+        // console.log(usuarioEncontrado);
+      }
+    })
+
+    //traer los datos de la clase
+    this.apiService.getClases().subscribe((data) => {
+      this.clases = data;
+      // console.log(this.clases);
+
+      //almacenar el usuario, el uid
+      const uidUSer = this.userData.claseId;
+      // console.log(uidUSer);
+      //concidencia con la clase
+      const claseSeleccionada = this.clases.find((clase: any)=>clase.uid === uidUSer);
+      if(claseSeleccionada){
+        this.clases = claseSeleccionada;
+      }
+    });
   }
+
 
 }
