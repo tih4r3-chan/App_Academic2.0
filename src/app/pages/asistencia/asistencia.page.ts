@@ -44,12 +44,16 @@ export class AsistenciaPage implements OnInit {
     //me traigo las asistencias
     this.apiService.getAsistencia().subscribe((asistencia)=>{
       this.asistenciaList = asistencia;
-      //id user
-      const idUserClass = this.userData.claseId;
-      //clas id de asistencia, trae todas  las que coinciden
-      const coincide = this.asistenciaList.filter((data) => data.claseId === idUserClass)
-      if(coincide){
-        this.asis = coincide;
+      //ordenar de mayor a menor(del mas reciente al mas antiguo)
+      this.asistenciaList.sort((a ,b) => b.hora.localeCompare(a.hora));
+      if(this.asistenciaList.length>0){
+        //id user
+        const idUserClass = this.userData.claseId;
+        //clas id de asistencia, trae todas  las que coinciden
+        const coincide = this.asistenciaList.filter((data) => data.claseId === idUserClass)
+        if(coincide){
+          this.asis = coincide;
+        }
       }
     });
   }

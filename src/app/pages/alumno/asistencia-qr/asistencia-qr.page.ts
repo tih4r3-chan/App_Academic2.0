@@ -72,7 +72,7 @@ export class AsistenciaQrPage implements OnInit {
     this.apiService.getAsistencia().subscribe((data)=>{
       this.asistenciaList = data;
       //ordenar de  de mayor a menor
-      // this.asistenciaList.sort((a ,b) => b.hora.localeCompare(a.hora));
+      this.asistenciaList.sort((a ,b) => b.hora.localeCompare(a.hora));
       //entrara a asistencia si hay datos
       if(this.asistenciaList.length > 0){
         // for(let i = 0; i < this.asistenciaList.length; i++) {
@@ -124,7 +124,7 @@ export class AsistenciaQrPage implements OnInit {
                   }
                 }else{
                   //mensaje
-                this.presentToast('Documento Inexistente',3000);
+                  this.presentToast('Documento Inexistente',3000);
                 }
               })
               //mensaje

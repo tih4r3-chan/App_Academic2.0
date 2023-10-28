@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { claseModel } from 'src/app/models/clase';
+import { ToastController } from '@ionic/angular';
 
 
 
@@ -27,7 +28,8 @@ export class GeneradorAsisPage implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -85,7 +87,7 @@ export class GeneradorAsisPage implements OnInit {
             const hora = fechaActual.toLocaleTimeString();
             //armar el documento
             const dataDoc = {
-              nombreDocente: this.userData.nombre,
+              nombreDocente: this.userData.nombre +" "+this.userData.apellido,
               claseId: claseId,
               listaA: listaA,
               fecha: fecha,
@@ -100,9 +102,20 @@ export class GeneradorAsisPage implements OnInit {
             //agregar el documento
             this.firestore.collection('asistencia').add(dataDoc);
             console.log('El documento ya se creo en firestore');
+            //mensaje
+            this.presentToast('Ya se inicio la asistencia, desde ahora los alumnos tiene 40 minutos para mascar su asistencia',4000);
           }
       }
     }
+  }
+  //mensaje
+  async presentToast(message: string, duration: number) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: duration, // Duración en milisegundos (en este caso, 4000 ms = 4 segundos)
+      position: 'middle' // Posición del mensaje (puedes ajustarla según tus preferencias)
+    });
+    toast.present();
   }
 
   async mostrarData(){
