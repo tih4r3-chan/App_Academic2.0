@@ -19,7 +19,7 @@ export class AsistenciaQrPage implements OnInit {
   //inicializando
   clases: claseModel[];
 
-  asistenciaList: any[];
+  asistenciaList: any;
 
   //inicializando
   clasess: any;
@@ -79,9 +79,10 @@ export class AsistenciaQrPage implements OnInit {
           //almacenar el usuario, el uid
           const uidUSer = this.userData.claseId;
           //coincidencia de claseId
-          const coincidencia = data.find((asistencia: any) => asistencia.claseId === uidUSer);
+          const coincidencia = data.find((asistencia) => asistencia.claseId === uidUSer);
           //condicion --> si el claseId de la asistencia es igual al claseId que tiene el usuario puede seguir xD
           if(coincidencia){
+            this.asistenciaList = coincidencia;
             //limite de tiempo, calcula la diferencia en minutos desde que se creo el documento
             const tiempoActual = new Date();//fecha actual
             const transTime = tiempoActual.toLocaleTimeString();// saco la hora actual
@@ -93,8 +94,24 @@ export class AsistenciaQrPage implements OnInit {
             const diffTime = (transHoras * 60 + transMinutos) - (dataHoras * 60 + dataMinutos);
             //condicion para que cuando la resta sea mayor a 40 no se pueda modificar
             if(diffTime < 40){
+              console.log(diffTime)
               //agregar el metodo parapoder modificar el asistio
-              this.presentToast('Weona entraste uwu',4000);
+              //almacenar el usuario, el uid
+              const userId = this.userData.id;
+              // const coincideAl = coincidencia.listaA
+              const coincideAl = data.find((datos: any)=> datos.listaA.alumno1 === userId || datos.listaA.alumno2 === userId)
+              if(coincideAl){
+                this.presentToast('Si estas en la lista de alumnos',4000);
+                const docId = coincidencia.id;//id de la sistencia a modificar
+                //dato pa actualizar
+                const updateAsis = {
+                  [`listaA.${coincideAl}.asistio`]: true
+                }
+              }else{
+                //mensaje
+                this.presentToast('No estas en la lista de alumnos',4000);
+                console.log(coincideAl)
+              }
             }else{
               //mensaje
               this.presentToast('La clase ya acabo :)',4000);
