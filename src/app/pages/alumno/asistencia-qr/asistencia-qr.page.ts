@@ -72,10 +72,10 @@ export class AsistenciaQrPage implements OnInit {
     this.apiService.getAsistencia().subscribe((data)=>{
       this.asistenciaList = data;
       //ordenar de  de mayor a menor
-      this.asistenciaList.sort((a ,b) => b.hora.localeCompare(a.hora));
+      // this.asistenciaList.sort((a ,b) => b.hora.localeCompare(a.hora));
       //entrara a asistencia si hay datos
       if(this.asistenciaList.length > 0){
-        for(let i = 0; i < this.asistenciaList.length; i++) {
+        // for(let i = 0; i < this.asistenciaList.length; i++) {
            //almaceno al usuario
           const uidUSer = this.userData.claseId;
           // coincidenia de clase id
@@ -110,17 +110,17 @@ export class AsistenciaQrPage implements OnInit {
                     alumnoToUpdate .mapValue.fields.asistio.booleanValue = newValue;
                     this.firestore.collection('asistencia').doc(docId).update({ listaA: listaA }).then(() => {
                       //mensaje
-                      this.presentToast('Ahora estas presente en la asistencia',2000);
+                      this.presentToast('Ahora estas precente en la asistencia',3000);
                       console.log('Documento actualizado con éxito');
                     })
                     .catch(error => {
                       //mensaje
-                      this.presentToast('Error al actualizar el documento',2000);
-                      console.error('Error al actualizar el documento:', error);
+                      this.presentToast('Error al actualizar la asistencia',3000);
+                      console.error('Error al actualizar la asistencia:', error);
                     });
                   }else{
                     //mensaje
-                    this.presentToast('No perteneces a esta clase',2000);
+                    this.presentToast('La clase ya acabo :)',4000);
                   }
                 }else{
                   //mensaje
@@ -137,7 +137,7 @@ export class AsistenciaQrPage implements OnInit {
             //mensaje
             this.presentToast('No se inicio ninguna clase',2000);
           }
-        }
+        // }
       }else{
         //mensaje
         this.presentToast('No hay datos de asistencia',2000);
