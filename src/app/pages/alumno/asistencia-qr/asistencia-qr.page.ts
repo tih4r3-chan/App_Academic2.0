@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { Asistencia } from 'src/app/models/asistencia';
 import { claseModel } from 'src/app/models/clase';
 import { ToastController } from '@ionic/angular';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-asistencia-qr',
@@ -26,7 +27,8 @@ export class AsistenciaQrPage implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private firestore: AngularFirestore
   ) { }
 
   ngOnInit() {
@@ -94,24 +96,24 @@ export class AsistenciaQrPage implements OnInit {
             const diffTime = (transHoras * 60 + transMinutos) - (dataHoras * 60 + dataMinutos);
             //condicion para que cuando la resta sea mayor a 40 no se pueda modificar
             if(diffTime < 40){
-              console.log(diffTime)
+              console.log(diffTime);
               //agregar el metodo parapoder modificar el asistio
               //almacenar el usuario, el uid
               const userId = this.userData.id;
               // const coincideAl = coincidencia.listaA
-              const coincideAl = data.find((datos: any)=> datos.listaA.alumno1 === userId || datos.listaA.alumno2 === userId)
-              if(coincideAl){
-                this.presentToast('Si estas en la lista de alumnos',4000);
-                const docId = coincidencia.id;//id de la sistencia a modificar
-                //dato pa actualizar
-                const updateAsis = {
-                  [`listaA.${coincideAl}.asistio`]: true
-                }
-              }else{
-                //mensaje
-                this.presentToast('No estas en la lista de alumnos',4000);
-                console.log(coincideAl)
-              }
+              // const coincideAl = data.find((datos: any)=> datos.listaA.alumno1 === userId ? 'alumno1' : 'alumno2')
+              // if(coincideAl){
+              //   const docId = coincidencia.id;//id de la sistencia a modificar
+              //   //dato pa actualizar
+              //   const updateAsis = {
+              //     [`listaA.${coincideAl}.asistio`]: true
+              //   };
+              //   this.firestore.collection('asistencia').doc(docId).update(updateAsis);
+              //   this.presentToast('Ya esta presente en la lista',4000);
+              // }else{
+              //   //mensaje
+              //   this.presentToast('No estas en la lista de alumnos',4000);
+              // }
             }else{
               //mensaje
               this.presentToast('La clase ya acabo :)',4000);
