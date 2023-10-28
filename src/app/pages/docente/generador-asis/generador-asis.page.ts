@@ -60,9 +60,6 @@ export class GeneradorAsisPage implements OnInit {
     const response  = await Preferences.get({key:'user'});
     if(response.value){
       this.userData = JSON.parse(response.value);
-      //me trae el id del usuario
-      const idUser = this.userData.uid;
-      // console.log(idUser);
     }
   }
 
@@ -81,6 +78,9 @@ export class GeneradorAsisPage implements OnInit {
             const fechaActual = new Date();
             // trae la fecha en formato YYYY-MM-DD
             const fecha = fechaActual.toISOString().split('T')[0];
+            //traer el dia en palabras
+            const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+            const nombreDia = diasSemana[fechaActual.getDay()];
             //traer hora en formato HH:mm:ss
             const hora = fechaActual.toLocaleTimeString();
             //armar el documento
@@ -89,7 +89,8 @@ export class GeneradorAsisPage implements OnInit {
               claseId: claseId,
               listaA: listaA,
               fecha: fecha,
-              hora: hora
+              hora: hora,
+              dia: nombreDia
             };
             //guardar datos en preference
             await Preferences.set({

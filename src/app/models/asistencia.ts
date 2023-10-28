@@ -1,4 +1,5 @@
 export interface Asistencia{
+  dia: string;
   id: string;
   claseId: string;
   nombreDocente: string;
