@@ -140,4 +140,5 @@ export class GeneradorAsisPage implements OnInit {
       }
     });
   }
+
 }

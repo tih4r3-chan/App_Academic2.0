@@ -3,6 +3,7 @@ import { Preferences } from '@capacitor/preferences';
 import { ApiService } from 'src/app/services/api.service';
 import { Asistencia } from 'src/app/models/asistencia';
 import { claseModel } from 'src/app/models/clase';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-asistencia-qr',
@@ -24,7 +25,8 @@ export class AsistenciaQrPage implements OnInit {
   clasess: any;
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -66,27 +68,56 @@ export class AsistenciaQrPage implements OnInit {
   }
 
   async modificarAsistio(){
-    //traigo el user almacenado
-    const response  = await Preferences.get({key:'user'});
-    if(response.value){
-      this.userData = JSON.parse(response.value);
-    }
-
-    //obtener lista de user de la api
-    this.apiService.getUsers().subscribe((data) => {
-      this.userList = data;
-      // console.log(this.userList)
-      //compara el uid extraido con el amacenado
-      const usuarioEncontrado = this.userList.find((user) => user.uid === this.userData.uid);
-      if(usuarioEncontrado){
-        this.userData = usuarioEncontrado;
-        // console.log(usuarioEncontrado);
-      }
-    });
-
     // traer la asistencia
     this.apiService.getAsistencia().subscribe((data) => {
       //ordenar datos de forma decendente, de mayor a menor(la fecha)
+      data.sort((a,b) => b.hora.localeCompare(a.hora));
+      //condicion--> para ver si la asistencia tiene al meno un elemento(un documento)
+      if(data.length > 0){
+        //bucle , para que recorra toda la lista array de la asistencia
+        for(let i = 1; i < data.length; i++){
+          //almacenar el usuario, el uid
+          const uidUSer = this.userData.claseId;
+          //coincidencia de claseId
+          const coincidencia = data.find((asistencia: any) => asistencia.claseId === uidUSer);
+          //condicion --> si el claseId de la asistencia es igual al claseId que tiene el usuario puede seguir xD
+          if(coincidencia){
+            //limite de tiempo, calcula la diferencia en minutos desde que se creo el documento
+            const tiempoActual = new Date();//fecha actual
+            const transTime = tiempoActual.toLocaleTimeString();// saco la hora actual
+            const dataTime = coincidencia.hora; //la hora de la creacion del documento
+            //parsear, pasar de cadena de texto en horas y minutos
+            const [transHoras, transMinutos] = transTime.split(':').map(Number);
+            const [dataHoras, dataMinutos] = dataTime.split(':').map(Number);
+            // Calcula la diferencia en minutos
+            const diffTime = (transHoras * 60 + transMinutos) - (dataHoras * 60 + dataMinutos);
+            //condicion para que cuando la resta sea mayor a 40 no se pueda modificar
+            if(diffTime < 40){
+              //agregar el metodo parapoder modificar el asistio
+              this.presentToast('Weona entraste uwu',4000);
+            }else{
+              //mensaje
+              this.presentToast('La clase ya acabo :)',4000);
+            }
+          }else{
+            //mensaje
+            this.presentToast('No se inicio ninguna clase',2000);
+          }
+        }
+      }else{
+        //mensaje
+        this.presentToast('No hay datos de asistencia',2000);
+      }
     })
+  }
+
+  //mensaje de error
+  async presentToast(message: string, duration: number) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: duration, // Duración en milisegundos (en este caso, 4000 ms = 4 segundos)
+      position: 'middle' // Posición del mensaje (puedes ajustarla según tus preferencias)
+    });
+    toast.present();
   }
 }
