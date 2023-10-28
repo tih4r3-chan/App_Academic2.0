@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Preferences } from '@capacitor/preferences';
 import { ApiService } from 'src/app/services/api.service';
+import { Asistencia } from 'src/app/models/asistencia';
 
 @Component({
   selector: 'app-asistencia',
@@ -8,13 +10,14 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./asistencia.page.scss'],
 })
 export class AsistenciaPage implements OnInit {
-  asistenciaList: any[];
+  asistenciaList: Asistencia[];
   userData: any;
   userList: any[];
-  asis: any;
+  asis: any[];
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private firestore: AngularFirestore
   ) { }
 
   ngOnInit() {
@@ -41,6 +44,13 @@ export class AsistenciaPage implements OnInit {
     //me traigo las asistencias
     this.apiService.getAsistencia().subscribe((asistencia)=>{
       this.asistenciaList = asistencia;
+      //id user
+      const idUserClass = this.userData.claseId;
+      //clas id de asistencia, trae todas  las que coinciden
+      const coincide = this.asistenciaList.filter((data) => data.claseId === idUserClass)
+      if(coincide){
+        this.asis = coincide;
+      }
     });
   }
 }

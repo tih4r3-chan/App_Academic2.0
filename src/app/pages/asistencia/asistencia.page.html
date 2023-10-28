@@ -17,14 +17,15 @@
   <ion-card>
     <h1 class="ion-text-center">Asistencia</h1>
     <table  class="ion-margin">
-      <div *ngFor="let asis of asistenciaList">
+      <div *ngFor="let asis of asis">
         <tbody *ngIf="asis.claseId === userData.claseId">
           <br>
           <tr>
             <td>
               Día: {{asis.dia}} <br>
               Hora: {{asis.hora}} <br>
-              Asistio: {{asis.listaA.values}} <br>
+              Nombre del docente: {{asis.nombreDocente}} <br>
+              Asistio: {{asis.listaA.mapValue}} <br>
             </td>
           </tr>
         </tbody>

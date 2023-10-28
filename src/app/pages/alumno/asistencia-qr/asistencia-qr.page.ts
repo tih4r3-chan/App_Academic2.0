@@ -120,7 +120,7 @@ export class AsistenciaQrPage implements OnInit {
                     });
                   }else{
                     //mensaje
-                    this.presentToast('La clase ya acabo :)',4000);
+                    this.presentToast('Llegaste tarde, ahora estas ausente',4000);
                   }
                 }else{
                   //mensaje
