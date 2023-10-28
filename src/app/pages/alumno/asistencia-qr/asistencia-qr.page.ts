@@ -109,23 +109,29 @@ export class AsistenciaQrPage implements OnInit {
                     //actualizar
                     alumnoToUpdate .mapValue.fields.asistio.booleanValue = newValue;
                     this.firestore.collection('asistencia').doc(docId).update({ listaA: listaA }).then(() => {
+                      //mensaje
+                      this.presentToast('Ahora estas presente en la asistencia',2000);
                       console.log('Documento actualizado con éxito');
                     })
                     .catch(error => {
+                      //mensaje
+                      this.presentToast('Error al actualizar el documento',2000);
                       console.error('Error al actualizar el documento:', error);
                     });
                   }else{
-                    console.log('No perteneces a esta clase')
+                    //mensaje
+                    this.presentToast('No perteneces a esta clase',2000);
                   }
                 }else{
-                  console.log('Documento Inexistente')
+                  //mensaje
+                this.presentToast('Documento Inexistente',3000);
                 }
               })
               //mensaje
-              this.presentToast(`La clase comenzó hace ${diffTime} minutos`,4000);
+              this.presentToast2(`La clase comenzó hace ${diffTime} minutos`,3000);
             }else{
               //mensaje
-              this.presentToast('La clase ya acabo :)',4000);
+              this.presentToast('La clase ya acabo :)',3000);
             }
           }else{
             //mensaje
@@ -145,6 +151,14 @@ export class AsistenciaQrPage implements OnInit {
       message: message,
       duration: duration, // Duración en milisegundos (en este caso, 4000 ms = 4 segundos)
       position: 'middle' // Posición del mensaje (puedes ajustarla según tus preferencias)
+    });
+    toast.present();
+  }
+  async presentToast2(message: string, duration: number) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: duration, // Duración en milisegundos (en este caso, 4000 ms = 4 segundos)
+      position: 'bottom' // Posición del mensaje (puedes ajustarla según tus preferencias)
     });
     toast.present();
   }
