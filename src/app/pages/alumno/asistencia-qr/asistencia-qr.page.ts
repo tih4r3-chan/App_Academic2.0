@@ -15,8 +15,6 @@ export class AsistenciaQrPage implements OnInit {
   userData: any;
   userList: any[];
 
-  asisData: any;
-
   //inicializando
   clases: claseModel[];
 
@@ -103,23 +101,21 @@ export class AsistenciaQrPage implements OnInit {
                   const asistenciaData = doc.data() as Asistencia; //asistencia es el model
                   const listaA = asistenciaData.listaA; //traigo la listaa de la asistencia
                   //ver si el usuario se encuentra en la lista y a cual alumno pertenece
-                  const foundUser1 = listaA[0].mapValue.fields.id; //id alumno 1
-                  const foundUser2 = listaA[1].mapValue.fields.id; //id alumno2
-                  //condicion de si el id de user se encuentra en aimno 1 o 2
-                  if(foundUser1 === idUser){
-                    // const datoMod = listaA[0].mapValue.fields.asistio.booleanValue; //dato que quiero modificar
-                    const datoMod = 'asistio'
-                    const valorNew = true; //valor que le quiero dar
-                    const dataUpdate = {};
-                    dataUpdate[datoMod] = valorNew;
-                    console.log(datoMod)
-
-                    this.firestore.collection('asistencia').doc(docId).update({})
-                  }else if (foundUser2 === idUser){
-
+                  const findAlumnos = listaA.find(alumnos => alumnos.mapValue.fields.id.stringValue === idUser);//trae al alumno que coincida
+                  if(findAlumnos){
+                    //crear constantes que allamcenen lko que voy a cambiar
+                    const alumnoToUpdate  = findAlumnos;
+                    const newValue = true;
+                    //actualizar
+                    alumnoToUpdate .mapValue.fields.asistio.booleanValue = newValue;
+                    this.firestore.collection('asistencia').doc(docId).update({ listaA: listaA }).then(() => {
+                      console.log('Documento actualizado con éxito');
+                    })
+                    .catch(error => {
+                      console.error('Error al actualizar el documento:', error);
+                    });
                   }else{
-                    //mensaje
-                    this.presentToast('El usuario no se encontro',4000);
+                    console.log('No perteneces a esta clase')
                   }
                 }else{
                   console.log('Documento Inexistente')
@@ -143,7 +139,7 @@ export class AsistenciaQrPage implements OnInit {
     })
   }
 
-  //mensaje de error
+  //mensaje
   async presentToast(message: string, duration: number) {
     const toast = await this.toastController.create({
       message: message,
