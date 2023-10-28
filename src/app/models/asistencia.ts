@@ -4,16 +4,36 @@ export interface Asistencia{
   nombreDocente: string;
   fecha: string;
   hora: string;
-  listaA:{
-    alumno1: {
-      nombre: string;
-      id: string;
-      asistio: false;
+  listaA:[
+    {
+      mapValue: {
+        fields: {
+          asistio: {
+            booleanValue: boolean
+          },
+          id: {
+            stringValue: string
+          },
+          nombre: {
+            stringValue: string
+          },
+        }
+      }
+    },
+    {
+      mapValue: {
+        fields: {
+          asistio: {
+            booleanValue: boolean
+          },
+          id: {
+            stringValue: string
+          },
+          nombre: {
+            stringValue: string
+          },
+        }
+      }
     }
-    alumno2: {
-      nombre: string;
-      id: string;
-      asistio: false;
-    }
-  }
+  ]
 }

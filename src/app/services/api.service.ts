@@ -93,7 +93,7 @@ export class ApiService {
                 sala: element.fields.sala.stringValue,
                 seccionId: element.fields.seccionId.integerValue,
                 nombreD: element.fields.nombreD.stringValue,
-                listaA: element.fields.listaA.mapValue.fields
+                listaA: element.fields.listaA.arrayValue.values
             }
             List.push(clase);
         });
@@ -119,7 +119,7 @@ getAsistencia(){
         const id = parts[parts.length - 1];
           const asistencia: Asistencia = {
             id: id,
-            listaA: element.fields.listaA.mapValue,
+            listaA: element.fields.listaA.arrayValue,
             claseId: element.fields.claseId.stringValue,
             nombreDocente: element.fields.nombreDocente.stringValue,
             fecha: element.fields.fecha.stringValue,
@@ -131,6 +131,7 @@ getAsistencia(){
     })
   );
 }
+
 
 //-------------------- Fin seccion asistencia ----------------------------//
 }
