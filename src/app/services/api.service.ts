@@ -119,7 +119,7 @@ getAsistencia(){
         const id = parts[parts.length - 1];
           const asistencia: Asistencia = {
             id: id,
-            listaA: element.fields,
+            listaA: element.fields.listaA.mapValue,
             claseId: element.fields.claseId.stringValue,
             nombreDocente: element.fields.nombreDocente.stringValue,
             fecha: element.fields.fecha.stringValue,

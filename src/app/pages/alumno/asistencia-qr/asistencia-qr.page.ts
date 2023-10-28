@@ -20,7 +20,7 @@ export class AsistenciaQrPage implements OnInit {
   //inicializando
   clases: claseModel[];
 
-  asistenciaList: any;
+  asistenciaList: any[];
 
   //inicializando
   clasess: any;
@@ -69,6 +69,14 @@ export class AsistenciaQrPage implements OnInit {
     });
   }
 
+  async muestra() {
+    this.apiService.getAsistencia().subscribe((data)=>{
+      this.asistenciaList = data;
+      const lista = this.asistenciaList.find((c) => c.listaA)
+      console.log(this.asistenciaList)
+    })
+  }
+
   async modificarAsistio(){
     // traer la asistencia
     this.apiService.getAsistencia().subscribe((data) => {
@@ -84,7 +92,6 @@ export class AsistenciaQrPage implements OnInit {
           const coincidencia = data.find((asistencia) => asistencia.claseId === uidUSer);
           //condicion --> si el claseId de la asistencia es igual al claseId que tiene el usuario puede seguir xD
           if(coincidencia){
-            this.asistenciaList = coincidencia;
             //limite de tiempo, calcula la diferencia en minutos desde que se creo el documento
             const tiempoActual = new Date();//fecha actual
             const transTime = tiempoActual.toLocaleTimeString();// saco la hora actual
@@ -96,24 +103,33 @@ export class AsistenciaQrPage implements OnInit {
             const diffTime = (transHoras * 60 + transMinutos) - (dataHoras * 60 + dataMinutos);
             //condicion para que cuando la resta sea mayor a 40 no se pueda modificar
             if(diffTime < 40){
-              console.log(diffTime);
               //agregar el metodo parapoder modificar el asistio
-              //almacenar el usuario, el uid
-              const userId = this.userData.id;
               // const coincideAl = coincidencia.listaA
-              // const coincideAl = data.find((datos: any)=> datos.listaA.alumno1 === userId ? 'alumno1' : 'alumno2')
-              // if(coincideAl){
-              //   const docId = coincidencia.id;//id de la sistencia a modificar
-              //   //dato pa actualizar
-              //   const updateAsis = {
-              //     [`listaA.${coincideAl}.asistio`]: true
-              //   };
-              //   this.firestore.collection('asistencia').doc(docId).update(updateAsis);
-              //   this.presentToast('Ya esta presente en la lista',4000);
-              // }else{
-              //   //mensaje
-              //   this.presentToast('No estas en la lista de alumnos',4000);
-              // }
+              const coincideAl = data.find((datos)=> datos.listaA) //traigo la lista del que oincide
+
+              if(coincideAl){
+                //almacenar el usuario, el uid
+                const userId = this.userData.id;
+                const campo = coincideAl.listaA;
+                // Verifica si el usuario se encuentra en la lista de alumnos y obtiene el alumno correspondiente
+                const alumno = campo.alumno1 && campo.alumno1.id === userId ? campo.alumno1 : campo.alumno2 && campo.alumno2.id === userId ? campo.alumno2 : null;
+                if(alumno){
+                  // Modifica el campo asistio a true en la base de datos de Firestore
+                  const docId = coincideAl.id; // ID del documento a actualizar en Firestore
+                  this.firestore.collection('tuColeccion').doc(docId).update({
+                    [`listaA.${alumno.id}.asistio`]: true
+                  })
+                  .then(() => {
+                    console.log('El campo asistio ha sido actualizado en Firestore');
+                  })
+                  .catch((error) => {
+                    console.error('Error al actualizar el campo asistio en Firestore', error);
+                  });
+                }
+              }else{
+                //mensaje
+                this.presentToast('No estas en la lista de alumnos',4000);
+              }
             }else{
               //mensaje
               this.presentToast('La clase ya acabo :)',4000);
