@@ -6,10 +6,6 @@
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <!-- logo del header -->
-    <!-- <ion-img class="imagen1" src="assets/logo1.png"></ion-img> -->
-    <!-- titulo alumno -->
-    <!-- <ion-title class="title" color="primary">Alumno</ion-title> -->
   </ion-toolbar>
 </ion-header>
 
@@ -17,8 +13,8 @@
   <ion-card>
     <h1 class="ion-text-center">Asistencia</h1>
     <table  class="ion-margin">
-      <div *ngFor="let asis of asis">
-        <tbody >
+      <div *ngFor="let asis of asis" >
+        <tbody *ngIf="asis.claseId === userData.claseId">
           <br>
           <tr>
             <td>
@@ -26,12 +22,11 @@
               Día: {{asis.dia}} <br>
               Hora: {{asis.hora}} <br>
               Nombre del docente: {{asis.nombreDocente}} <br>
-              <!-- <p>Asistió:</p> -->
-              <!-- <ul>
-                <li *ngIf="lista">
-                  {{  ? 'Presente' : 'Ausente' }}
-                </li>
-              </ul> -->
+              <div>
+                <p>
+                  Asistió: {{asistio ? 'Presente' : 'Ausente'}}
+                </p>
+              </div>
             </td>
           </tr>
         </tbody>
