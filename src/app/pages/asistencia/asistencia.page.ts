@@ -10,10 +10,13 @@ import { Asistencia } from 'src/app/models/asistencia';
   styleUrls: ['./asistencia.page.scss'],
 })
 export class AsistenciaPage implements OnInit {
-  asistenciaList: Asistencia[];
+  asistenciaList: Asistencia[]=[];
   userData: any;
   userList: any[];
-  asis: any[];
+  asis: any;
+
+  lista: Asistencia[];
+  list: any;
 
   constructor(
     private apiService: ApiService,
@@ -50,10 +53,9 @@ export class AsistenciaPage implements OnInit {
         //id user
         const idUserClass = this.userData.claseId;
         //clas id de asistencia, trae todas  las que coinciden
-        const coincide = this.asistenciaList.filter((data) => data.claseId === idUserClass)
-        if(coincide){
-          this.asis = coincide;
-        }
+        this.asis = this.asistenciaList.filter((data) => data.claseId === idUserClass);
+        this.lista = this.asis.find((doc:any)=> doc);
+        console.log(this.lista);
       }
     });
   }

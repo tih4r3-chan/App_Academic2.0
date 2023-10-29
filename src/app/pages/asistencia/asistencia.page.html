@@ -18,14 +18,19 @@
     <h1 class="ion-text-center">Asistencia</h1>
     <table  class="ion-margin">
       <div *ngFor="let asis of asis">
-        <tbody *ngIf="asis.claseId === userData.claseId">
+        <tbody >
           <br>
           <tr>
             <td>
               Día: {{asis.dia}} <br>
               Hora: {{asis.hora}} <br>
               Nombre del docente: {{asis.nombreDocente}} <br>
-              Asistio: {{asis.listaA.mapValue}} <br>
+              <!-- <p>Asistió:</p> -->
+              <!-- <ul>
+                <li *ngIf="lista">
+                  {{  ? 'Presente' : 'Ausente' }}
+                </li>
+              </ul> -->
             </td>
           </tr>
         </tbody>
