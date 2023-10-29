@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
 import { ApiService } from 'src/app/services/api.service';
 import { AlertController } from '@ionic/angular';
-import { MyComponentComponent } from '../compExtra/my-component/my-component.component';
 
 @Component({
   selector: 'app-asignaturas',
@@ -12,6 +11,8 @@ import { MyComponentComponent } from '../compExtra/my-component/my-component.com
 export class AsignaturasPage implements OnInit {
   //inicializando
   clases: any;
+
+  lista: any;
 
   userData: any;
   userList: any[];
@@ -23,6 +24,18 @@ export class AsignaturasPage implements OnInit {
 
   ngOnInit() {
     this.mostrarData();
+
+    //traer alumnos
+  this.apiService.getExtra().subscribe((data) => {
+    this.lista = data;
+    //almacenar el usuario, el uid
+    const uidUSer = this.userData.uid;
+    //coincidencia de user con extra
+    const alumno = this.lista.find((list:any) => list.docenteId === uidUSer);
+    if(alumno){
+      this.lista = alumno;
+    }
+  });
   }
 
   async mostrarData(){
@@ -60,16 +73,16 @@ export class AsignaturasPage implements OnInit {
     });
   }
 
+  //alerta
   async presentPopover() {
     const alert = await this.alertController.create({
-      header: 'Título de la Alerta Personalizada',
+      header: 'Lista de alumnos',
       message: `
-      <app-my-component> </app-my-component>
-      `,
+      Alumno1: ${this.lista.alumno1}
+      Alumno2: ${this.lista.alumno2}
+    `,
       buttons: ['Listo']
     });
     return await alert.present();
   }
-
-
 }
