@@ -10,13 +10,12 @@ import { Asistencia } from 'src/app/models/asistencia';
   styleUrls: ['./asistencia.page.scss'],
 })
 export class AsistenciaPage implements OnInit {
-  asistenciaList: Asistencia[]=[];
+  asistenciaList: Asistencia[];
   userData: any;
   userList: any[];
   asis: any;
+  coincide: any;
 
-  lista: Asistencia[];
-  list: any;
 
   constructor(
     private apiService: ApiService,
@@ -45,17 +44,17 @@ export class AsistenciaPage implements OnInit {
     })
 
     //me traigo las asistencias
-    this.apiService.getAsistencia().subscribe((asistencia)=>{
+    this.apiService.getAsistencia().subscribe((asistencia) =>{
       this.asistenciaList = asistencia;
       //ordenar de mayor a menor(del mas reciente al mas antiguo)
-      this.asistenciaList.sort((a ,b) => b.hora.localeCompare(a.hora));
-      if(this.asistenciaList.length>0){
-        //id user
-        const idUserClass = this.userData.claseId;
-        //clas id de asistencia, trae todas  las que coinciden
-        this.asis = this.asistenciaList.filter((data) => data.claseId === idUserClass);
-        this.lista = this.asis.find((doc:any)=> doc);
-        console.log(this.lista);
+      this.asistenciaList.sort((a ,b) => b.fecha.localeCompare(a.fecha));
+      //id user
+      const idUserClass = this.userData.claseId;
+      //clas id de asistencia, trae todas  las que coinciden
+      const coincidencia = this.asistenciaList.filter((data:any) => data.claseId === idUserClass);
+      if(coincidencia){
+        this.asis = coincidencia;
+        const coincidencias = this.asistenciaList.find((data:any) => data.claseId === idUserClass);
       }
     });
   }
