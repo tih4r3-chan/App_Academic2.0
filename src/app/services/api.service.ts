@@ -41,7 +41,7 @@ export class ApiService {
             apellido: elementos.fields.apellido.stringValue,
             claseId: elementos.fields.claseId.stringValue,
             direccion: elementos.fields.direccion.stringValue,
-            dv: elementos.fields.dv.integerValue,
+            dv: elementos.fields.dv.stringValue,
             email: elementos.fields.email.stringValue,
             nombre:elementos.fields.nombre.stringValue,
             password: elementos.fields.password.stringValue,

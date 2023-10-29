@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/firestore.service';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 
 
