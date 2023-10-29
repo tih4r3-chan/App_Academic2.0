@@ -65,13 +65,13 @@
           <ion-item>
             <ion-icon name="person" color="primary"></ion-icon>
             <ion-label class="ion-text-center" class="ion-margin">Rut:</ion-label>
-            <ion-input formControlName="rut" required type="number" pattern="[0-9]{8}" placeholder="Ingrese rut sin guión y sin dv"></ion-input>
+            <ion-input formControlName="rut" required type="number" pattern="[0-9]{8}"  placeholder="Ingrese rut sin guión y sin dv" maxlength="8"></ion-input>
           </ion-item>
 
           <ion-item>
             <ion-icon name="person" color="primary"></ion-icon>
             <ion-label class="ion-text-center" class="ion-margin">Dv:</ion-label>
-            <ion-input formControlName="dv" required type="number" pattern="[0-9]{1}" placeholder="Ingrese digito verificador"></ion-input>
+            <ion-input formControlName="dv" required type="char" maxlength="1" placeholder="Ingrese digito verificador"></ion-input>
           </ion-item>
 
           <ion-item>
