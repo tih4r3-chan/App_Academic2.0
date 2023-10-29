@@ -46,9 +46,6 @@ export class AlumnoPage implements OnInit {
     const response  = await Preferences.get({key:'user'});
     if(response.value){
       this.userData = JSON.parse(response.value);
-      //me trae el id del usuario
-      const idUser = this.userData.uid;
-      // console.log(idUser);
     }
   }
 }
