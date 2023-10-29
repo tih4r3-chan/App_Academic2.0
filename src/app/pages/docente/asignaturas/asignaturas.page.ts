@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
-import { map } from 'rxjs/operators';
 import { ApiService } from 'src/app/services/api.service';
+import { AlertController } from '@ionic/angular';
+import { MyComponentComponent } from '../compExtra/my-component/my-component.component';
 
 @Component({
   selector: 'app-asignaturas',
@@ -17,7 +17,8 @@ export class AsignaturasPage implements OnInit {
   userList: any[];
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    public alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -57,6 +58,17 @@ export class AsignaturasPage implements OnInit {
         this.clases = claseSeleccionada;
       }
     });
+  }
+
+  async presentPopover() {
+    const alert = await this.alertController.create({
+      header: 'Título de la Alerta Personalizada',
+      message: `
+      <app-my-component> </app-my-component>
+      `,
+      buttons: ['Listo']
+    });
+    return await alert.present();
   }
 
 

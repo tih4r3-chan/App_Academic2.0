@@ -5,6 +5,7 @@ import {  map } from "rxjs";
 import { User } from '../models/user.model';
 import { claseModel } from '../models/clase';
 import { Asistencia } from 'src/app/models/asistencia';
+import { Lista } from 'src/app/models/eextra';
 
 
 
@@ -17,6 +18,7 @@ export class ApiService {
   urlApiU ='https://firestore.googleapis.com/v1/projects/appacademic-bb066/databases/(default)/documents/usuarios';
   urlApiC = 'https://firestore.googleapis.com/v1/projects/appacademic-bb066/databases/(default)/documents/clase';
   urlApiA = 'https://firestore.googleapis.com/v1/projects/appacademic-bb066/databases/(default)/documents/asistencia';
+  urlApiL = 'https://firestore.googleapis.com/v1/projects/appacademic-bb066/databases/(default)/documents/lista';
 
   constructor(
     private http: HttpClient
@@ -104,7 +106,6 @@ export class ApiService {
 
 //-------------------- Fin seccion clase ----------------------------//
 
-
 //-------------------- Seccion asistencia ----------------------------//
 //traer Asistencia --> metodo get
 getAsistencia(){
@@ -132,7 +133,29 @@ getAsistencia(){
     })
   );
 }
-
-
 //-------------------- Fin seccion asistencia ----------------------------//
+//-------------------- Inicio seccion extra ----------------------------//
+getExtra(){
+  return this.http.get<any>(this.urlApiL).pipe(
+    map( (data) =>{
+      let list: Lista[] = [];
+      data.documents.map((elementos:any)=>{
+        // Acceder al ID del documento, extrallendolo del path completo
+        const fulpath = elementos.name
+        const parts = fulpath.split('/');
+        const id = parts[parts.length - 1];
+        const listaAl: Lista ={
+          id: id,
+          docenteId: elementos.fields.docenteId.stringValue,
+          nombre: elementos.fields.nombre.stringValue,
+          alumno1: elementos.fields.alumno1.stringValue,
+          alumno2: elementos.fields.alumno2.stringValue
+        }
+        list.push(listaAl);
+      });
+      return list;
+    })
+  );
+}
+//-------------------- Finseccion extra ----------------------------//
 }
