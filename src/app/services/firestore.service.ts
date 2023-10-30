@@ -46,9 +46,10 @@ export class AuthenticationService {
     try{
       //cerra sesion
       await this.ngFireAuth.signOut();
-      //redireccionamiento
-      this.router.navigate(['/home']),
+      //eliminar datos del preference
       await Preferences.remove({key: 'user'});
+      //redireccionamiento
+      this.router.navigate(['/home'])
       //mensaje
       this.presentToast('Sesión cerrada con exito',3000);
 
