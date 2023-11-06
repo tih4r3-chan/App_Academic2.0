@@ -18,7 +18,7 @@
           <!-- si la persona ya toco el inputt y existen errores se muestra el mensaje -->
           <div class="validators" *ngIf="form.controls.email.errors && form.controls.email.touched">
             <!-- mensaje de erro -->
-            <div *ngIf="form.controls.email.errors?.['required']" class="mensaje">EL campo de email no puede estas vacío</div>
+            <div *ngIf="form.controls.email.errors?.['required']" class="mensaje">EL campo de email no puede estar vacío</div>
             <div *ngIf="form.controls.email.errors?.['email']" class="mensaje">Debe ingresar un correo válido</div>
           </div>
 
