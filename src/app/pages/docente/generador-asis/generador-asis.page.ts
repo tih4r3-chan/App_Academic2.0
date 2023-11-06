@@ -86,19 +86,11 @@ export class GeneradorAsisPage implements OnInit {
             //traer hora en formato HH:mm:ss
             const hora = fechaActual.toLocaleTimeString();
 
-            // Filtrar atributos de listaA
-            const listaAfiltrada = {};
-            for (const clave in listaA) {
-              if (listaA.hasOwnProperty(clave) && typeof listaA[clave] !== 'function') {
-                listaAfiltrada[clave] = listaA[clave];
-              }
-            }
-
             //armar el documento
             const dataDoc = {
               nombreDocente: this.userData.nombre +" "+this.userData.apellido,
               claseId: claseId,
-              listaA: listaAfiltrada, //acá es el problema
+              listaA: listaA, //acá es el problema
               fecha: fecha,
               hora: hora,
               dia: nombreDia
