@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
 import { ApiService } from 'src/app/services/api.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
 import { claseModel } from 'src/app/models/clase';
 import { ToastController } from '@ionic/angular';
 
