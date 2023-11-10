@@ -15,6 +15,9 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./generador-asis.page.scss'],
 })
 export class GeneradorAsisPage implements OnInit {
+  texto: string = '';
+
+
   userData: any;
   userList: any[];
 
@@ -32,6 +35,7 @@ export class GeneradorAsisPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    // this.generarTextoAleatorio();
     this.mostrarData();
     this.leerUSer();
 
@@ -64,8 +68,17 @@ export class GeneradorAsisPage implements OnInit {
     }
   }
 
+  //generador de QR
+  generarTextoAleatorio() {
+    // Lógica para generar texto aleatorio (puedes personalizar según tus necesidades)
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const largo = 10;
+    this.texto = Array.from({ length: largo }, () => caracteres[Math.floor(Math.random() * caracteres.length)]).join('');
+  }
+
   //metodo que crea el documento
   async crearDocumento(){
+    this.generarTextoAleatorio();
     if(this.userData){
       //obtener clase id del user almacenado
       const claseId = this.userData.claseId;
@@ -113,13 +126,12 @@ export class GeneradorAsisPage implements OnInit {
     const toast = await this.toastController.create({
       message: message,
       duration: duration, // Duración en milisegundos (en este caso, 4000 ms = 4 segundos)
-      position: 'middle' // Posición del mensaje (puedes ajustarla según tus preferencias)
+      position: 'top' // Posición del mensaje (puedes ajustarla según tus preferencias)
     });
     toast.present();
   }
 
   async mostrarData(){
-
     //traigo el user almacenado
     const response  = await Preferences.get({key:'user'});
     if(response.value){
