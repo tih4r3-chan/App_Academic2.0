@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { claseModel } from 'src/app/models/clase';
 import { ToastController } from '@ionic/angular';
+import { delay,subscribeOn, switchMap, map, timer } from 'rxjs';
 
 
 
@@ -18,6 +19,8 @@ export class GeneradorAsisPage implements OnInit {
   //inicializando lo que se uso en generador de QR
   texto: string = '';
   mensaje: string = '';
+
+  claseList: any[];
 
   userData: any;
   userList: any[];
@@ -36,7 +39,7 @@ export class GeneradorAsisPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.generarTextoAleatorio();
+    // this.generarTextoAleatorio();
     this.mostrarData();
     this.leerUSer();
 
@@ -81,8 +84,46 @@ export class GeneradorAsisPage implements OnInit {
   //metodo que crea el documento
   async crearDocumento(){
     //llama lo generar el qr
-
     this.generarTextoAleatorio();
+    //cambiar estado de la clase, iniciar la clase
+    this.apiService.getClases().subscribe((datos) =>{
+      this.claseList = datos;
+      const idUSer = this.userData.uid;
+      const idUserClas = datos.find((userId) => userId.docenteId === idUSer);
+      if(idUserClas){
+        const docId = idUserClas.uid; //id del doc a modificar
+        this.firestore.collection('clase').doc(docId).get().pipe(
+          map((clase)=>{
+            console.log(clase)
+            if(clase.exists){
+              const claseData = clase.data() as claseModel;
+              const estado = claseData.estado;
+              console.log(estado);
+              const newValue = true; // Valor nuevo durante 60 min
+              const oldValue = false; // Vuelve al estado inicial
+              //actualizar
+              this.firestore.collection('clase').doc(docId).update({estado: newValue}).then(() => {
+                //despues de 60 min vuelve a false
+                setTimeout(() => {
+                  //actualizar el estado
+                  this.firestore.collection('clase').doc(docId).update({estado:oldValue}).then(() =>{
+                    console.log('La clase ya finalizo');
+                  }).catch((error) =>{
+                    console.log('Error de actualizacion de estado --> ',error);
+                  });
+                },60 * 60 * 1000)
+              }).catch((err) => {
+                console.log('Error de actualizacion de estado -->', err);
+              })
+            }
+          })
+        )
+      }else{
+        console.log('No hay coincidencia')
+      }
+    });
+
+    //se crea ekl doc
     if(this.userData){
       //obtener clase id del user almacenado
       const claseId = this.userData.claseId;
@@ -117,7 +158,8 @@ export class GeneradorAsisPage implements OnInit {
               value: JSON.stringify(dataDoc),
             });
             //agregar el documento
-            this.firestore.collection('asistencia').add(dataDoc);
+
+            //this.firestore.collection('asistencia').add(dataDoc);
             console.log('El documento ya se creo en firestore');
             //mensaje
             this.presentToast('Ya se inicio la asistencia, desde ahora los alumnos tiene 40 minutos para marcar su asistencia',4000);
