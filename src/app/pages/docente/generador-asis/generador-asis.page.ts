@@ -94,11 +94,9 @@ export class GeneradorAsisPage implements OnInit {
         const docId = idUserClas.uid; //id del doc a modificar
         this.firestore.collection('clase').doc(docId).get().pipe(
           map((clase)=>{
-            console.log(clase)
             if(clase.exists){
               const claseData = clase.data() as claseModel;
               const estado = claseData.estado;
-              console.log(estado);
               const newValue = true; // Valor nuevo durante 60 min
               const oldValue = false; // Vuelve al estado inicial
               //actualizar
@@ -159,7 +157,7 @@ export class GeneradorAsisPage implements OnInit {
             });
             //agregar el documento
 
-            //this.firestore.collection('asistencia').add(dataDoc);
+            this.firestore.collection('asistencia').add(dataDoc);
             console.log('El documento ya se creo en firestore');
             //mensaje
             this.presentToast('Ya se inicio la asistencia, desde ahora los alumnos tiene 40 minutos para marcar su asistencia',4000);
