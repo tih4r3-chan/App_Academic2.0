@@ -16,6 +16,12 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./generador-asis.page.scss'],
 })
 export class GeneradorAsisPage implements OnInit {
+   //inicializando lo que se uso en generador de QR
+   texto: string = '';
+   mensaje: string = '';
+ 
+   claseList: any[];
+
   userData: any;
   userList: any[];
 
@@ -65,8 +71,19 @@ export class GeneradorAsisPage implements OnInit {
     }
   }
 
+  //generador de QR
+  generarTextoAleatorio() {
+    // Lógica para generar texto aleatorio (puedes personalizar según tus necesidades)
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const largo = 10;
+    this.texto = Array.from({ length: largo }, () => caracteres[Math.floor(Math.random() * caracteres.length)]).join('');
+    this.mensaje = 'Mostrar el codigo QR a los alumnos para que pueda ser escaneado'
+  }
+
   //metodo que crea el documento
   async crearDocumento(){
+    //llama lo generar el qr
+    this.generarTextoAleatorio();
     if(this.userData){
       //obtener clase id del user almacenado
       const claseId = this.userData.claseId;
