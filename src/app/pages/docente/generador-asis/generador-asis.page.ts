@@ -120,7 +120,7 @@ export class GeneradorAsisPage implements OnInit {
             this.firestore.collection('asistencia').add(dataDoc);
             console.log('El documento ya se creo en firestore');
             //mensaje
-            this.presentToast('Ya se inicio la asistencia, desde ahora los alumnos tiene 40 minutos para marcar su asistencia',4000);
+            this.presentToast('Ya se inicio la asistencia, desde ahora los alumnos tiene 40 minutos para marcar su asistencia',3000);
           }
       }
     }
@@ -130,7 +130,7 @@ export class GeneradorAsisPage implements OnInit {
     const toast = await this.toastController.create({
       message: message,
       duration: duration, // Duración en milisegundos (en este caso, 4000 ms = 4 segundos)
-      position: 'middle' // Posición del mensaje (puedes ajustarla según tus preferencias)
+      position: 'top' // Posición del mensaje (puedes ajustarla según tus preferencias)
     });
     toast.present();
   }
