@@ -73,7 +73,6 @@ export class GeneradorAsisPage implements OnInit {
 
   //generador de QR
   generarTextoAleatorio() {
-    // Lógica para generar texto aleatorio (puedes personalizar según tus necesidades)
     const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const largo = 10;
     this.texto = Array.from({ length: largo }, () => caracteres[Math.floor(Math.random() * caracteres.length)]).join('');
