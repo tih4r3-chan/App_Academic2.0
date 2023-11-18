@@ -1,6 +1,6 @@
 <section class="wrapper__scanner">
 
-  <button class="float-button" (click)="changeCamera()">R</button>
+  <ion-button expand="full" (click)="changeCamera()">Cambiar Cámara</ion-button>
 
   <div class="video--container">
     <video #videoElement autoplay playsinline> </video>
@@ -12,5 +12,6 @@
 
   <div class="video--container" style="display: none">
     <canvas id="canvas" #canvas></canvas>
+    <ion-input [(ngModel)]="result" readonly></ion-input>
   </div>
 </section>
