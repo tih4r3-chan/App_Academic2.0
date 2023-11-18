@@ -77,7 +77,7 @@ export class GeneradorAsisPage implements OnInit {
       // Verificar si se encontró la clase
       if (claseSeleccionada) {
         this.texto = 'Nombre:\n' + claseSeleccionada.nombre +
-        '\n'+ 'Sección\n'+claseSeleccionada.seccionId;
+        '\n'+ 'Sección:\n'+claseSeleccionada.seccionId;
       }
   });
   }
