@@ -1,6 +1,4 @@
-// import { AsistenciaService } from 'src/app/services/asistencia.service';
 import { Component, OnInit } from '@angular/core';
-// import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Preferences } from '@capacitor/preferences';
 import { ApiService } from 'src/app/services/api.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
