@@ -73,8 +73,8 @@ export class GeneradorAsisPage implements OnInit {
     const largo = 10;
 
     // Incluir el claseId directamente en el texto aleatorio
-    this.texto = this.userData && this.userData.claseId ? this.userData.claseId : '';
-    console.log(this.texto);
+    // this.texto = this.userData && this.userData.claseId ? this.userData.claseId : '';
+    // console.log(this.texto);
 
     // Generar el resto del texto aleatorio si es necesario
     if (this.texto.length < largo) {
