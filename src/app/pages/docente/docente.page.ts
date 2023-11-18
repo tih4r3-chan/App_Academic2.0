@@ -25,6 +25,10 @@ export class DocentePage implements OnInit {
 
   }
 
+  async cerraSesion(){
+    await this.authService.SignOut();
+  }
+
   //trae los datos del capcitor que estsan almacenados
   async leerUSer(){
     const response  = await Preferences.get({key:'user'});

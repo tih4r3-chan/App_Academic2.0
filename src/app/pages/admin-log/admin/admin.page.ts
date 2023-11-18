@@ -22,6 +22,10 @@ export class AdminPage implements OnInit {
     this.listar();
   }
 
+  async cerraSesion(){
+    await this.authService.SignOut();
+  }
+
   async listar(){
     //obtener lista de user de la api
     this._userServce.getUsers().subscribe((data) => {
