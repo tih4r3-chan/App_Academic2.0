@@ -79,8 +79,10 @@ export class GeneradorAsisPage implements OnInit {
 
   //metodo que crea el documento
   async crearDocumento(){
-    
+
     if(this.userData){
+    //llama lo generar el qr
+      this.generarTextoAleatorio();
       //obtener clase id del user almacenado
       const claseId = this.userData.claseId;
       if(claseId && this.clases){
