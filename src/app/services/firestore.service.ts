@@ -1,14 +1,11 @@
 import { Injectable, NgZone } from '@angular/core'
-import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
-  AngularFirestore,
-  AngularFirestoreDocument,
+  AngularFirestore
 } from '@angular/fire/compat/firestore';
 import { ToastController } from '@ionic/angular';
 
-import { HttpClient } from '@angular/common/http';
 import { AuthServiceService } from './capacitor.service';
 import { Preferences } from '@capacitor/preferences';
 
