@@ -84,6 +84,17 @@ export class GeneradorAsisPage implements OnInit {
     }
 
     this.mensaje = 'Mostrar el código QR a los alumnos para que pueda ser escaneado';
+    // Traer los datos de la clase y almacenar información relacionada
+    this.apiService.getClases().subscribe((data: claseModel[]) => {
+      // Supongamos que quieres obtener información de la clase con ID this.userData.claseId
+      const claseSeleccionada = data.find(clase => clase.uid === this.userData.claseId);
+
+      // Verificar si se encontró la clase
+      if (claseSeleccionada) {
+        // Puedes acceder a los datos de la clase y almacenarlos según tus necesidades
+        this.texto += (claseSeleccionada.nombre);
+      }
+  });
   }
 
   //metodo que crea el documento
