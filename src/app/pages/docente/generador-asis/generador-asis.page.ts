@@ -125,7 +125,7 @@ export class GeneradorAsisPage implements OnInit {
     const toast = await this.toastController.create({
       message: message,
       duration: duration, // Duración en milisegundos (en este caso, 4000 ms = 4 segundos)
-      position: 'middle' // Posición del mensaje (puedes ajustarla según tus preferencias)
+      position: 'top' // Posición del mensaje (puedes ajustarla según tus preferencias)
     });
     toast.present();
   }
