@@ -71,13 +71,23 @@ export class GeneradorAsisPage implements OnInit {
   generarTextoAleatorio() {
     const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const largo = 10;
-    this.texto = Array.from({ length: largo }, () => caracteres[Math.floor(Math.random() * caracteres.length)]).join('');
-    this.mensaje = 'Mostrar el codigo QR a los alumnos para que pueda ser escaneado'
+
+    // Incluir el claseId directamente en el texto aleatorio
+    this.texto = this.userData && this.userData.claseId ? this.userData.claseId : '';
+    console.log(this.texto);
+
+    // Generar el resto del texto aleatorio si es necesario
+    if (this.texto.length < largo) {
+      const caracteresRestantes = largo - this.texto.length;
+      const textoAleatorioRestante = Array.from({ length: caracteresRestantes }, () => caracteres[Math.floor(Math.random() * caracteres.length)]).join('');
+      this.texto += textoAleatorioRestante;
+    }
+
+    this.mensaje = 'Mostrar el código QR a los alumnos para que pueda ser escaneado';
   }
 
   //metodo que crea el documento
   async crearDocumento(){
-
     if(this.userData){
     //llama lo generar el qr
       this.generarTextoAleatorio();
