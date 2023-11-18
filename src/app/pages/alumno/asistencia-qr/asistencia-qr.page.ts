@@ -146,7 +146,7 @@ export class AsistenciaQrPage implements OnInit {
             }
           }else{
             //mensaje
-            this.presentToast('No se inicio ninguna clase',2000);
+            // this.presentToast('No se inicio ninguna clase',2000);
           }
         // }
       }else{
