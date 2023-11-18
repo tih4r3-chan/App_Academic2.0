@@ -8,6 +8,8 @@ import { AsistenciaQrPageRoutingModule } from './asistencia-qr-routing.module';
 
 import { AsistenciaQrPage } from './asistencia-qr.page';
 
+import { CamaraScannComponent } from '../camara-scann/camara-scann.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +17,6 @@ import { AsistenciaQrPage } from './asistencia-qr.page';
     IonicModule,
     AsistenciaQrPageRoutingModule
   ],
-  declarations: [AsistenciaQrPage]
+  declarations: [AsistenciaQrPage, CamaraScannComponent]
 })
 export class AsistenciaQrPageModule {}

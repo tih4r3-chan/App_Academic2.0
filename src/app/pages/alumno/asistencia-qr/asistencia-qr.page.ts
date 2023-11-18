@@ -6,6 +6,7 @@ import { claseModel } from 'src/app/models/clase';
 import { ToastController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
+
 @Component({
   selector: 'app-asistencia-qr',
   templateUrl: './asistencia-qr.page.html',
@@ -68,7 +69,7 @@ export class AsistenciaQrPage implements OnInit {
   }
 
   //camara que escanea qrs
-  
+
 
   async modificarAsistio(){
     //traer la asitencia

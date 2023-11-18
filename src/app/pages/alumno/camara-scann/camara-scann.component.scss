@@ -1,0 +1,22 @@
+.wrapper__scanner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.video--container {
+  padding: 10px;
+  video {
+    width: 100%;
+    border-radius: 13px;
+}
+}
+
+.float-button {
+  float: right;
+  z-index: 10;
+  position: relative;
+  transform: translate(133px, 49px)
+}
+
