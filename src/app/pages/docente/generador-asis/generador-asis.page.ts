@@ -79,6 +79,7 @@ export class GeneradorAsisPage implements OnInit {
 
   //metodo que crea el documento
   async crearDocumento(){
+    
     if(this.userData){
       //obtener clase id del user almacenado
       const claseId = this.userData.claseId;
