@@ -11,7 +11,7 @@ export class SharedDataService {
   currentResult = this.resultSource.asObservable();
 
   //actualiza datos
-  setResult(result: any) {
+  setResult(result: string) {
     // se pasa el resultado
     this.resultSource.next(result);
   }

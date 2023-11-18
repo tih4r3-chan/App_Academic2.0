@@ -14,7 +14,7 @@ import { ToastController } from '@ionic/angular';
 })
 export class GeneradorAsisPage implements OnInit {
   //inicializando lo que se uso en generador de QR
-  texto: any;
+  texto: string;
   mensaje: string = '';
 
 
@@ -77,7 +77,7 @@ export class GeneradorAsisPage implements OnInit {
       // Verificar si se encontró la clase
       if (claseSeleccionada) {
         this.texto = 'Información de la clase:\n' + claseSeleccionada.nombre +
-        '\n'+claseSeleccionada.nombreD +'\n'+claseSeleccionada.sala;
+        '\n'+claseSeleccionada.sala;
       }
   });
   }
