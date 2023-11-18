@@ -74,14 +74,11 @@ export class GeneradorAsisPage implements OnInit {
     this.apiService.getClases().subscribe((data: claseModel[]) => {
       // Supongamos que quieres obtener información de la clase con ID this.userData.claseId
       const claseSeleccionada = data.find(clase => clase.uid === this.userData.claseId);
-
       // Verificar si se encontró la clase
       if (claseSeleccionada) {
+        this.texto += 'Información de la clase:\n' + claseSeleccionada.nombre +'\n'+claseSeleccionada.nombreD +'\n'+claseSeleccionada.sala;
         // Puedes acceder a los datos de la clase y almacenarlos según tus necesidades
-        this.texto = JSON.stringify(claseSeleccionada);
-
-        // Muestra la alerta con la información de la clase
-        alert('Información de la clase:\n' + this.texto);
+        // this.texto = JSON.stringify(claseSeleccionada);
       }
   });
   }

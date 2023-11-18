@@ -75,8 +75,6 @@ export class AsistenciaQrPage implements OnInit {
     });
   }
 
-  //camara que escanea qrs
-
 
   async modificarAsistio(){
     //traer la asitencia
