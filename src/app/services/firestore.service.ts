@@ -43,21 +43,25 @@ export class AuthenticationService {
 
   // Cerrar sesion uwu
   async SignOut() {
-    try{
-      //cerra sesion
+    try {
+      // Cerrar sesión
       await this.ngFireAuth.signOut();
-      //eliminar datos del preference
-      await Preferences.remove({key: 'user'});
-      //redireccionamiento
-      this.router.navigate(['/home'])
-      //mensaje
-      this.presentToast('Sesión cerrada con exito',3000);
+      console.log('Sesión cerrada');
 
-    }
-    catch(error){
-      console.log(error);
+      // Eliminar datos del preference
+      await Preferences.remove({ key: 'user' });
+      console.log('Datos de usuario eliminados');
+
+      // Redireccionamiento
+      this.router.navigate(['/home']);
+
+      // Mensaje
+      this.presentToast('Sesión cerrada con éxito', 3000);
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
     }
   }
+
 
   //mensaje de error
   async presentToast(message: string, duration: number) {
