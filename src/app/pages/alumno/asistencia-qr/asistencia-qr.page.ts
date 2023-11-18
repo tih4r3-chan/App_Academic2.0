@@ -5,6 +5,7 @@ import { Asistencia } from 'src/app/models/asistencia';
 import { claseModel } from 'src/app/models/clase';
 import { ToastController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 
 
 @Component({
@@ -27,11 +28,20 @@ export class AsistenciaQrPage implements OnInit {
   constructor(
     private apiService: ApiService,
     private toastController: ToastController,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private sharedDataService: SharedDataService
   ) { }
 
   ngOnInit() {
     this.mostrarData();
+    
+    // Suscríbete al resultado del escáner
+    this.sharedDataService.currentResult.subscribe((result) => {
+      // Puedes hacer lo que quieras con el resultado en este componente
+      console.log('Resultado del escáner en AsistenciaQrPage:', result);
+      // También puedes llamar a la función correspondiente en este componente
+      // this.modificarAsistio();
+    });
   }
 
   async mostrarData(){

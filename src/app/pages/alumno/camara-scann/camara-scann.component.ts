@@ -1,8 +1,9 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
 import jsQR from "jsqr";
 import {Subject, takeUntil, timer} from "rxjs";
 import { VIDEO_CONFIG } from './scann.const';
 import { Platform } from '@ionic/angular';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 
 
 @Component({
@@ -22,7 +23,9 @@ export class CamaraScannComponent implements OnDestroy{
 
   result = ''
 
-  constructor(private platform: Platform) {}
+  constructor(
+    private platform: Platform,
+    private sharedDataService: SharedDataService) {}
 
   ngOnInit(): void {
     this.platform.ready().then(() => {
@@ -73,6 +76,7 @@ export class CamaraScannComponent implements OnDestroy{
       if (qrcode) {
         const { data } = qrcode;
         this.result = data;
+        this.sharedDataService.setResult(data); // Actualiza el resultado en el servicio
       } else {
         timer(100)
           .pipe(takeUntil(this.destroy$))
