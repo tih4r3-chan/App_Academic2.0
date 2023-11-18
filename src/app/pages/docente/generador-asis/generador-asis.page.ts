@@ -69,20 +69,6 @@ export class GeneradorAsisPage implements OnInit {
 
   //generador de QR
   generarTextoAleatorio() {
-    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const largo = 10;
-
-    // Incluir el claseId directamente en el texto aleatorio
-    // this.texto = this.userData && this.userData.claseId ? this.userData.claseId : '';
-    // console.log(this.texto);
-
-    // Generar el resto del texto aleatorio si es necesario
-    if (this.texto.length < largo) {
-      const caracteresRestantes = largo - this.texto.length;
-      const textoAleatorioRestante = Array.from({ length: caracteresRestantes }, () => caracteres[Math.floor(Math.random() * caracteres.length)]).join('');
-      this.texto += textoAleatorioRestante;
-    }
-
     this.mensaje = 'Mostrar el código QR a los alumnos para que pueda ser escaneado';
     // Traer los datos de la clase y almacenar información relacionada
     this.apiService.getClases().subscribe((data: claseModel[]) => {
