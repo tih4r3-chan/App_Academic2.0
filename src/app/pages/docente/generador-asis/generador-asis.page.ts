@@ -76,8 +76,8 @@ export class GeneradorAsisPage implements OnInit {
       const claseSeleccionada = data.find(clase => clase.uid === this.userData.claseId);
       // Verificar si se encontró la clase
       if (claseSeleccionada) {
-        this.texto = 'Información de la clase:\n' + claseSeleccionada.nombre +
-        '\n'+claseSeleccionada.sala;
+        this.texto = 'Nombre:\n' + claseSeleccionada.nombre +
+        '\n'+ 'Sección\n'+claseSeleccionada.seccionId;
       }
   });
   }
