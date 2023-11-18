@@ -34,13 +34,10 @@ export class AsistenciaQrPage implements OnInit {
 
   ngOnInit() {
     this.mostrarData();
-    
     // Suscríbete al resultado del escáner
     this.sharedDataService.currentResult.subscribe((result) => {
-      // Puedes hacer lo que quieras con el resultado en este componente
       console.log('Resultado del escáner en AsistenciaQrPage:', result);
-      // También puedes llamar a la función correspondiente en este componente
-      // this.modificarAsistio();
+      this.modificarAsistio();
     });
   }
 
