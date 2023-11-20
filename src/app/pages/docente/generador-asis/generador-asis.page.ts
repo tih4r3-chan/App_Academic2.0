@@ -42,7 +42,7 @@ export class GeneradorAsisPage implements OnInit {
     this.apiService.getClases().subscribe((data: claseModel[]) => {
       // Aquí puedes acceder a los datos y hacer lo que necesites
       this.clases = data;
-      // console.log(this.clases);
+      //console.log(this.clases);
     });
 
     //obtener lista de user de la api
