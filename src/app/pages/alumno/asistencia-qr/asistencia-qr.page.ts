@@ -119,7 +119,7 @@ export class AsistenciaQrPage implements OnInit {
                     alumnoToUpdate.mapValue.fields.asistio.booleanValue = newValue;
                     this.firestore.collection('asistencia').doc(docId).update({ listaA: listaA }).then(() => {
                       //mensaje
-                      this.presentToast('Ahora estas precente en la asistencia',3000);
+                      this.presentToast('Ahora estas presente en la asistencia',3000);
                       console.log('Documento actualizado con éxito');
                     })
                     .catch(error => {

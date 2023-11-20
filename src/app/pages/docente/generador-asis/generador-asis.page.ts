@@ -95,6 +95,7 @@ export class GeneradorAsisPage implements OnInit {
           if(claseselccionada){
             //traer la lista completa de la clase
             const listaA = claseselccionada.listaA;
+
             //agregar campos de fecha y hora
             const fechaActual = new Date();
             // trae la fecha en formato YYYY-MM-DD
@@ -113,13 +114,15 @@ export class GeneradorAsisPage implements OnInit {
               hora: hora,
               dia: nombreDia
             };
+            console.log(dataDoc)
             //guardar datos en preference
             await Preferences.set({
               key: 'asistencia',
               value: JSON.stringify(dataDoc),
             });
-            //agregar el documento
+            //agregar el documento, agregar filtro
             this.firestore.collection('asistencia').add(dataDoc);
+
             console.log('El documento ya se creo en firestore');
             //mensaje
             this.presentToast('Ya se inicio la asistencia, desde ahora los alumnos tiene 40 minutos para marcar su asistencia',4000);
