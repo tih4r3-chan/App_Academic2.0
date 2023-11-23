@@ -22,11 +22,8 @@
               Día: {{asis.dia}} <br>
               Hora: {{asis.hora}} <br>
               Nombre del docente: {{asis.nombreDocente}} <br>
-              <!-- <div>
-                <p>
-                  Asistió: {{asis.asistio ? 'Presente' : 'Ausente'}}
-                </p>
-              </div> -->
+              <ion-badge *ngIf="asis.asistio" color="success">Asistió</ion-badge>
+              <ion-badge *ngIf="!asis.asistio" color="danger">Ausente</ion-badge>
             </td>
           </tr>
         </tbody>

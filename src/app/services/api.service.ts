@@ -99,7 +99,7 @@ export class ApiService {
                   return alumno.mapValue.fields
                 })
             }
-            console.log(clase)
+            // console.log(clase)
             List.push(clase);
         });
         return List;
@@ -124,7 +124,9 @@ getAsistencia(){
           const asistencia: Asistencia = {
             id: id,
             dia: element.fields.dia.stringValue,
-            listaA: element.fields.listaA.arrayValue,
+            listaA: element.fields.listaA.arrayValue.values.map( (value) =>{
+              return value.mapValue.fields
+            }),
             claseId: element.fields.claseId.stringValue,
             nombreDocente: element.fields.nombreDocente.stringValue,
             fecha: element.fields.fecha.stringValue,

@@ -48,6 +48,7 @@ export class AsistenciaPage implements OnInit {
     this.apiService.getAsistencia().subscribe((asistencias) =>{
       this.asistenciaList = asistencias;
       this.asis = asistencias;
+      console.log(this.asis);
     });
   }
 }
