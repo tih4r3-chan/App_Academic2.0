@@ -135,7 +135,7 @@ export class AsistenciaQrPage implements OnInit {
               }
             });
             // Mensaje
-            this.presentToast2(`La clase comenzó hace ${diffTime} minutos`, 2300);
+            // this.presentToast2(`La clase comenzó hace ${diffTime} minutos`, 2300);
           } else {
             // Mensaje
             this.presentToast('La clase ya acabó :)', 2000);

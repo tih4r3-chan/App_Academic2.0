@@ -21,10 +21,6 @@ export class AlumnoPage implements OnInit {
     public authService : AuthenticationService,
     private service: ApiService) { }
 
-  async cerraSesion(){
-    await this.authService.SignOut();
-  }
-
   ngOnInit() {
     this.leerUSer();
     //obtener lista de user de la pai
@@ -48,5 +44,9 @@ export class AlumnoPage implements OnInit {
     if(response.value){
       this.userData = JSON.parse(response.value);
     }
+  }
+
+  async cerraSesion(){
+    await this.authService.SignOut();
   }
 }
