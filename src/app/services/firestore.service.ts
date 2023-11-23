@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core'
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
   AngularFirestore
@@ -29,7 +29,7 @@ export class AuthenticationService {
     public router: Router,
     public ngZone: NgZone,
     private toastController: ToastController,
-    private storage: AuthServiceService
+    private activatedRoute: ActivatedRoute
   ) {
   }
   // 1metodo para registrar nuevos correo en el Auth
@@ -50,7 +50,7 @@ export class AuthenticationService {
       console.log('Datos de usuario eliminados');
 
       // Redireccionamiento
-      this.router.navigate(['/home']);
+      this.router.navigate(['/home'], { replaceUrl: true });
 
       // Mensaje
       this.presentToast('Sesión cerrada con éxito', 3000);

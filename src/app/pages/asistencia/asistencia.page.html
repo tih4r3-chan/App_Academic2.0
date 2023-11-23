@@ -14,7 +14,7 @@
     <h1 class="ion-text-center">Asistencia</h1>
     <table  class="ion-margin">
       <div *ngFor="let asis of asis" >
-        <tbody *ngIf="asis.claseId === userData.claseId">
+        <tbody>
           <br>
           <tr>
             <td>
@@ -22,8 +22,9 @@
               Día: {{asis.dia}} <br>
               Hora: {{asis.hora}} <br>
               Nombre del docente: {{asis.nombreDocente}} <br>
-              <ion-badge *ngIf="asis.asistio" color="success">Asistió</ion-badge>
-              <ion-badge *ngIf="!asis.asistio" color="danger">Ausente</ion-badge>
+              <br>
+              <ion-badge *ngIf="" color="success">Asistió</ion-badge>
+              <ion-badge *ngIf="" color="danger">Ausente</ion-badge>
             </td>
           </tr>
         </tbody>

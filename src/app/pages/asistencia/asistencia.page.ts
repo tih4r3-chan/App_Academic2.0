@@ -11,11 +11,14 @@ import { Asistencia } from 'src/app/models/asistencia';
 })
 export class AsistenciaPage implements OnInit {
   asistenciaList: Asistencia[];
-  userData: any;
+  // userData: any;
   userList: any[];
   asis: any;
-
+  lista: any;
   asistio: any;
+
+  asistenciasUsuario: Asistencia[];
+  userData: any;
 
 
   constructor(
@@ -26,6 +29,7 @@ export class AsistenciaPage implements OnInit {
   ngOnInit() {
     this.verAsistencia();
   }
+
 
   //mostrar la sistencia correspondiente
   async verAsistencia() {
@@ -46,9 +50,21 @@ export class AsistenciaPage implements OnInit {
 
     //me traigo las asistencias
     this.apiService.getAsistencia().subscribe((asistencias) =>{
-      this.asistenciaList = asistencias;
-      this.asis = asistencias;
-      console.log(this.asis);
+      this.asis = asistencias.filter(item => item.claseId === this.userData.claseId)
+      const lista = this.asis.map((item:any) => item.listaA)
+
+      this.lista = lista.map((user:any) => {
+        const id = user.id.stringValue;
+        const nombre = user.nombre.stringValue;;
+        const asistio = user.asistio.booleanValue;
+        return {
+          id,
+          nombre,
+          asistio
+        };
+      })
+      console.log(lista)
     });
   }
+
 }
