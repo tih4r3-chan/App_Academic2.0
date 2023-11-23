@@ -7,34 +7,26 @@ export interface Asistencia{
   hora: string;
   listaA:[
     {
-      mapValue: {
-        fields: {
-          asistio: {
-            booleanValue: boolean
-          },
-          id: {
-            stringValue: string
-          },
-          nombre: {
-            stringValue: string
-          },
-        }
-      }
+      asistio: {
+        booleanValue: boolean
+      },
+      id: {
+        stringValue: string
+      },
+      nombre: {
+        stringValue: string
+      },
     },
     {
-      mapValue: {
-        fields: {
-          asistio: {
-            booleanValue: boolean
-          },
-          id: {
-            stringValue: string
-          },
-          nombre: {
-            stringValue: string
-          },
-        }
-      }
+      asistio: {
+        booleanValue: boolean
+      },
+      id: {
+        stringValue: string
+      },
+      nombre: {
+        stringValue: string
+      },
     }
   ]
 }

@@ -76,83 +76,81 @@ export class AsistenciaQrPage implements OnInit {
   }
 
 
-  async modificarAsistio(){
-    //traer la asitencia
-    this.apiService.getAsistencia().subscribe((data)=>{
+  async modificarAsistio() {
+    // Traer la asistencia
+    this.apiService.getAsistencia().subscribe((data) => {
       this.asistenciaList = data;
-      //ordenar de  de mayor a menor
-      this.asistenciaList.sort((a ,b) => b.hora.localeCompare(a.hora));
-      //entrara a asistencia si hay datos
-      if(this.asistenciaList.length > 0){
-        // for(let i = 0; i < this.asistenciaList.length; i++) {
-           //almaceno al usuario
-          const uidUSer = this.userData.claseId;
-          // coincidenia de clase id
-          const coincidenciaClas = data.find((asistencia) => asistencia.claseId === uidUSer);
-          //si se cumple esta coincidencia entra al if
-          if(coincidenciaClas){
-            //limite de tiempo, calcula la diferencia en minutos desde que se creo el documento
-            const tiempoActual = new Date();//fecha actual
-            const transTime = tiempoActual.toLocaleTimeString();// saco la hora actual
-            const dataTime = coincidenciaClas.hora; //la hora de la creacion del documento
-            //parsear, pasar de cadena de texto en horas y minutos
-            const [transHoras, transMinutos] = transTime.split(':').map(Number);
-            const [dataHoras, dataMinutos] = dataTime.split(':').map(Number);
-            // Calcula la diferencia en minutos
-            const diffTime = (transHoras * 60 + transMinutos) - (dataHoras * 60 + dataMinutos);
-            if (diffTime < 40){
-              const docId = coincidenciaClas.id; //id del documento a editar
-              const idUser = this.userData.uid //id del usuario logeado
-              //obtener datos de otra forma
-              this.firestore.collection('asistencia').doc(docId).get().subscribe((doc)=>{
-                //si el documento existe entra al if
-                if(doc.exists){
-                  const asistenciaData = doc.data() as Asistencia; //asistencia es el model
-                  const listaA = asistenciaData.listaA; //traigo la listaa de la asistencia
-                  //ver si el usuario se encuentra en la lista y a cual alumno pertenece
-                  const findAlumnos = listaA.find(alumnos => alumnos.mapValue.fields.id.stringValue === idUser);//trae al alumno que coincida
-                  if(findAlumnos){
-                    //crear constantes que allamcenen lko que voy a cambiar
-                    const alumnoToUpdate  = findAlumnos;
-                    const newValue = true;
-                    //actualizar
-                    alumnoToUpdate.mapValue.fields.asistio.booleanValue = newValue;
-                    this.firestore.collection('asistencia').doc(docId).update({ listaA: listaA }).then(() => {
-                      //mensaje
-                      this.presentToast('Ahora estas presente en la asistencia',3000);
-                      console.log('Documento actualizado con éxito');
-                    })
-                    .catch(error => {
-                      //mensaje
-                      this.presentToast('Error al actualizar la asistencia',3000);
-                      console.error('Error al actualizar la asistencia:', error);
-                    });
-                  }else{
-                    //mensaje
-                    this.presentToast('Llegaste tarde, ahora estas ausente',4000);
-                  }
-                }else{
-                  //mensaje
-                  this.presentToast('Documento Inexistente',3000);
+      // Ordenar de mayor a menor
+      this.asistenciaList.sort((a, b) => b.hora.localeCompare(a.hora));
+      // Entrará a asistencia si hay datos
+      if (this.asistenciaList.length > 0) {
+        const uidUser = this.userData.claseId;
+        // Coincidencia de clase id
+        const coincidenciaClas = data.find((asistencia) => asistencia.claseId === uidUser);
+        // Si se cumple esta coincidencia, entra al if
+        if (coincidenciaClas) {
+          // Límite de tiempo, calcula la diferencia en minutos desde que se creó el documento
+          const tiempoActual = new Date(); // Fecha actual
+          const transTime = tiempoActual.toLocaleTimeString(); // Saco la hora actual
+          const dataTime = coincidenciaClas.hora; // La hora de la creación del documento
+          // Parsear, pasar de cadena de texto en horas y minutos
+          const [transHoras, transMinutos] = transTime.split(':').map(Number);
+          const [dataHoras, dataMinutos] = dataTime.split(':').map(Number);
+          // Calcula la diferencia en minutos
+          const diffTime = (transHoras * 60 + transMinutos) - (dataHoras * 60 + dataMinutos);
+          if (diffTime < 40) {
+            const docId = coincidenciaClas.id; // Id del documento a editar
+            const idUser = this.userData.uid; // Id del usuario logeado
+            // Obtener datos de otra forma
+            this.firestore.collection('asistencia').doc(docId).get().subscribe((doc) => {
+              // Si el documento existe, entra al if
+              if (doc.exists) {
+                const asistenciaData = doc.data() as Asistencia; // Asistencia es el modelo
+                const listaA = asistenciaData.listaA; // Traigo la lista de la asistencia
+                // Ver si el usuario se encuentra en la lista y a cuál alumno pertenece
+                const findAlumnosIndex = listaA.findIndex(alumnos => alumnos.id.stringValue === idUser);
+                if (findAlumnosIndex !== -1) {
+                  // Crear constantes que almacenen lo que voy a cambiar
+                  const alumnoToUpdate = listaA[findAlumnosIndex];
+                  const newValue = true;
+                  // Actualizar
+                  alumnoToUpdate.asistio.booleanValue = newValue;
+                  listaA[findAlumnosIndex] = alumnoToUpdate;
+                  this.firestore.collection('asistencia').doc(docId).update({ listaA: listaA }).then(() => {
+                    // Mensaje
+                    this.presentToast('Ahora estás presente en la asistencia', 3000);
+                    console.log('Documento actualizado con éxito');
+                  }).catch(error => {
+                    // Mensaje
+                    this.presentToast('Error al actualizar la asistencia', 3000);
+                    console.error('Error al actualizar la asistencia:', error);
+                  });
+                } else {
+                  // Mensaje
+                  this.presentToast('Llegaste tarde, ahora estás ausente', 4000);
                 }
-              })
-              //mensaje
-              this.presentToast2(`La clase comenzó hace ${diffTime} minutos`,2300);
-            }else{
-              //mensaje
-              this.presentToast('La clase ya acabo :)',2000);
-            }
-          }else{
-            //mensaje
-            // this.presentToast('No se inicio ninguna clase',2000);
+              } else {
+                // Mensaje
+                this.presentToast('Documento Inexistente', 3000);
+              }
+            });
+            // Mensaje
+            this.presentToast2(`La clase comenzó hace ${diffTime} minutos`, 2300);
+          } else {
+            // Mensaje
+            this.presentToast('La clase ya acabó :)', 2000);
           }
-        // }
-      }else{
-        //mensaje
-        this.presentToast('No hay datos de asistencia',2000);
+        } else {
+          // Mensaje
+          // this.presentToast('No se inició ninguna clase', 2000);
+        }
+      } else {
+        // Mensaje
+        this.presentToast('No hay datos de asistencia', 2000);
       }
-    })
+    });
   }
+
 
   //mensaje
   async presentToast(message: string, duration: number) {
