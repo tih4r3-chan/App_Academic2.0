@@ -1,6 +1,7 @@
 export interface claseModel{
   uid: string;
   codigo: string;
+  estado: boolean;
   docenteId: string;
   listaA:[
     {

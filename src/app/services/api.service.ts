@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 // import { Firestore } from "@angular/fire/firestore";
-import {  map } from "rxjs";
+import {  Observable, map } from "rxjs";
 import { User } from '../models/user.model';
 import { claseModel } from '../models/clase';
 import { Asistencia } from 'src/app/models/asistencia';
@@ -90,6 +90,7 @@ export class ApiService {
             const clase: claseModel = {
                 uid: uid,
                 codigo: element.fields.codigo.stringValue,
+                estado: element.fields.estado.booleanValue,
                 docenteId: element.fields.docenteId.stringValue,
                 nombre: element.fields.nombre.stringValue,
                 sala: element.fields.sala.stringValue,

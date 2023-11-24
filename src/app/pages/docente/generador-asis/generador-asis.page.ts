@@ -59,6 +59,7 @@ export class GeneradorAsisPage implements OnInit {
     })
   }
 
+
   //trae los datos del capcitor que estsan almacenados
   async leerUSer(){
     const response  = await Preferences.get({key:'user'});
@@ -122,7 +123,6 @@ export class GeneradorAsisPage implements OnInit {
             });
             //agregar el documento, agregar filtro
             this.firestore.collection('asistencia').add(dataDoc);
-
             console.log('El documento ya se creo en firestore');
             //mensaje
             this.presentToast('Ya se inicio la asistencia, desde ahora los alumnos tiene 40 minutos para marcar su asistencia',4000);

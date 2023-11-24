@@ -54,9 +54,9 @@ export class AsistenciaPage implements OnInit {
       const lista = this.asis.map((item:any) => item.listaA)
 
       this.lista = lista.map((user:any) => {
-        const id = user.id.stringValue;
-        const nombre = user.nombre.stringValue;;
-        const asistio = user.asistio.booleanValue;
+        const id = user.id;
+        const nombre = user.nombre;
+        const asistio = user.asistio;
         return {
           id,
           nombre,
