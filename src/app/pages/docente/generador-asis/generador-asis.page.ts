@@ -4,7 +4,6 @@ import { ApiService } from 'src/app/services/api.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { claseModel } from 'src/app/models/clase';
 import { ToastController } from '@ionic/angular';
-import { ClaseUpdateService } from '../clase-update.service';
 
 
 
@@ -24,6 +23,7 @@ export class GeneradorAsisPage implements OnInit {
 
   //inicializando
   clasess: any;
+  class: claseModel[];
 
   //inicializando
   clases: claseModel[];
@@ -32,8 +32,7 @@ export class GeneradorAsisPage implements OnInit {
   constructor(
     private apiService: ApiService,
     private firestore: AngularFirestore,
-    private toastController: ToastController,
-    private claseUpdate: ClaseUpdateService
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -85,20 +84,72 @@ export class GeneradorAsisPage implements OnInit {
   });
   }
 
+  async modificarClase(){
+    // traer la clase
+    this.apiService.getClases().subscribe((data)=>{
+      this.class = data ;
+      const idUSer =this.userData.id;
+      //coincidencia
+      const coincideClas = data.find((clas)=> clas.uid === idUSer);
+      if(coincideClas){
+        const docId = coincideClas.uid; // Id del documento a editar
+        // Obtener datos de otra forma
+        this.firestore.collection('clase').doc(docId).get().subscribe((doc) => {
+          // Si el documento existe, entra al if
+          if(doc.exists){
+            const claseData = doc.data() as claseModel;
+            const newValue = true;
+            const coincide = claseData.uid === this.userData.uid;
+            if(coincide){
+              //actualizo
+              claseData.estado = newValue;
+              this.firestore.collection('clase').doc(docId).update({ estado: claseData.estado }).then(() => {
+                // Mensaje
+                this.presentToast('Clase Iniciada', 3000);
+                console.log('Documento de clase actualizado con éxito');
+              }).catch(error => {
+                // Mensaje
+                this.presentToast('Error al iniciar la clase', 3000);
+                console.error('Error al actualizar la clase:', error);
+
+                // SetTimeout para revertir al estado original después de 60 minutos
+                setTimeout(() => {
+                  const estadoOriginal = false;
+                  this.firestore.collection('clase').doc(docId).update({ estado: estadoOriginal }).then(() => {
+                    // Mensaje
+                    this.presentToast('Volviste al estado original después de 60 minutos', 3000);
+                    console.log('Documento de clase revertido con éxito');
+                  }).catch(error => {
+                    // Mensaje
+                    this.presentToast('Error al revertir la clase', 3000);
+                    console.error('Error al revertir la clase:', error);
+                  });
+                }, 60 * 60 * 1000); // 60 minutos en milisegundos
+              }).catch(error => {
+                // Mensaje
+                this.presentToast('Error al actualizar esestado de la clase', 3000);
+                console.error('Error al actualizar la clase:', error);
+              });
+            }
+          }
+        })
+      }
+    })
+  }
+
   //metodo que crea el documento
   async crearDocumento(){
     if(this.userData){
     //llama lo generar el qr
       this.generarTextoAleatorio();
+      //iniciar clase
+      this.modificarClase();
       //obtener clase id del user almacenado
       const claseId = this.userData.claseId;
       if(claseId && this.clases){
         //encontrar la clase que coincide
         const claseselccionada = this.clases.find((clase) => clase.uid === claseId);
           if(claseselccionada){
-            // Llama al método para actualizar el estado a true por una hora
-            await this.claseUpdate.actualizarEstadoPorUnaHora(claseId);
-
             //traer la lista completa de la clase
             const listaA = claseselccionada.listaA;
             //agregar campos de fecha y hora
