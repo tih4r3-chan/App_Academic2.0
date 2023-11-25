@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { claseModel } from 'src/app/models/clase';
 import { ToastController } from '@ionic/angular';
+import { ClaseUpdateService } from '../clase-update.service';
 
 
 
@@ -31,7 +32,8 @@ export class GeneradorAsisPage implements OnInit {
   constructor(
     private apiService: ApiService,
     private firestore: AngularFirestore,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private claseUpdate: ClaseUpdateService
   ) { }
 
   ngOnInit() {
@@ -94,9 +96,11 @@ export class GeneradorAsisPage implements OnInit {
         //encontrar la clase que coincide
         const claseselccionada = this.clases.find((clase) => clase.uid === claseId);
           if(claseselccionada){
+            // Llama al método para actualizar el estado a true por una hora
+            await this.claseUpdate.actualizarEstadoPorUnaHora(claseId);
+
             //traer la lista completa de la clase
             const listaA = claseselccionada.listaA;
-
             //agregar campos de fecha y hora
             const fechaActual = new Date();
             // trae la fecha en formato YYYY-MM-DD
@@ -141,7 +145,6 @@ export class GeneradorAsisPage implements OnInit {
   }
 
   async mostrarData(){
-
     //traigo el user almacenado
     const response  = await Preferences.get({key:'user'});
     if(response.value){
