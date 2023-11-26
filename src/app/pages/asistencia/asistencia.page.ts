@@ -63,7 +63,7 @@ export class AsistenciaPage implements OnInit {
         const hora = this.asis[i].hora;
         const nombreDocente = this.asis[i].nombreDocente;
 
-        console.log(fecha, dia, hora, nombreDocente)
+        // console.log(fecha, dia, hora, nombreDocente)
         for (let j = 0; j < arrayInterno.length; j++) {
 
           const usuario = arrayInterno[j];
