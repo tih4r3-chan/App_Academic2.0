@@ -145,7 +145,7 @@ export class GeneradorAsisPage implements OnInit {
                 estado: false
               });
               console.log('El estado de la clase ha vuelto a false después de 60 minutos');
-            }, 10 * 10 * 1000);
+            }, 60 * 60 * 1000);
           }
       }
     }
