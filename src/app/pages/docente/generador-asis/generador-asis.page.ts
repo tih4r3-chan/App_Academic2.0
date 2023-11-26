@@ -4,7 +4,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { claseModel } from 'src/app/models/clase';
 import { ToastController } from '@ionic/angular';
-import { ServService } from '../serv.service';
+// import { ServService } from '../serv.service';
 
 
 
@@ -35,7 +35,7 @@ export class GeneradorAsisPage implements OnInit {
     private apiService: ApiService,
     private firestore: AngularFirestore,
     private toastController: ToastController,
-    private ServService:ServService
+    // private ServService:ServService
   ) { }
 
   ngOnInit() {
@@ -92,7 +92,7 @@ export class GeneradorAsisPage implements OnInit {
     if(this.userData){
     //llama lo generar el qr
       this.generarTextoAleatorio();
-      this.ServService.actualizarEstadoNuevo();
+      // this.ServService.actualizarEstadoNuevo();
       //obtener clase id del user almacenado
       const claseId = this.userData.claseId;
       if(claseId && this.clases){

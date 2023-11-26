@@ -42,8 +42,8 @@ export class AuthenticationService {
   async SignOut() {
     try {
       // Cerrar sesión
-      await this.ngFireAuth.signOut();
-      console.log('Sesión cerrada');
+      // await this.ngFireAuth.signOut();
+      // console.log('Sesión cerrada');
 
       // Eliminar datos del preference
       await Preferences.remove({ key: 'user' });
