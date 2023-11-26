@@ -141,11 +141,11 @@ export class GeneradorAsisPage implements OnInit {
             // Esperar 60 minutos y luego cambiar el estado a false
             setTimeout(async () => {
               // Cambiar el estado de la clase a false después de 60 minutos en Firestore
-              await this.firestore.collection('clase').doc(claseId).update({
+              await this.firestore.collection('clase').doc(docId).update({
                 estado: false
               });
               console.log('El estado de la clase ha vuelto a false después de 60 minutos');
-            }, 60 * 60 * 1000);
+            }, 10 * 10 * 1000);
           }
       }
     }
