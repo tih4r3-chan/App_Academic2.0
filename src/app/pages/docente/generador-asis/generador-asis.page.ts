@@ -92,7 +92,6 @@ export class GeneradorAsisPage implements OnInit {
     if(this.userData){
     //llama lo generar el qr
       this.generarTextoAleatorio();
-      // this.ServService.actualizarEstadoNuevo();
       //obtener clase id del user almacenado
       const claseId = this.userData.claseId;
       if(claseId && this.clases){
@@ -119,7 +118,7 @@ export class GeneradorAsisPage implements OnInit {
               hora: hora,
               dia: nombreDia
             };
-            console.log(dataDoc)
+            // console.log(dataDoc)
             //guardar datos en preference
             await Preferences.set({
               key: 'asistencia',
@@ -130,6 +129,23 @@ export class GeneradorAsisPage implements OnInit {
             console.log('El documento ya se creo en firestore');
             //mensaje
             this.presentToast('Ya se inicio la asistencia, desde ahora los alumnos tiene 40 minutos para marcar su asistencia',4000);
+            // Cambiar el estado de la clase a true en Firestore
+            const docId = claseselccionada.uid;
+            await this.firestore.collection('clase').doc(docId).update({
+              estado: true
+            });
+
+            // Mensaje
+            this.presentToast('Ya se inició la asistencia, desde ahora los alumnos tienen 40 minutos para marcar su asistencia', 4000);
+
+            // Esperar 60 minutos y luego cambiar el estado a false
+            setTimeout(async () => {
+              // Cambiar el estado de la clase a false después de 60 minutos en Firestore
+              await this.firestore.collection('clase').doc(claseId).update({
+                estado: false
+              });
+              console.log('El estado de la clase ha vuelto a false después de 60 minutos');
+            }, 60 * 60 * 1000);
           }
       }
     }
