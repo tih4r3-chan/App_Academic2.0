@@ -10,25 +10,27 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card>
-    <h1 class="ion-text-center">Asistencia</h1>
-    <table  class="ion-margin">
-      <div *ngFor="let asis of asis" >
+  <ion-card *ngFor="let asistencia of asistenciasToShow">
+    <ion-card-header>
+      <h2 class="ion-text-center">Asistencia</h2>
+    </ion-card-header>
+    <ion-card-content>
+      <table class="ion-margin">
         <tbody>
-          <br>
           <tr>
             <td>
-              Fecha: {{asis.fecha}} <br>
-              Día: {{asis.dia}} <br>
-              Hora: {{asis.hora}} <br>
-              Nombre del docente: {{asis.nombreDocente}} <br>
+              Fecha: {{ asistencia.fecha }} <br>
+              Día: {{ asistencia.dia }} <br>
+              Hora: {{ asistencia.hora }} <br>
+              Nombre del docente: {{ asistencia.nombreDocente }} <br>
               <br>
-              <ion-badge *ngIf="" color="success">Asistió</ion-badge>
-              <ion-badge *ngIf="" color="danger">Ausente</ion-badge>
+              <ion-badge *ngIf="asistencia.asistio" color="success">Asistió</ion-badge>
+              <ion-badge *ngIf="!asistencia.asistio" color="danger">Ausente</ion-badge>
             </td>
           </tr>
         </tbody>
-      </div>
-    </table>
+      </table>
+    </ion-card-content>
   </ion-card>
 </ion-content>
+
